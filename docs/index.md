@@ -90,4 +90,4 @@ giants, namely:
 
 For guidance on setting up a development environment and how to make
 a contribution to *autoimport*, see [Contributing to
-autoimport](https://github.io/lyz-code/autoimport/contributing).
+autoimport](https://lyz-code.github.io/autoimport/contributing/).
