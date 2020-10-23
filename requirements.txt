@@ -5,4 +5,5 @@
 #    pip-compile --allow-unsafe
 #
 autoflake==1.4            # via autoimport (setup.py)
+click==7.1.2              # via autoimport (setup.py)
 pyflakes==2.2.0           # via autoflake

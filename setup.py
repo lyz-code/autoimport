@@ -7,7 +7,7 @@ from typing import Dict
 from setuptools import find_packages, setup
 
 # Avoid loading the package before requirements are installed:
-version: Dict = {}
+version: Dict[str, str] = {}
 
 with open("src/autoimport/version.py") as fp:
     exec(fp.read(), version)
@@ -40,7 +40,9 @@ setup(
         "Topic :: Utilities",
         "Natural Language :: English",
     ],
-    install_requires=[
-        "autoflake",
-    ],
+    entry_points="""
+        [console_scripts]
+        autoimport=autoimport.entrypoints.cli:cli
+    """,
+    install_requires=["autoflake", "Click"],
 )

@@ -3,10 +3,20 @@ site_author: Lyz
 site_url: https://lyz-code.github.io/autoimport
 nav:
   - Overview: index.md
+  # - Editor integration: editor_integration.md
+  - Reference: reference.md
   - Contributing: contributing.md
 
 plugins:
   - search
+  - mkdocstrings:
+      handlers:
+        python:
+          rendering:
+            show_root_heading: true
+            heading_level: 1
+      watch:
+        - src
   - autolinks
   - git-revision-date-localized:
       type: timeago
@@ -14,7 +24,9 @@ plugins:
       minify_html: true
 
 markdown_extensions:
+  - abbr
   - admonition
+  - def_list
   - markdown_include.include:
       base_path: docs
   - meta
