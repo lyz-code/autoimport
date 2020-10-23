@@ -8,12 +8,6 @@ on:  # yamllint disable-line rule:truthy
       - '*/*'       # matches every branch containing a single '/'
       - '**'        # matches every branch
       - '!gh-pages' # excludes gh-pages
-  pull_request:
-    branches:
-      - '*'         # matches every branch that doesn't contain a '/'
-      - '*/*'       # matches every branch containing a single '/'
-      - '**'        # matches every branch
-      - '!gh-pages' # excludes gh-pages
 
 jobs:
   Black:
