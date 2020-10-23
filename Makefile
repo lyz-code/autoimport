@@ -144,3 +144,13 @@ security:
 	bandit -r src
 
 	@echo ""
+
+.PHONY: release
+release:
+	@echo "----------------------"
+	@echo "- Generating Release -"
+	@echo "----------------------"
+
+	cz bump --changelog
+
+	@echo ""

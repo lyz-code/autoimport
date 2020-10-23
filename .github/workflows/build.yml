@@ -37,8 +37,7 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
           skip_existing: true
       - name: Publish distribution to PyPI
-        # Configure commitizen to push tag events https://github.com/commitizen-tools/commitizen/issues/271
-        # if: startsWith(github.ref, 'refs/tags')
+        if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.pypi_password }}
