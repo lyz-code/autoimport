@@ -67,6 +67,16 @@ getcwd()"""
     assert result == fixed_source
 
 
+def test_fix_doesnt_fail_if_object_not_in_aliases() -> None:
+    """If no aliases are found for the required object, do nothing."""
+    source = """getcwd()"""
+    aliases = {"Dict": "from Typing import Dict"}
+
+    result = fix_code(source, aliases)
+
+    assert result == source
+
+
 def test_fix_removes_unneeded_imports() -> None:
     """If there is an import statement of an unused package it should be removed."""
     source = """import requests

@@ -18,5 +18,5 @@ def cli(files: Tuple[str]) -> None:
         print(fixed_code, end="")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     cli()  # pylint: disable=E1120

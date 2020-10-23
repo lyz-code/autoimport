@@ -65,7 +65,12 @@ def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
         fixed_source = fix_code(source)
 
         try:
-            if file_wrapper.name == "<stdin>":
+            # Click testing runner doesn't simulate correctly the reading from stdin
+            # instead of setting the name attribute to `<stdin>` it gives an
+            # AttributeError. But when you use it outside testing, no AttributeError
+            # is raised and name has the value <stdin>. So there is no way of testing
+            # this behaviour.
+            if file_wrapper.name == "<stdin>":  # pragma no cover
                 output = "output"
             else:
                 output = "file"

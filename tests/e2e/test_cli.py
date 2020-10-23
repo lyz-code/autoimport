@@ -62,22 +62,9 @@ def test_corrects_code_from_stdin(runner) -> None:
     """Correct the source code passed as stdin."""
     source = "os.getcwd()"
     fixed_source = """import os
-os.getcwd()
-"""
-
-    result = runner.invoke(cli, ["-"], input=source)
-
-    assert result.exit_code == 0
-    assert result.stdout == fixed_source
-
-
-def test_doesnt_touch_correct_code_from_stdin(runner) -> None:
-    """Correct source code should not be touched when loaded from stdin."""
-    source = """import os
-
 os.getcwd()"""
 
     result = runner.invoke(cli, ["-"], input=source)
 
     assert result.exit_code == 0
-    assert result.stdout == source
+    assert result.stdout == fixed_source
