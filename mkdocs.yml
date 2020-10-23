@@ -3,7 +3,7 @@ site_author: Lyz
 site_url: https://lyz-code.github.io/autoimport
 nav:
   - Overview: index.md
-  # - Editor integration: editor_integration.md
+  - Editor integration: editor_integration.md
   - Reference: reference.md
   - Contributing: contributing.md
 
