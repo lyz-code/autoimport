@@ -14,18 +14,5 @@ labels: feature request
 
 # Feature Request
 
-Output of `python -c "import autoimport.version; print(autoimport.version.version_info())"`
-
-```
-...
-```
-
-<!-- Please read the [docs](https://lyz-code.github.io/autoimport) and
-search through issues to confirm your feature hasn't already been reported. -->
-
 <!-- Where possible please include a self-contained code snippet describing your
 feature: -->
-
-```py
-...
-```
