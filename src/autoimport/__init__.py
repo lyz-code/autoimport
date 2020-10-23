@@ -1,4 +1,10 @@
-#!/usr/bin/python3
+"""Python program to automatically import missing python libraries.
+
+Functions:
+    fix_code: Fix python source code to correct missed or unused import statements.
+
+    fix_files: Fix the python source code of a list of files.
+"""
 
 # Copyright (C) 2020 Lyz <lyz-code-security-advisories@riseup.net>
 # This file is part of Autoimport.
@@ -15,3 +21,5 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Autoimport.  If not, see <http://www.gnu.org/licenses/>.
+
+from .services import fix_code, fix_files  # noqa W0611

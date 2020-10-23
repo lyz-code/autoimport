@@ -4,4 +4,5 @@ mkdocs-htmlproofer-plugin
 mkdocs-minify-plugin
 mkdocs-autolinks-plugin
 mkdocs-material
+mkdocstrings
 markdown-include
