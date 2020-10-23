@@ -99,7 +99,9 @@ jobs:
         with:
           python-version: 3.7
       - name: Install dependencies
-        run: pip install -r ./docs/requirements.txt
+        run: >-
+          pip install -r ./docs/requirements.txt
+          pip install -e .
       - name: Build the Documentation
         run: |
           mkdocs build
