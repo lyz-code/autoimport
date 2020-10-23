@@ -65,7 +65,7 @@ jobs:
           make mypy
       - name: Test with pytest
         run: |
-          make tests
+          make test
       - name: Upload Coverage
         run: |
           pip3 install coveralls
