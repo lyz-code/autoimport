@@ -1,6 +1,5 @@
 """Tests the service layer."""
 
-
 from autoimport.services import fix_code
 
 
@@ -8,6 +7,7 @@ def test_fix_code_adds_missing_import() -> None:
     """Understands that os is a package and add it to the top of the file."""
     source = "os.getcwd()"
     fixed_source = """import os
+
 os.getcwd()"""
 
     result = fix_code(source)
@@ -34,7 +34,26 @@ os.getcwd()'''
     fixed_source = '''"""Module docstring
 
 """
+
 import os
+
+os.getcwd()'''
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+def test_fix_imports_packages_below_single_line_docstring() -> None:
+    """Imports are located below the module docstrings when they only take one line."""
+    source = '''"""Module docstring."""
+
+import pytest
+os.getcwd()'''
+    fixed_source = '''"""Module docstring."""
+
+import os
+
 os.getcwd()'''
 
     result = fix_code(source)
@@ -47,6 +66,7 @@ def test_fix_imports_type_hints() -> None:
     source = """def function(dictionary: Dict) -> None:
     pass"""
     fixed_source = """from typing import Dict
+
 def function(dictionary: Dict) -> None:
     pass"""
 
@@ -60,6 +80,7 @@ def test_fix_substitutes_aliases() -> None:
     source = """getcwd()"""
     aliases = {"getcwd": "from os import getcwd"}
     fixed_source = """from os import getcwd
+
 getcwd()"""
 
     result = fix_code(source, aliases)
