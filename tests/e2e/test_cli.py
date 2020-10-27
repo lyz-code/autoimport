@@ -32,6 +32,7 @@ def test_corrects_one_file(runner, tmpdir) -> None:
     test_file = tmpdir.join("source.py")
     test_file.write("os.getcwd()")
     fixed_source = """import os
+
 os.getcwd()"""
 
     result = runner.invoke(cli, [str(test_file)])
@@ -49,6 +50,7 @@ def test_corrects_three_file(runner, tmpdir) -> None:
         test_file.write("os.getcwd()")
         test_files.append(test_file)
     fixed_source = """import os
+
 os.getcwd()"""
 
     result = runner.invoke(cli, [str(test_file) for test_file in test_files])
@@ -62,6 +64,7 @@ def test_corrects_code_from_stdin(runner) -> None:
     """Correct the source code passed as stdin."""
     source = "os.getcwd()"
     fixed_source = """import os
+
 os.getcwd()"""
 
     result = runner.invoke(cli, ["-"], input=source)

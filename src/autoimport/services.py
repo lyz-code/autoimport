@@ -137,7 +137,9 @@ def _add_package(source_code: str, import_string: str) -> str:
         fixed_source_code: Source code with package added.
     """
     docstring_lines, code_lines = _extract_docstring(source_code)
-    fixed_source_code_lines = docstring_lines + import_string.splitlines() + code_lines
+    fixed_source_code_lines = (
+        docstring_lines + import_string.splitlines() + [""] + code_lines
+    )
     fixed_source_code: str = "\n".join(fixed_source_code_lines)
 
     return fixed_source_code
@@ -155,19 +157,33 @@ def _extract_docstring(source_code: str) -> Tuple[List[str], List[str]]:
     """
     program_lines = source_code.splitlines()
     docstring_lines: List["str"] = []
-    has_docstring = False
+    docstring_type: Optional[str] = None
 
+    # Extract the module docstring from the code.
     for line in program_lines:
-        if has_docstring and re.match(r'""" ?', line):
-            has_docstring = False
+        if re.match(r'"{3}.*"{3}', line):
+            # Match single line docstrings
+            docstring_lines.append(line)
+            break
+        if docstring_type == "start_multiple_lines" and re.match(r'""" ?', line):
+            # Match end of multiple line docstrings
+            docstring_type = "multiple_lines"
         elif re.match(r'"{3}.*', line):
-            has_docstring = True
-        elif not has_docstring:
+            # Match multiple line docstrings start
+            docstring_type = "start_multiple_lines"
+        elif docstring_type in [None, "multiple_lines"]:
             break
         docstring_lines.append(line)
 
+    # Define the code lines
     code_start_line = len(docstring_lines)
     code_lines = program_lines[code_start_line:]
+
+    # Docstrings must end in newline, code must not start in newline
+    if len(docstring_lines) > 0 and docstring_lines[-1] != "":
+        docstring_lines.append("")
+    if code_lines[0] == "":
+        code_lines.pop(0)
 
     return docstring_lines, code_lines
 
