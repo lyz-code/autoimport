@@ -9,7 +9,7 @@ astor==0.8.1              # via flake8-simplify
 astpretty==2.0.0          # via flake8-expression-complexity
 astroid==2.4.2            # via pylint
 asttokens==2.0.4          # via flake8-aaa
-attrs==20.2.0             # via flake8-bugbear, flake8-eradicate, pytest
+attrs==20.3.0             # via flake8-bugbear, flake8-eradicate, pytest
 autoflake==1.4            # via -r requirements.txt
 babel==2.8.0              # via -r docs/requirements.txt, mkdocs-git-revision-date-localized-plugin
 bandit==1.6.2             # via -r requirements-dev.in
@@ -22,7 +22,7 @@ click==7.1.2              # via -r docs/requirements.txt, -r requirements.txt, b
 colorama==0.4.4           # via flakehell
 coverage==5.3             # via pytest-cov
 distlib==0.3.1            # via virtualenv
-dlint==0.10.3             # via -r requirements-dev.in
+dlint==0.11.0             # via -r requirements-dev.in
 dparse==0.5.1             # via safety
 entrypoints==0.3          # via flakehell
 eradicate==2.0.0          # via flake8-eradicate
@@ -53,7 +53,7 @@ future==0.18.2            # via -r docs/requirements.txt, lunr
 gitdb==4.0.5              # via -r docs/requirements.txt, gitpython
 gitpython==3.1.10         # via -r docs/requirements.txt, bandit, mkdocs-git-revision-date-localized-plugin
 htmlmin==0.1.12           # via -r docs/requirements.txt, mkdocs-minify-plugin
-identify==1.5.6           # via pre-commit
+identify==1.5.9           # via pre-commit
 idna==2.10                # via -r docs/requirements.txt, requests
 importlib-metadata==2.0.0  # via -r docs/requirements.txt, flake8, flake8-comprehensions, flake8-simplify, flake8-typing-imports, markdown, pluggy, pre-commit, pytest, stevedore, virtualenv
 iniconfig==1.1.1          # via pytest
@@ -81,12 +81,12 @@ mypy==0.790               # via -r requirements-dev.in
 nltk==3.5                 # via -r docs/requirements.txt, lunr
 nodeenv==1.5.0            # via pre-commit
 packaging==20.4           # via dparse, pytest, safety
-pathspec==0.8.0           # via black, yamllint
+pathspec==0.8.1           # via black, yamllint
 pbr==5.5.1                # via stevedore
 pep8-naming==0.11.1       # via -r requirements-dev.in
 pip-tools==5.3.1          # via -r requirements-dev.in
 pluggy==0.13.1            # via pytest
-pre-commit==2.7.1         # via -r requirements-dev.in
+pre-commit==2.8.2         # via -r requirements-dev.in
 py==1.9.0                 # via pytest
 pycodestyle==2.6.0        # via flake8, flake8-debugger
 pydocstyle==5.1.1         # via flake8-docstrings
@@ -97,7 +97,7 @@ pymdown-extensions==8.0.1  # via -r docs/requirements.txt, mkdocs-material, mkdo
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r requirements-dev.in
 pytest-pythonpath==0.7.3  # via -r requirements-dev.in
-pytest==6.1.1             # via -r requirements-dev.in, pytest-cov, pytest-pythonpath
+pytest==6.1.2             # via -r requirements-dev.in, pytest-cov, pytest-pythonpath
 pytkdocs==0.9.0           # via -r docs/requirements.txt, mkdocstrings
 pytz==2020.1              # via -r docs/requirements.txt, babel
 pyyaml==5.3.1             # via -r docs/requirements.txt, bandit, dparse, mkdocs, pre-commit, yamllint
@@ -109,13 +109,13 @@ smmap==3.0.4              # via -r docs/requirements.txt, gitdb
 snowballstemmer==2.0.0    # via pydocstyle
 soupsieve==2.0.1          # via -r docs/requirements.txt, beautifulsoup4
 stevedore==3.2.2          # via bandit
-toml==0.10.1              # via black, dparse, flakehell, pre-commit, pylint, pytest
+toml==0.10.2              # via black, dparse, flakehell, pre-commit, pylint, pytest
 tornado==6.0.4            # via -r docs/requirements.txt, livereload, mkdocs
 tqdm==4.50.2              # via -r docs/requirements.txt, nltk
 typed-ast==1.4.1          # via astroid, black, flake8-annotations, mypy
 typing-extensions==3.7.4.3  # via black, mypy
 urllib3==1.25.11          # via -r docs/requirements.txt, flakehell, requests
-virtualenv==20.0.35       # via pre-commit
+virtualenv==20.1.0        # via pre-commit
 wrapt==1.12.1             # via astroid
 yamllint==1.25.0          # via -r requirements-dev.in
 zipp==3.3.1               # via -r docs/requirements.txt, importlib-metadata
