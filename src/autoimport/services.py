@@ -14,41 +14,6 @@ import pyflakes
 from _io import TextIOWrapper
 
 
-def fix_code(source_code: str, aliases: Optional[Dict[str, str]] = None) -> str:
-    """Fix python source code to correct missed or unused import statements.
-
-    Args:
-        source_code: Source code to be corrected.
-        aliases: User defined import lines accessed by object name.
-
-    Returns:
-        Corrected source code.
-    """
-    error_messages = autoflake.check(source_code)
-
-    for message in error_messages:
-        if isinstance(message, pyflakes.messages.UndefinedName):
-            object_name = message.message_args[0]
-
-            # Try to load the import_string from the aliases first.
-            if aliases is not None:
-                try:
-                    import_string: Optional[str] = aliases[object_name]
-                except KeyError:
-                    import_string = _find_package(object_name)
-            else:
-                import_string = _find_package(object_name)
-
-            if import_string is not None:
-                source_code = _add_package(source_code, import_string)
-        elif isinstance(message, pyflakes.messages.UnusedImport):
-            import_name = message.message_args[0]
-            line_number = message.lineno
-            source_code = _remove_unused_imports(source_code, import_name, line_number)
-
-    return source_code
-
-
 def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
     """Fix the python source code of a list of files.
 
@@ -87,105 +52,63 @@ def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
     return None
 
 
-def _remove_unused_imports(source_code: str, import_name: str, line_number: int) -> str:
-    """Change python source code to remove unused imports.
+def fix_code(source_code: str, aliases: Optional[Dict[str, str]] = None) -> str:
+    """Fix python source code to correct import statements.
+
+    It corrects these errors:
+
+        * Add missed import statements.
+        * Remove unused import statements.
+        * Move import statements to the top.
 
     Args:
         source_code: Source code to be corrected.
-        import_name: Name of the imported object.
+        aliases: User defined import lines accessed by object name.
 
     Returns:
-        fixed_source_code: Corrected source code.
+        Corrected source code.
     """
-    program_lines = source_code.splitlines()
-    line_number -= 1
-    package_name = ".".join(import_name.split(".")[:-1])
-    object_name = import_name.split(".")[-1]
+    source_code = _fix_flake_import_errors(source_code, aliases)
+    source_code = _move_imports_to_top(source_code)
 
-    # If it's the only line, remove it
-    if re.match(
-        fr"(from {package_name} )?import {object_name}$", program_lines[line_number]
-    ):
-        program_lines.pop(line_number)
-    # If it shares the line with other objects, just remove the unused one.
-    elif re.match(
-        fr"from {package_name} import .*?{object_name}", program_lines[line_number]
-    ):
-        match = re.match(
-            fr"(?P<from>from {package_name} import) (?P<imports>.*)",
-            program_lines[line_number],
-        )
-        if match is not None:
-            imports = match["imports"].split(", ")
-            imports.remove(object_name)
-            new_imports = ", ".join(imports)
-            program_lines[line_number] = f"{match['from']} {new_imports}"
-
-    fixed_source_code: str = "\n".join(program_lines)
-
-    return fixed_source_code
+    return source_code
 
 
-def _add_package(source_code: str, import_string: str) -> str:
-    """Add a package to the source code.
-
-    Args:
-        import_string: string required to import the package.
-        source_code: Source code to be corrected.
-
-    Returns:
-        fixed_source_code: Source code with package added.
-    """
-    docstring_lines, code_lines = _extract_docstring(source_code)
-    fixed_source_code_lines = (
-        docstring_lines + import_string.splitlines() + [""] + code_lines
-    )
-    fixed_source_code: str = "\n".join(fixed_source_code_lines)
-
-    return fixed_source_code
-
-
-def _extract_docstring(source_code: str) -> Tuple[List[str], List[str]]:
-    """Split the source code in docstring and code.
+def _fix_flake_import_errors(
+    source_code: str, aliases: Optional[Dict[str, str]] = None
+) -> str:
+    """Fix python source code to correct missed or unused import statements.
 
     Args:
         source_code: Source code to be corrected.
+        aliases: User defined import lines accessed by object name.
 
     Returns:
-        docstring_lines: Lines that contain the file docstring.
-        code_lines: The rest of lines.
+        Corrected source code.
     """
-    program_lines = source_code.splitlines()
-    docstring_lines: List["str"] = []
-    docstring_type: Optional[str] = None
+    error_messages = autoflake.check(source_code)
 
-    # Extract the module docstring from the code.
-    for line in program_lines:
-        if re.match(r'"{3}.*"{3}', line):
-            # Match single line docstrings
-            docstring_lines.append(line)
-            break
-        if docstring_type == "start_multiple_lines" and re.match(r'""" ?', line):
-            # Match end of multiple line docstrings
-            docstring_type = "multiple_lines"
-        elif re.match(r'"{3}.*', line):
-            # Match multiple line docstrings start
-            docstring_type = "start_multiple_lines"
-        elif docstring_type in [None, "multiple_lines"]:
-            break
-        docstring_lines.append(line)
+    for message in error_messages:
+        if isinstance(message, pyflakes.messages.UndefinedName):
+            object_name = message.message_args[0]
 
-    # Define the code lines
-    code_start_line = len(docstring_lines)
-    code_lines = program_lines[code_start_line:]
+            # Try to load the import_string from the aliases first.
+            if aliases is not None:
+                try:
+                    import_string: Optional[str] = aliases[object_name]
+                except KeyError:
+                    import_string = _find_package(object_name)
+            else:
+                import_string = _find_package(object_name)
 
-    # Docstrings must end in newline, code must not start in newline
-    if len(docstring_lines) > 0 and docstring_lines[-1] != "":
-        docstring_lines.append("")
-    if code_lines[0] == "":
-        code_lines.pop(0)
+            if import_string is not None:
+                source_code = _add_package(source_code, import_string)
+        elif isinstance(message, pyflakes.messages.UnusedImport):
+            import_name = message.message_args[0]
+            line_number = message.lineno
+            source_code = _remove_unused_imports(source_code, import_name, line_number)
 
-    return docstring_lines, code_lines
+    return source_code
 
 
 def _find_package(name: str) -> Optional[str]:
@@ -209,6 +132,26 @@ def _find_package(name: str) -> Optional[str]:
     return None
 
 
+def _find_package_in_modules(name: str) -> Optional[str]:
+    """Search in the PYTHONPATH modules if object is a package.
+
+    Args:
+        name: package name
+
+    Returns:
+        import_string: String required to import the package.
+    """
+    package_specs = importlib.util.find_spec(name)  # type: ignore
+
+    try:
+        importlib.util.module_from_spec(package_specs)  # type: ignore
+
+    except AttributeError:
+        return None
+
+    return f"import {name}"
+
+
 def _find_package_in_typing(name: str) -> Optional[str]:
     """Search in the typing library the object name.
 
@@ -229,21 +172,157 @@ def _find_package_in_typing(name: str) -> Optional[str]:
     return None
 
 
-def _find_package_in_modules(name: str) -> Optional[str]:
-    """Search in the PYTHONPATH modules if object is a package.
+def _add_package(source_code: str, import_string: str) -> str:
+    """Add a package to the source code.
 
     Args:
-        name: package name
+        import_string: string required to import the package.
+        source_code: Source code to be corrected.
 
     Returns:
-        import_string: String required to import the package.
+        fixed_source_code: Source code with package added.
     """
-    package_specs = importlib.util.find_spec(name)  # type: ignore
+    docstring_lines, import_lines, code_lines = _split_code(source_code)
+    import_lines.append(import_string)
 
-    try:
-        importlib.util.module_from_spec(package_specs)  # type: ignore
+    return _join_code(docstring_lines, import_lines, code_lines)
 
-    except AttributeError:
-        return None
 
-    return f"import {name}"
+def _split_code(source_code: str) -> Tuple[List[str], List[str], List[str]]:
+    """Split the source code in docstring, import statements and code.
+
+    Args:
+        source_code: Source code to be corrected.
+
+    Returns:
+        docstring_lines: Lines that contain the file docstring.
+        import_lines: Lines that contain the import statements.
+        code_lines: The rest of lines.
+    """
+    source_code_lines = source_code.splitlines()
+    docstring_lines: List["str"] = []
+    docstring_type: Optional[str] = None
+
+    # Extract the module docstring from the code.
+    for line in source_code_lines:
+        if re.match(r'"{3}.*"{3}', line):
+            # Match single line docstrings
+            docstring_lines.append(line)
+            break
+        if docstring_type == "start_multiple_lines" and re.match(r'""" ?', line):
+            # Match end of multiple line docstrings
+            docstring_type = "multiple_lines"
+        elif re.match(r'"{3}.*', line):
+            # Match multiple line docstrings start
+            docstring_type = "start_multiple_lines"
+        elif docstring_type in [None, "multiple_lines"]:
+            break
+        docstring_lines.append(line)
+
+    # Extract the import lines from the code.
+    import_lines: List["str"] = []
+    import_start_line = len(docstring_lines)
+    for line in source_code_lines[import_start_line:]:
+        if re.match(r"(from .*)?import.*", line) or line == "":
+            import_lines.append(line)
+        else:
+            break
+
+    # Extract the code lines
+    code_start_line = len(docstring_lines) + len(import_lines)
+    code_lines = source_code_lines[code_start_line:]
+
+    return docstring_lines, import_lines, code_lines
+
+
+def _join_code(
+    docstring_lines: List[str], import_lines: List[str], code_lines: List[str]
+) -> str:
+    """Join the source code from docstring, import statements and code lines.
+
+    Make sure that an empty line splits them.
+
+    Args:
+        docstring_lines: Lines that contain the file docstring.
+        import_lines: Lines that contain the import statements.
+        code_lines: The rest of lines.
+
+    Returns:
+        source_code: Source code to be corrected.
+    """
+    # Remove new lines at start and end of each section
+    for section in (docstring_lines, import_lines, code_lines):
+        for index in (0, -1):
+            if len(section) > 0 and section[index] == "":
+                section.pop(index)
+
+    # Add new lines between existent sections
+    for section in (docstring_lines, import_lines):
+        if len(section) > 0 and section[-1] != "":
+            section.append("")
+
+    return "\n".join(docstring_lines + import_lines + code_lines)
+
+
+def _remove_unused_imports(source_code: str, import_name: str, line_number: int) -> str:
+    """Change python source code to remove unused imports.
+
+    Args:
+        source_code: Source code to be corrected.
+        import_name: Name of the imported object.
+
+    Returns:
+        fixed_source_code: Corrected source code.
+    """
+    source_code_lines = source_code.splitlines()
+    line_number -= 1
+    package_name = ".".join(import_name.split(".")[:-1])
+    object_name = import_name.split(".")[-1]
+
+    # If it's the only line, remove it
+    if re.match(
+        fr"(from {package_name} )?import {object_name}$", source_code_lines[line_number]
+    ):
+        source_code_lines.pop(line_number)
+    # If it shares the line with other objects, just remove the unused one.
+    elif re.match(
+        fr"from {package_name} import .*?{object_name}", source_code_lines[line_number]
+    ):
+        match = re.match(
+            fr"(?P<from>from {package_name} import) (?P<imports>.*)",
+            source_code_lines[line_number],
+        )
+        if match is not None:
+            imports = match["imports"].split(", ")
+            imports.remove(object_name)
+            new_imports = ", ".join(imports)
+            source_code_lines[line_number] = f"{match['from']} {new_imports}"
+
+    fixed_source_code: str = "\n".join(source_code_lines)
+
+    return fixed_source_code
+
+
+def _move_imports_to_top(source_code: str) -> str:
+    """Fix python source code to move import statements to the top of the file.
+
+    Ignore the lines that contain the # noqa: autoimport string.
+
+    Args:
+        source_code: Source code to be corrected.
+
+    Returns:
+        Corrected source code.
+    """
+    docstring_lines, import_lines, code_lines = _split_code(source_code)
+
+    for line in code_lines:
+        if (
+            "=" not in line
+            and re.match(r"\s*(?:from .*)?import .*", line)
+            and not re.match(r".*?# ?noqa:.*?autoimport.*", line)
+        ):
+            import_lines.append(line.strip())
+            code_lines.remove(line)
+
+    return _join_code(docstring_lines, import_lines, code_lines)

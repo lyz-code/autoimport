@@ -159,11 +159,13 @@ def test_fix_removes_unneeded_imports_in_beginning_of_from_statements() -> None:
     source = dedent(
         """\
         from os import path, getcwd
+
         getcwd()"""
     )
     fixed_source = dedent(
         """\
         from os import getcwd
+
         getcwd()"""
     )
 
@@ -179,12 +181,14 @@ def test_fix_removes_unneeded_imports_in_middle_of_from_statements() -> None:
     source = dedent(
         """\
         from os import getcwd, path, mkdir
+
         getcwd()
         mkdir()"""
     )
     fixed_source = dedent(
         """\
         from os import getcwd, mkdir
+
         getcwd()
         mkdir()"""
     )
@@ -201,14 +205,127 @@ def test_fix_removes_unneeded_imports_in_end_of_from_statements() -> None:
     source = dedent(
         """\
         from os import getcwd, path
+
         getcwd()"""
     )
     fixed_source = dedent(
         """\
         from os import getcwd
+
         getcwd()"""
     )
 
     result = fix_code(source)
 
     assert result == fixed_source
+
+
+def test_fix_moves_import_statements_to_the_top() -> None:
+    """Move import statements present in the source code to the top of the file"""
+    source = dedent(
+        """\
+        a = 3
+
+        import os
+        os.getcwd()"""
+    )
+    fixed_source = dedent(
+        """\
+        import os
+
+        a = 3
+
+        os.getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+def test_fix_moves_import_statements_in_indented_code_to_the_top() -> None:
+    """Move import statements present indented in the source code
+    to the top of the file
+    """
+    source = dedent(
+        """\
+        a = 3
+
+
+        def test():
+            import os
+            os.getcwd()"""
+    )
+    fixed_source = dedent(
+        """\
+        import os
+
+        a = 3
+
+
+        def test():
+            os.getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+def test_fix_moves_from_import_statements_to_the_top() -> None:
+    """Move from import statements present in the source code to the top of the file"""
+    source = dedent(
+        """\
+        a = 3
+
+        from os import getcwd
+        getcwd()"""
+    )
+    fixed_source = dedent(
+        """\
+        from os import getcwd
+
+        a = 3
+
+        getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+def test_fix_doesnt_break_objects_with_import_in_their_names() -> None:
+    """Objects that have the import name in their name should not be changed."""
+    source = dedent(
+        """\
+        def import_code():
+            pass
+
+        def code_import():
+            pass
+
+        def import():
+            pass
+
+        import_string = 'a'"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
+
+
+def test_fix_doesnt_move_import_statements_with_noqa_to_the_top() -> None:
+    """Ignore lines that have # noqa: autoimport."""
+    source = dedent(
+        """\
+        a = 3
+
+        from os import getcwd # noqa: autoimport
+        getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
