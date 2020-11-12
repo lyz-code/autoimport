@@ -1,3 +1,13 @@
+## 0.2.0 (2020-11-12)
+
+### Feat
+
+- move import statements to the top
+
+### Fix
+
+- **setup.py**: extract the version from source without exec statement
+
 ## 0.1.1 (2020-10-27)
 
 ### Fix
