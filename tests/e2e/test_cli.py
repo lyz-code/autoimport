@@ -1,6 +1,7 @@
 """Test the command line interface."""
 
 import re
+from textwrap import dedent
 
 import pytest
 from click.testing import CliRunner
@@ -31,9 +32,12 @@ def test_corrects_one_file(runner, tmpdir) -> None:
     """Correct the source code of a file."""
     test_file = tmpdir.join("source.py")
     test_file.write("os.getcwd()")
-    fixed_source = """import os
+    fixed_source = dedent(
+        """\
+        import os
 
-os.getcwd()"""
+        os.getcwd()"""
+    )
 
     result = runner.invoke(cli, [str(test_file)])
 
@@ -49,9 +53,12 @@ def test_corrects_three_file(runner, tmpdir) -> None:
         test_file = tmpdir.join(f"source_{file_number}.py")
         test_file.write("os.getcwd()")
         test_files.append(test_file)
-    fixed_source = """import os
+    fixed_source = dedent(
+        """\
+        import os
 
-os.getcwd()"""
+        os.getcwd()"""
+    )
 
     result = runner.invoke(cli, [str(test_file) for test_file in test_files])
 
@@ -63,9 +70,12 @@ os.getcwd()"""
 def test_corrects_code_from_stdin(runner) -> None:
     """Correct the source code passed as stdin."""
     source = "os.getcwd()"
-    fixed_source = """import os
+    fixed_source = dedent(
+        """\
+        import os
 
-os.getcwd()"""
+        os.getcwd()"""
+    )
 
     result = runner.invoke(cli, ["-"], input=source)
 

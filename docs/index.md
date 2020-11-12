@@ -20,7 +20,7 @@ example by configuring your editor to run it when saving the file.
 pip install autoimport
 ```
 
-# A Simple Example
+# Usage
 
 Imagine we've got the following source code:
 
@@ -72,7 +72,29 @@ os.getcwd()
 
 !!! warning ""
     `autoimport` will add all dependencies at the top of the file, we suggest
-    using [isort](https://pycqa.github.io/isort) afterwards to clean the file.
+    using [isort](https://pycqa.github.io/isort) and
+    [black](https://black.readthedocs.io/en/stable/) afterwards to clean the
+    file.
+
+## Moving the imports to the top
+
+There are going to be import cases that may not work, if you find one, please
+[open an
+issue](https://github.com/lyz-code/autoimport/issues/new?labels=bug&template=bug.md).
+
+While we fix it you can write the import statement wherever you are in the file
+and the next time you run `autoimport` it will get moved to the top.
+
+If you don't want a specific line to go to the top, add the `# noqa: autoimport`
+at the end. For example:
+
+```python
+a = 1
+
+from os import getcwd # noqa: autoimport
+
+getcwd()
+```
 
 # References
 
