@@ -16,7 +16,7 @@ def fixture_runner() -> CliRunner:
     return CliRunner(mix_stderr=False)
 
 
-def test_version(runner) -> None:
+def test_version(runner: CliRunner) -> None:
     """Prints program version when called with --version."""
     result = runner.invoke(cli, ["--version"])
 
@@ -28,7 +28,7 @@ def test_version(runner) -> None:
     )
 
 
-def test_corrects_one_file(runner, tmpdir) -> None:
+def test_corrects_one_file(runner: CliRunner, tmpdir) -> None:
     """Correct the source code of a file."""
     test_file = tmpdir.join("source.py")
     test_file.write("os.getcwd()")
@@ -46,8 +46,8 @@ def test_corrects_one_file(runner, tmpdir) -> None:
 
 
 @pytest.mark.secondary
-def test_corrects_three_file(runner, tmpdir) -> None:
-    """Correct the source code of a file."""
+def test_corrects_three_files(runner: CliRunner, tmpdir) -> None:
+    """Correct the source code of multiple files."""
     test_files = []
     for file_number in range(3):
         test_file = tmpdir.join(f"source_{file_number}.py")
@@ -67,7 +67,7 @@ def test_corrects_three_file(runner, tmpdir) -> None:
         assert test_file.read() == fixed_source
 
 
-def test_corrects_code_from_stdin(runner) -> None:
+def test_corrects_code_from_stdin(runner: CliRunner) -> None:
     """Correct the source code passed as stdin."""
     source = "os.getcwd()"
     fixed_source = dedent(

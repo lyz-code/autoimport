@@ -2,7 +2,6 @@
 
 Functions:
     fix_code: Fix python source code to correct missed or unused import statements.
-
     fix_files: Fix the python source code of a list of files.
 """
 
