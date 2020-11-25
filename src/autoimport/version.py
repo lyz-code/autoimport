@@ -9,7 +9,7 @@ __version__ = "0.2.0"
 def version_info() -> str:
     """Display the version of the program, python and the platform."""
     info = {
-        "repository-pattern version": __version__,
+        "autoimport version": __version__,
         "python version": sys.version.replace("\n", " "),
         "platform": platform.platform(),
     }

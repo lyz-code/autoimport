@@ -1,17 +1,12 @@
-<!-- Thank you for your contribution! -->
-<!-- Unless your change is trivial, please create an issue to discuss the change before creating a PR -->
-<!-- See https://lyz-code.github.io/autoimport/contributing for help on Contributing -->
+<!--
+Thank you for sending a pull request!
+Please fill in the following content to let us know better about this change.
+-->
 
-## Change Summary
-
-<!-- Please give a short summary of the changes. -->
-
-## Related issue number
-
-<!-- Are there any issues opened that will be resolved by merging this change? -->
+## Description
+<!-- Describe what the change is, try to link it with open issues -->
 
 ## Checklist
 
-* [ ] Unit tests for the changes exist.
-* [ ] Tests pass on CI and coverage remains at 100%.
-* [ ] Documentation reflects the changes where applicable.
+* [ ] Add test cases to all the changes you introduce
+* [ ] Update the documentation for the changes

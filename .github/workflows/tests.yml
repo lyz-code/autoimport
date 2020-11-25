@@ -4,44 +4,13 @@ name: Tests
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
-      - '*'         # matches every branch that doesn't contain a '/'
-      - '*/*'       # matches every branch containing a single '/'
-      - '**'        # matches every branch
-      - '!gh-pages' # excludes gh-pages
+      - '*'          # matches every branch that doesn't contain a '/'
+      - '*/*'        # matches every branch containing a single '/'
+      - '**'         # matches every branch
+      - '!gh-pages'  # excludes gh-pages
 
 jobs:
-  Black:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - name: Black
-        uses: psf/black@stable
-  Safety:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install safety
-      - name: Execute safety
-        run: safety check
-  Bandit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install bandit
-      - name: Execute bandit
-        run: bandit -r project
-  Pytest:
+  Tests:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 3
@@ -55,17 +24,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: |
-          make install
+        run: make install
       - name: Test linters
-        run: |
-          make lint
+        run: make lint
       - name: Test type checkers
-        run: |
-          make mypy
+        run: make mypy
+      - name: Test security
+        run: make security
       - name: Test with pytest
-        run: |
-          make test
+        run: make test
       - name: Upload Coverage
         run: |
           pip3 install coveralls
@@ -74,9 +41,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_FLAG_NAME: ${{ matrix.test-name }}
           COVERALLS_PARALLEL: true
+      - name: Test documentation
+        run: make build-docs
   Coveralls:
     name: Finish Coveralls
-    needs: Pytest
+    needs: Tests
     runs-on: ubuntu-latest
     container: python:3-slim
     steps:
@@ -86,25 +55,6 @@ jobs:
           coveralls --finish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  Documentation:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          # Number of commits to fetch. 0 indicates all history.
-          # Default: 1
-          fetch-depth: 0
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: >-
-          pip install -r ./docs/requirements.txt
-          pip install -e .
-      - name: Build the Documentation
-        run: |
-          mkdocs build
   Python_Package:
     name: Build the Python package
     runs-on: ubuntu-latest

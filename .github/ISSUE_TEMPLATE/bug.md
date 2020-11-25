@@ -4,27 +4,31 @@ about: Create a bug report to help us improve autoimport
 labels: bug
 ---
 
-### Checks
+## Description
+<!-- A clear and concise description of what the bug is. -->
 
-* [ ] I added a descriptive title to this issue.
-* [ ] I have searched (google, github) for similar issues and couldn't find
-    anything.
-* [ ] I have read and followed [the docs](https://lyz-code.github.io/autoimport)
-    and still think this is a bug.
+## Steps to reproduce
+<!-- Steps to reproduce the behavior:
+1. Run ...
+2. ...
+3. ... -->
 
-# Bug
+## Current behavior
+<!-- What happens actually so you think this is a bug. -->
 
-Output of `python -c "import autoimport.version; print(autoimport.version.version_info())"`
+## Desired behavior
+<!--
+A clear and concise description of what you expected to happen.
 
-```
-...
-```
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
+-->
 
-<!-- Please read the [docs](https://lyz-code.github.io/autoimport) and
-search through issues to confirm your bug hasn't already been reported. -->
+## Environment
+<!--
+make version
 
-<!-- Where possible please include a self-contained code snippet describing your bug: -->
+# or
 
-```py
-...
-```
+python -c "import autoimport.version; print(autoimport.version.version_info())"
+-->

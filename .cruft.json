@@ -1,21 +1,21 @@
 {
-  "template": "git@github.com:lyz-code/cookiecutter-python-project.git",
-  "commit": "5ff83772c135a62af54314b65b0d4cba2f9df6f9",
-  "context": {
-    "cookiecutter": {
-      "project_name": "Autoimport",
-      "project_slug": "autoimport",
-      "project_description": "Autoimport missing python libraries.",
-      "requirements": "autoflake",
-      "github_user": "lyz-code",
-      "github_token_pass_path": "internet/github.lyz-code.api_token",
-      "pypi_token_pass_path": "internet/pypi.token",
-      "test_pypi_token_pass_path": "internet/test.pypi.token",
-      "author": "Lyz",
-      "author_email": "lyz-code-security-advisories@riseup.net",
-      "security_advisories_email": "lyz-code-security-advisories@riseup.net",
-      "_template": "git@github.com:lyz-code/cookiecutter-python-project.git"
-    }
-  },
-  "directory": null
+    "template": "git@github.com:lyz-code/cookiecutter-python-project.git",
+    "commit": "b0cc8c552daaab0324692d9cacebdef42c5978a2",
+    "context": {
+        "cookiecutter": {
+            "project_name": "Autoimport",
+            "project_slug": "autoimport",
+            "project_description": "Autoimport missing python libraries.",
+            "requirements": "autoflake",
+            "github_user": "lyz-code",
+            "github_token_pass_path": "internet/github.lyz-code.api_token",
+            "pypi_token_pass_path": "internet/pypi.token",
+            "test_pypi_token_pass_path": "internet/test.pypi.token",
+            "author": "Lyz",
+            "author_email": "lyz-code-security-advisories@riseup.net",
+            "security_advisories_email": "lyz-code-security-advisories@riseup.net",
+            "_template": "git@github.com:lyz-code/cookiecutter-python-project.git"
+        }
+    },
+    "directory": null
 }

@@ -110,6 +110,6 @@ giants, namely:
 
 # Contributing
 
-For guidance on setting up a development environment and how to make
+For guidance on setting up a development environment, and how to make
 a contribution to *autoimport*, see [Contributing to
-autoimport](https://lyz-code.github.io/autoimport/contributing/).
+autoimport](https://lyz-code.github.io/autoimport/contributing).
