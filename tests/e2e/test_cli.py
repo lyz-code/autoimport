@@ -22,7 +22,7 @@ def test_version(runner: CliRunner) -> None:
 
     assert result.exit_code == 0
     assert re.match(
-        fr" *repository-pattern version: {__version__}\n"
+        fr" *autoimport version: {__version__}\n"
         r" *python version: .*\n *platform: .*",
         result.stdout,
     )
