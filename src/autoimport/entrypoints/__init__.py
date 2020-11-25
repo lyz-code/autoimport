@@ -1,4 +1,8 @@
-"""Define the different ways to expose the program functionality."""
+"""Define the different ways to expose the program functionality.
+
+Functions:
+    load_logger: Configure the Logging logger.
+"""
 
 import logging
 import sys

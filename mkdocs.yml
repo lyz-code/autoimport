@@ -1,3 +1,4 @@
+---
 site_name: Autoimport
 site_author: Lyz
 site_url: https://lyz-code.github.io/autoimport
@@ -20,13 +21,14 @@ plugins:
   - autolinks
   - git-revision-date-localized:
       type: timeago
+      fallback_to_build_date: true
   - minify:
       minify_html: true
 
 markdown_extensions:
   - abbr
-  - admonition
   - def_list
+  - admonition
   - markdown_include.include:
       base_path: docs
   - meta
@@ -46,6 +48,7 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
