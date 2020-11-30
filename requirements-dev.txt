@@ -33,7 +33,7 @@ flake8-annotations-complexity==0.0.5  # via -r requirements-dev.in
 flake8-annotations==2.4.1  # via -r requirements-dev.in
 flake8-bugbear==20.11.1   # via -r requirements-dev.in
 flake8-comprehensions==3.3.0  # via -r requirements-dev.in
-flake8-debugger==3.2.1    # via -r requirements-dev.in
+flake8-debugger==4.0.0    # via -r requirements-dev.in
 flake8-docstrings==1.5.0  # via -r requirements-dev.in
 flake8-eradicate==1.0.0   # via -r requirements-dev.in
 flake8-expression-complexity==0.0.8  # via -r requirements-dev.in
@@ -104,7 +104,7 @@ pyyaml==5.3.1             # via bandit, dparse, mkdocs, pre-commit, yamllint
 regex==2020.11.13         # via black, nltk
 requests==2.25.0          # via mkdocs-htmlproofer-plugin, safety
 safety==1.9.0             # via -r requirements-dev.in
-six==1.15.0               # via astroid, asttokens, bandit, livereload, lunr, packaging, pip-tools, virtualenv
+six==1.15.0               # via astroid, asttokens, bandit, flake8-debugger, livereload, lunr, packaging, pip-tools, virtualenv
 smmap==3.0.4              # via gitdb
 snowballstemmer==2.0.0    # via pydocstyle
 soupsieve==2.0.1          # via beautifulsoup4
