@@ -1,6 +1,6 @@
 {
     "template": "git@github.com:lyz-code/cookiecutter-python-project.git",
-    "commit": "b0cc8c552daaab0324692d9cacebdef42c5978a2",
+    "commit": "aeb5f07f519356cac882e856ff1eb2ae9a9ee408",
     "context": {
         "cookiecutter": {
             "project_name": "Autoimport",
