@@ -220,6 +220,50 @@ def test_fix_removes_unneeded_imports_in_end_of_from_statements() -> None:
     assert result == fixed_source
 
 
+def test_fix_respects_multiple_from_import_lines() -> None:
+    """
+    Given: Multiple from X import Y lines.
+    When: Fix code is run
+    Then: The import statements aren't broken
+    """
+    source = dedent(
+        """\
+        from os import getcwd
+
+        from re import match
+
+        getcwd()
+        match(r'a', 'a')"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
+
+
+def test_fix_respects_multiple_from_import_lines_in_multiple_lines() -> None:
+    """
+    Given: Multiple from X import Y lines, some with multiline format.
+    When: Fix code is run
+    Then: The import statements aren't broken
+    """
+    source = dedent(
+        """\
+        from os import (
+            getcwd,
+        )
+
+        from re import match
+
+        getcwd()
+        match(r'a', 'a')"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
+
+
 def test_fix_moves_import_statements_to_the_top() -> None:
     """Move import statements present in the source code to the top of the file"""
     source = dedent(
@@ -329,3 +373,65 @@ def test_fix_doesnt_move_import_statements_with_noqa_to_the_top() -> None:
     result = fix_code(source)
 
     assert result == source
+
+
+def test_fix_respects_noqa_in_from_import_lines_in_multiple_lines() -> None:
+    """
+    Given: Multiple from X import Y lines, some with multiline format with noqa
+        statement.
+    When: Fix code is run.
+    Then: The import statements aren't broken.
+    """
+    source = dedent(
+        """\
+        from os import getcwd
+
+        getcwd()
+
+        from re import ( # noqa: autoimport
+            match,
+        )
+
+        match(r'a', 'a')"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
+
+
+def test_fix_respects_strings_with_import_statements() -> None:
+    """
+    Given: Code with a string that has import statements structure.
+    When: Fix code is run.
+    Then: The string is respected
+    """
+    source = dedent(
+        """\
+        import_string = 'import requests'
+        from_import_string = "from re import match"
+        multiline string = dedent(
+            \"\"\"\\
+            import requests
+            from re import match
+            \"\"\"
+        )
+        import os"""
+    )
+    fixed_source = dedent(
+        """\
+        import os
+
+        import_string = 'import requests'
+        from_import_string = "from re import match"
+        multiline string = dedent(
+            \"\"\"\\
+            import requests
+            from re import match
+            \"\"\"
+        )"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
