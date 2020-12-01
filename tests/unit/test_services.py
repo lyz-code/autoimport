@@ -264,6 +264,58 @@ def test_fix_respects_multiple_from_import_lines_in_multiple_lines() -> None:
     assert result == source
 
 
+def test_fix_respects_import_lines_in_multiple_line_strings() -> None:
+    """
+    Given: Import lines in several multiline strings.
+    When: Fix code is run.
+    Then: The import statements inside the string are not moved to the top.
+    """
+    source = dedent(
+        """\
+        from textwrap import dedent
+
+        source = dedent(
+            \"\"\"\\
+            from re import match
+
+            match(r'a', 'a')\"\"\"
+        )
+
+        source = dedent(
+            \"\"\"\\
+            from os import (
+                getcwd,
+            )
+
+            getcwd()\"\"\"
+        )"""
+    )
+    fixed_source = dedent(
+        """\
+        from textwrap import dedent
+
+        source = dedent(
+            \"\"\"\\
+            from re import match
+
+            match(r'a', 'a')\"\"\"
+        )
+
+        source = dedent(
+            \"\"\"\\
+            from os import (
+                getcwd,
+            )
+
+            getcwd()\"\"\"
+        )"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
 def test_fix_moves_import_statements_to_the_top() -> None:
     """Move import statements present in the source code to the top of the file"""
     source = dedent(
@@ -416,6 +468,12 @@ def test_fix_respects_strings_with_import_statements() -> None:
             from re import match
             \"\"\"
         )
+        multiline single_quote_string = dedent(
+            \'\'\'\\
+            import requests
+            from re import match
+            \'\'\'
+        )
         import os"""
     )
     fixed_source = dedent(
@@ -429,7 +487,40 @@ def test_fix_respects_strings_with_import_statements() -> None:
             import requests
             from re import match
             \"\"\"
+        )
+        multiline single_quote_string = dedent(
+            \'\'\'\\
+            import requests
+            from re import match
+            \'\'\'
         )"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+def test_fix_doesnt_mistake_docstrings_with_multiline_string() -> None:
+    """
+    Given: A function with a docstring.
+    When: Fix code is run.
+    Then: The rest of the file is not mistaken for a long multiline string
+    """
+    source = dedent(
+        """\
+        def function_1():
+            \"\"\"Function docstring\"\"\"
+            import os
+            os.getcwd()"""
+    )
+    fixed_source = dedent(
+        """\
+        import os
+
+        def function_1():
+            \"\"\"Function docstring\"\"\"
+            os.getcwd()"""
     )
 
     result = fix_code(source)

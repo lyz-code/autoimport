@@ -330,8 +330,11 @@ def _move_imports_to_top(source_code: str) -> str:
     multiline_string = False
 
     for line in code_lines:
-        # Process multiline strings
-        if '"""' in line:
+        # Process multiline strings, taking care not to catch single line strings
+        # defined with three quotes.
+        if re.match(r"^.*?(\"|\'){3}.*?(?!\1{3})$", line) and not re.match(
+            r"^.*?(\"|\'){3}.*?\1{3}", line
+        ):
             multiline_string = not multiline_string
             continue
 
