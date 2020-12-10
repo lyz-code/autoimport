@@ -13,10 +13,10 @@ attrs==20.3.0             # via flake8-bugbear, flake8-eradicate, pytest
 autoflake==1.4            # via -r requirements.txt, autoimport
 autoimport==0.2.0         # via -r requirements-dev.in
 babel==2.9.0              # via mkdocs-git-revision-date-localized-plugin
-bandit==1.6.2             # via -r requirements-dev.in
+bandit==1.6.3             # via -r requirements-dev.in
 beautifulsoup4==4.9.3     # via mkdocs-htmlproofer-plugin, mkdocstrings
 black==20.8b1             # via -r requirements-dev.in
-certifi==2020.11.8        # via requests
+certifi==2020.12.5        # via requests
 cfgv==3.2.0               # via pre-commit
 chardet==3.0.4            # via requests
 click==7.1.2              # via -r requirements.txt, autoimport, black, mkdocs, nltk, pip-tools, safety, yamlfix
@@ -50,14 +50,14 @@ flake8-typing-imports==1.10.1  # via -r requirements-dev.in
 flake8-use-fstring==1.1   # via -r requirements-dev.in
 flake8-variables-names==0.0.3  # via -r requirements-dev.in
 flake8==3.8.4             # via dlint, flake8-annotations, flake8-bugbear, flake8-comprehensions, flake8-debugger, flake8-docstrings, flake8-eradicate, flake8-expression-complexity, flake8-markdown, flake8-mutable, flake8-polyfill, flake8-pytest, flake8-simplify, flake8-typing-imports, flake8-use-fstring, flakehell
-flakehell==0.7.0          # via -r requirements-dev.in
+flakehell==0.7.1          # via -r requirements-dev.in
 future==0.18.2            # via lunr
 gitdb==4.0.5              # via gitpython
 gitpython==3.1.11         # via bandit, mkdocs-git-revision-date-localized-plugin
 htmlmin==0.1.12           # via mkdocs-minify-plugin
 identify==1.5.10          # via pre-commit
 idna==2.10                # via requests
-importlib-metadata==3.1.0  # via flake8, flake8-comprehensions, flake8-simplify, flake8-typing-imports, markdown, pluggy, pre-commit, pytest, stevedore, virtualenv
+importlib-metadata==3.1.1  # via flake8, flake8-comprehensions, flake8-simplify, flake8-typing-imports, markdown, pluggy, pre-commit, pytest, stevedore, virtualenv
 iniconfig==1.1.1          # via pytest
 isort==5.6.4              # via -r requirements-dev.in, pylint
 jinja2==2.11.2            # via mkdocs
@@ -71,10 +71,10 @@ markdown==3.3.3           # via markdown-include, mkdocs, mkdocs-material, pymdo
 markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via flake8, pylint
 mkdocs-autolinks-plugin==0.2.0  # via -r docs/requirements.in
-mkdocs-git-revision-date-localized-plugin==0.7.4  # via -r docs/requirements.in
+mkdocs-git-revision-date-localized-plugin==0.8  # via -r docs/requirements.in
 mkdocs-htmlproofer-plugin==0.0.3  # via -r docs/requirements.in
 mkdocs-material-extensions==1.0.1  # via mkdocs-material
-mkdocs-material==6.1.6    # via -r docs/requirements.in, mkdocs-material-extensions
+mkdocs-material==6.1.7    # via -r docs/requirements.in, mkdocs-material-extensions
 mkdocs-minify-plugin==0.3.0  # via -r docs/requirements.in
 mkdocs==1.1.2             # via -r docs/requirements.in, mkdocs-autolinks-plugin, mkdocs-git-revision-date-localized-plugin, mkdocs-htmlproofer-plugin, mkdocs-material, mkdocs-minify-plugin, mkdocstrings
 mkdocstrings==0.13.6      # via -r docs/requirements.in
@@ -88,12 +88,12 @@ pbr==5.5.1                # via stevedore
 pep8-naming==0.11.1       # via -r requirements-dev.in
 pip-tools==5.4.0          # via -r requirements-dev.in
 pluggy==0.13.1            # via pytest
-pre-commit==2.9.2         # via -r requirements-dev.in
+pre-commit==2.9.3         # via -r requirements-dev.in
 py==1.9.0                 # via pytest
 pycodestyle==2.6.0        # via flake8, flake8-debugger
 pydocstyle==5.1.1         # via flake8-docstrings
 pyflakes==2.2.0           # via -r requirements.txt, autoflake, flake8
-pygments==2.7.2           # via flakehell, mkdocs-material
+pygments==2.7.3           # via flakehell, mkdocs-material
 pylint==2.6.0             # via -r requirements-dev.in
 pymdown-extensions==8.0.1  # via mkdocs-material, mkdocstrings
 pyparsing==2.4.7          # via packaging
@@ -114,16 +114,16 @@ soupsieve==2.0.1          # via beautifulsoup4
 stevedore==3.3.0          # via bandit
 toml==0.10.2              # via black, dparse, flakehell, pre-commit, pylint, pytest
 tornado==6.1              # via livereload, mkdocs
-tqdm==4.54.0              # via nltk
+tqdm==4.54.1              # via nltk
 typed-ast==1.4.1          # via astroid, black, flake8-annotations, mypy
 typing-extensions==3.7.4.3  # via black, mypy
 urllib3==1.26.2           # via flakehell, requests
-virtualenv==20.2.1        # via pre-commit
+virtualenv==20.2.2        # via pre-commit
 wrapt==1.12.1             # via astroid
 yamlfix==0.2.1            # via -r requirements-dev.in
 yamllint==1.25.0          # via -r requirements-dev.in
 zipp==3.4.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==20.3                 # via pip-tools
-setuptools==50.3.2        # via flake8-annotations-complexity, flake8-expression-complexity, flake8-variables-names, ruyaml, safety, yamllint
+pip==20.3.1               # via pip-tools
+setuptools==51.0.0        # via flake8-annotations-complexity, flake8-expression-complexity, flake8-variables-names, ruyaml, safety, yamllint
