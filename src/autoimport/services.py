@@ -222,8 +222,19 @@ def _split_code(source_code: str) -> Tuple[List[str], List[str], List[str]]:
     # Extract the import lines from the code.
     import_lines: List["str"] = []
     import_start_line = len(docstring_lines)
+    multiline_import = False
+
     for line in source_code_lines[import_start_line:]:
-        if re.match(r"(from .*)?import.*", line) or line == "":
+        if (
+            re.match(r"^\s*(from .*)?import.[^\'\"]*$", line)
+            or line == ""
+            or multiline_import
+        ):
+            # Process multiline import statements
+            if "(" in line:
+                multiline_import = True
+            elif ")" in line:
+                multiline_import = False
             import_lines.append(line)
         else:
             break
@@ -315,13 +326,34 @@ def _move_imports_to_top(source_code: str) -> str:
         Corrected source code.
     """
     docstring_lines, import_lines, code_lines = _split_code(source_code)
+    multiline_import = False
+    multiline_string = False
 
     for line in code_lines:
+        # Process multiline strings, taking care not to catch single line strings
+        # defined with three quotes.
+        if re.match(r"^.*?(\"|\'){3}.*?(?!\1{3})$", line) and not re.match(
+            r"^.*?(\"|\'){3}.*?\1{3}", line
+        ):
+            multiline_string = not multiline_string
+            continue
+
+        # Process import lines
         if (
             "=" not in line
-            and re.match(r"\s*(?:from .*)?import .*", line)
-            and not re.match(r".*?# ?noqa:.*?autoimport.*", line)
-        ):
+            and not multiline_string
+            and re.match(r"^\s*(?:from .*)?import .[^\'\"]*$", line)
+        ) or multiline_import:
+            # Ignore the lines containing # noqa: autoimport
+            if re.match(r".*?# ?noqa:.*?autoimport.*", line):
+                continue
+
+            # Process multiline import statements
+            if "(" in line:
+                multiline_import = True
+            elif ")" in line:
+                multiline_import = False
+
             import_lines.append(line.strip())
             code_lines.remove(line)
 
