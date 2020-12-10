@@ -121,7 +121,7 @@ docs: test-examples
 	@echo ""
 
 .PHONY: bump
-build: bump-version, build-package, upload-pypi, clean
+bump: bump-version build-package upload-pypi clean
 
 .PHONY: build-package
 build-package:
