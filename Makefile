@@ -120,6 +120,19 @@ docs: test-examples
 
 	@echo ""
 
+.PHONY: bump
+build: bump-version, build-package, upload-pypi, clean
+
+.PHONY: build-package
+build-package:
+	@echo "------------------------"
+	@echo "- Building the package -"
+	@echo "------------------------"
+
+	python -m pep517.build --source --binary --out-dir dist/ .
+
+	@echo ""
+
 .PHONY: build-docs
 build-docs: test-examples
 	@echo "--------------------------"
@@ -127,6 +140,28 @@ build-docs: test-examples
 	@echo "--------------------------"
 
 	mkdocs build
+
+	@echo ""
+
+.PHONY: upload-pypi
+upload-pypi:
+	@echo "-----------------------------"
+	@echo "- Uploading package to pypi -"
+	@echo "-----------------------------"
+
+	twine upload -r pypi dist/*
+
+	@echo ""
+
+.PHONY: bump-version
+bump-version:
+	@echo "---------------------------"
+	@echo "- Bumping program version -"
+	@echo "---------------------------"
+
+	cz bump --changelog --no-verify
+	git push --tags
+
 	@echo ""
 
 .PHONY: version

@@ -110,7 +110,6 @@ pyflakes = ["+*"]
 
 [tool.flakehell.exceptions."tests/"]
 flake8-docstrings = [
-  "-D103", # Missing docstring in public function
   "-D400", # First line should end with a period
   "-D205"  # 1 blank line required between summary line and description
 ]
@@ -120,6 +119,11 @@ flake8-annotations = [
 pylint = [
   "-R0201", # Method could be a function. Raised because the methods of a test class
             # don't use the self object, which is not wrong.
+]
+
+[tool.flakehell.exceptions."tests/factories.py"]
+pylint = [
+  "-R0903", # Too few methods warning, but is the way to define factoryboy factories.
 ]
 
 # --------- Pylint -------------
