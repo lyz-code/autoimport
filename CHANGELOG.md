@@ -1,3 +1,9 @@
+## 0.2.2 (2020-12-11)
+
+### Fix
+
+- remove unused imported objects in multiline from import statements
+
 ## 0.2.1 (2020-12-10)
 
 ### Fix
