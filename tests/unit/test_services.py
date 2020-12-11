@@ -152,6 +152,35 @@ def test_fix_removes_unneeded_imports_in_from_statements() -> None:
     assert result == fixed_source
 
 
+def test_fix_removes_unused_imports_in_multiline_from_statements() -> None:
+    """
+    Given: A source code with multiline import from statements.
+    When: fix_code is run
+    Then: Unused import statements are deleted
+    """
+    source = dedent(
+        """\
+        from os import (
+            getcwd,
+            path,
+        )
+
+        getcwd()"""
+    )
+    fixed_source = dedent(
+        """\
+        from os import (
+            getcwd,
+        )
+
+        getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
 def test_fix_removes_unneeded_imports_in_beginning_of_from_statements() -> None:
     """Remove unused `object_name` in `from package import object_name, other_object`
     statements.

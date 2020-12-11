@@ -308,6 +308,19 @@ def _remove_unused_imports(source_code: str, import_name: str, line_number: int)
             imports.remove(object_name)
             new_imports = ", ".join(imports)
             source_code_lines[line_number] = f"{match['from']} {new_imports}"
+    # If it's a multiline import statement
+    # fmt: off
+    # Format is required until there is no more need of the
+    # experimental-string-processing flag of the Black formatter.
+    elif re.match(
+        fr"from {package_name} import .*?\($",
+        source_code_lines[line_number],
+    ):
+        # fmt: on
+        while line_number + 1 < len(source_code_lines):
+            line_number += 1
+            if re.match(fr"\s*?{object_name},?", source_code_lines[line_number]):
+                source_code_lines.pop(line_number)
 
     fixed_source_code: str = "\n".join(source_code_lines)
 
