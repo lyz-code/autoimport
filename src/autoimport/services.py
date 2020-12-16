@@ -311,7 +311,7 @@ def _join_code(
 
 
 def _remove_unused_imports(source_code: str, import_name: str, line_number: int) -> str:
-    """Change python source code to remove unused imports.
+    """Remove unused import statements.
 
     Args:
         source_code: Source code to be corrected.
