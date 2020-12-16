@@ -2,7 +2,9 @@
 
 from textwrap import dedent
 
-from autoimport.services import fix_code
+import pytest
+
+from autoimport.services import common_statements, fix_code
 
 
 def test_fix_code_adds_missing_import() -> None:
@@ -550,6 +552,41 @@ def test_fix_doesnt_mistake_docstrings_with_multiline_string() -> None:
         def function_1():
             \"\"\"Function docstring\"\"\"
             os.getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+@pytest.mark.parametrize(
+    ("import_key", "import_statement"),
+    ((key, value) for key, value in common_statements.items()),
+    ids=list(common_statements.keys()),
+)
+def test_fix_autoimports_common_imports(import_key: str, import_statement: str) -> None:
+    """
+    Given: Code with missing import statements that match the common list.
+    When: Fix code is run.
+    Then: The imports are done
+    """
+    source = dedent(
+        f"""\
+        import os
+
+        os.getcwd
+
+        variable = {import_key}"""
+    )
+    fixed_source = dedent(
+        f"""\
+        import os
+
+        {import_statement}
+
+        os.getcwd
+
+        variable = {import_key}"""
     )
 
     result = fix_code(source)

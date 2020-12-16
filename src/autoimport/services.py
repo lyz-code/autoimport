@@ -13,6 +13,22 @@ import autoflake
 import pyflakes
 from _io import TextIOWrapper
 
+common_statements: Dict[str, str] = {
+    "BeautifulSoup": "from bs4 import BeautifulSoup",
+    "call": "from unittest.mock import call",
+    "CaptureFixture": "from _pytest.capture import CaptureFixture",
+    "CliRunner": "from click.testing import CliRunner",
+    "copyfile": "from shutil import copyfile",
+    "dedent": "from textwrap import dedent",
+    "LocalPath": "from py._path.local import LocalPath",
+    "LogCaptureFixture": "from _pytest.logging import LogCaptureFixture",
+    "Mock": "from unittest.mock import Mock",
+    "patch": "from unittest.mock import patch",
+    "StringIO": "from io import StringIO",
+    "TempdirFactory": "from _pytest.tmpdir import TempdirFactory",
+    "YAMLError": "from yaml import YAMLError",
+}
+
 
 def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
     """Fix the python source code of a list of files.
@@ -125,7 +141,11 @@ def _find_package(name: str) -> Optional[str]:
     Returns:
         import_string: String required to import the package.
     """
-    for check in [_find_package_in_modules, _find_package_in_typing]:
+    for check in [
+        _find_package_in_modules,
+        _find_package_in_typing,
+        _find_package_in_common_statements,
+    ]:
         package = check(name)
         if package is not None:
             return package
@@ -168,6 +188,21 @@ def _find_package_in_typing(name: str) -> Optional[str]:
 
     if name in typing_objects:
         return f"from typing import {name}"
+
+    return None
+
+
+def _find_package_in_common_statements(name: str) -> Optional[str]:
+    """Search in the common statements the object name.
+
+    Args:
+        name: package name
+
+    Returns:
+        import_string
+    """
+    if name in common_statements.keys():
+        return common_statements[name]
 
     return None
 
