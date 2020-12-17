@@ -25,7 +25,9 @@ common_statements: Dict[str, str] = {
 }
 
 
-class SourceCode:
+# R0903: Too few public methods (1/2). We don't need more, but using the class instead
+#   of passing the data between function calls is useful.
+class SourceCode:  # noqa: R090
     """Python source code entity."""
 
     def __init__(self, source_code: str) -> None:
@@ -100,10 +102,6 @@ class SourceCode:
         # Add new lines between existent sections
         return "\n\n".join(sections).strip()
 
-    def __str__(self) -> str:
-        """Define the string conversion."""
-        return self._join_code()
-
     def fix(self) -> str:
         """Fix python source code to correct import statements.
 
@@ -125,6 +123,7 @@ class SourceCode:
         """
         multiline_import = False
         multiline_string = False
+        code_lines_to_remove = []
 
         for line in self.code:
             # Process multiline strings, taking care not to catch single line strings
@@ -151,8 +150,11 @@ class SourceCode:
                 elif ")" in line:
                     multiline_import = False
 
-                self.imports.append(line.strip())
-                self.code.remove(line)
+                self.imports.append(line)
+                code_lines_to_remove.append(line)
+
+        for line in code_lines_to_remove:
+            self.code.remove(line)
 
     def _fix_flake_import_errors(self) -> None:
         """Fix python source code to correct missed or unused import statements."""

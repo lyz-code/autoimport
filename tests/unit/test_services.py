@@ -418,6 +418,41 @@ def test_fix_moves_from_import_statements_to_the_top() -> None:
     assert result == fixed_source
 
 
+def test_fix_moves_multiline_import_statements_to_the_top() -> None:
+    """
+    Given: Multiple from X import Y lines.
+    When: Fix code is run.
+    Then: The import statements are moved to the top.
+    """
+    source = dedent(
+        """\
+        from os import getcwd
+
+        getcwd()
+
+        from re import (
+            match,
+        )
+        match(r'a', 'a')"""
+    )
+    fixed_source = dedent(
+        """\
+        from os import getcwd
+
+        from re import (
+            match,
+        )
+
+        getcwd()
+
+        match(r'a', 'a')"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
 def test_fix_doesnt_break_objects_with_import_in_their_names() -> None:
     """Objects that have the import name in their name should not be changed."""
     source = dedent(

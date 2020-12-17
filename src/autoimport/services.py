@@ -4,10 +4,11 @@ Classes and functions that connect the different domain model objects with the a
 and handlers to achieve the program's purpose.
 """
 
+from typing import Optional, Tuple
+
 from _io import TextIOWrapper
 
 from autoimport.model import SourceCode
-from typing import Tuple, Optional
 
 
 def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
