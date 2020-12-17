@@ -623,3 +623,28 @@ def test_fix_autoimports_common_imports(import_key: str, import_statement: str) 
     result = fix_code(source)
 
     assert result == fixed_source
+
+
+def test_fix_autoimports_objects_defined_in_the_root_of_the_package() -> None:
+    """
+    Given:
+        The fix code is run from a directory that belongs to a python project package.
+        And a source code with an object that needs an import statement.
+        And that object belongs to the root of the python package.
+    When: Fix code is run.
+    Then: The import is done
+    """
+    source = dedent(
+        """\
+        fix_code()"""
+    )
+    fixed_source = dedent(
+        """\
+        from autoimport import fix_code
+
+        fix_code()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source

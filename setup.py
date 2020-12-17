@@ -45,5 +45,5 @@ setup(
         [console_scripts]
         autoimport=autoimport.entrypoints.cli:cli
     """,
-    install_requires=["autoflake", "Click"],
+    install_requires=["autoflake", "Click", "pyprojroot"],
 )
