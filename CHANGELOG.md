@@ -1,3 +1,17 @@
+## 0.4.0 (2020-12-17)
+
+### Refactor
+
+- make _find_package_in_our_project a statimethod
+
+### Fix
+
+- import developing package objects when not in src directory
+
+### feat
+
+- import objects defined in the __all__ special variable
+
 ## 0.3.0 (2020-12-17)
 
 ### Feat
