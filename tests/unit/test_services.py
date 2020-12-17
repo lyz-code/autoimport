@@ -2,6 +2,9 @@
 
 from textwrap import dedent
 
+import pytest
+
+from autoimport.model import common_statements
 from autoimport.services import fix_code
 
 
@@ -33,7 +36,7 @@ def test_fix_imports_packages_below_docstring() -> None:
     """Imports are located below the module docstrings."""
     source = dedent(
         '''\
-        """Module docstring
+        """Module docstring.
 
         """
         import pytest
@@ -41,7 +44,7 @@ def test_fix_imports_packages_below_docstring() -> None:
     )
     fixed_source = dedent(
         '''\
-        """Module docstring
+        """Module docstring.
 
         """
 
@@ -98,37 +101,32 @@ def test_fix_imports_type_hints() -> None:
     assert result == fixed_source
 
 
-def test_fix_substitutes_aliases() -> None:
-    """Missing import statements are loaded from the alias if there is a match."""
-    source = """getcwd()"""
-    aliases = {"getcwd": "from os import getcwd"}
-    fixed_source = dedent(
-        """\
-        from os import getcwd
-
-        getcwd()"""
-    )
-
-    result = fix_code(source, aliases)
-
-    assert result == fixed_source
-
-
-def test_fix_doesnt_fail_if_object_not_in_aliases() -> None:
-    """If no aliases are found for the required object, do nothing."""
-    source = """getcwd()"""
-    aliases = {"Dict": "from Typing import Dict"}
-
-    result = fix_code(source, aliases)
-
-    assert result == source
-
-
 def test_fix_removes_unneeded_imports() -> None:
     """If there is an import statement of an unused package it should be removed."""
     source = dedent(
         """\
         import requests
+        foo = 1"""
+    )
+    fixed_source = "foo = 1"
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+def test_fix_removes_multiple_unneeded_imports() -> None:
+    """
+    Given: A source code with multiple unused import statements.
+    When: fix_code is run.
+    Then: The unused import statements are deleted.
+    """
+    source = dedent(
+        """\
+        import requests
+        from textwrap import dedent
+
+        from yaml import YAMLError
         foo = 1"""
     )
     fixed_source = "foo = 1"
@@ -420,6 +418,41 @@ def test_fix_moves_from_import_statements_to_the_top() -> None:
     assert result == fixed_source
 
 
+def test_fix_moves_multiline_import_statements_to_the_top() -> None:
+    """
+    Given: Multiple from X import Y lines.
+    When: Fix code is run.
+    Then: The import statements are moved to the top.
+    """
+    source = dedent(
+        """\
+        from os import getcwd
+
+        getcwd()
+
+        from re import (
+            match,
+        )
+        match(r'a', 'a')"""
+    )
+    fixed_source = dedent(
+        """\
+        from os import getcwd
+
+        from re import (
+            match,
+        )
+
+        getcwd()
+
+        match(r'a', 'a')"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
 def test_fix_doesnt_break_objects_with_import_in_their_names() -> None:
     """Objects that have the import name in their name should not be changed."""
     source = dedent(
@@ -550,6 +583,41 @@ def test_fix_doesnt_mistake_docstrings_with_multiline_string() -> None:
         def function_1():
             \"\"\"Function docstring\"\"\"
             os.getcwd()"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
+
+
+@pytest.mark.parametrize(
+    ("import_key", "import_statement"),
+    ((key, value) for key, value in common_statements.items()),
+    ids=list(common_statements.keys()),
+)
+def test_fix_autoimports_common_imports(import_key: str, import_statement: str) -> None:
+    """
+    Given: Code with missing import statements that match the common list.
+    When: Fix code is run.
+    Then: The imports are done
+    """
+    source = dedent(
+        f"""\
+        import os
+
+        os.getcwd
+
+        variable = {import_key}"""
+    )
+    fixed_source = dedent(
+        f"""\
+        import os
+
+        {import_statement}
+
+        os.getcwd
+
+        variable = {import_key}"""
     )
 
     result = fix_code(source)

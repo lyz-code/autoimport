@@ -76,6 +76,38 @@ os.getcwd()
     [black](https://black.readthedocs.io/en/stable/) afterwards to clean the
     file.
 
+# Features
+
+## Add missing imports
+
+`autoimport` matches each of the missing import statements against the following
+objects:
+
+* The modules referenced in `PYTHONPATH`.
+* The `typing` library objects.
+* The common statements.
+
+Where some of the common statements are:
+
+* `BeautifulSoup` -> `from bs4 import BeautifulSoup`
+* `call` -> `from unittest.mock import call`
+* `CaptureFixture` -> `from _pytest.capture import CaptureFixture`
+* `CliRunner` -> `from click.testing import CliRunner`
+* `copyfile` -> `from shutil import copyfile`
+* `dedent` -> `from textwrap import dedent`
+* `LocalPath` -> `from py._path.local import LocalPath`
+* `LogCaptureFixture` -> `from _pytest.logging import LogCaptureFixture`
+* `Mock` -> `from unittest.mock import Mock`
+* `patch` -> `from unittest.mock import patch`
+* `StringIO` -> `from io import StringIO`
+* `TempdirFactory` -> `from _pytest.tmpdir import TempdirFactory`
+* `YAMLError` -> `from yaml import YAMLError`
+
+## Remove unused import statements
+
+If an object is imported but unused, `autoimport` will remove the import
+statement.
+
 ## Moving the imports to the top
 
 There are going to be import cases that may not work, if you find one, please
