@@ -274,9 +274,14 @@ class SourceCode:  # noqa: R090
                 return
             # If it shares the line with other objects, just remove the unused one.
             if re.match(fr"from {package_name} import .*?{object_name}", line):
+                # fmt: off
+                # Format is required until there is no more need of the
+                # experimental-string-processing flag of the Black formatter.
                 match = re.match(
-                    fr"(?P<from>from {package_name} import) (?P<imports>.*)", line,
+                    fr"(?P<from>from {package_name} import) (?P<imports>.*)",
+                    line,
                 )
+                # fmt: on
                 if match is not None:
                     line_number = self.imports.index(line)
                     imports = match["imports"].split(", ")
@@ -285,7 +290,14 @@ class SourceCode:  # noqa: R090
                     self.imports[line_number] = f"{match['from']} {new_imports}"
                     return
             # If it's a multiline import statement
-            elif re.match(fr"from {package_name} import .*?\($", line,):
+            # fmt: off
+            # Format is required until there is no more need of the
+            # experimental-string-processing flag of the Black formatter.
+            elif re.match(
+                fr"from {package_name} import .*?\($",
+                line,
+            ):
+                # fmt: on
                 line_number = self.imports.index(line)
                 while line_number + 1 < len(self.imports):
                     line_number += 1
