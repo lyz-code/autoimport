@@ -121,7 +121,18 @@ docs: test-examples
 	@echo ""
 
 .PHONY: bump
-bump: bump-version build-package upload-pypi clean
+bump: pull-master bump-version build-package upload-pypi clean
+
+.PHONY: pull-master
+pull-master:
+	@echo "------------------------"
+	@echo "- Updating repository  -"
+	@echo "------------------------"
+
+	git checkout master
+	git pull
+
+	@echo ""
 
 .PHONY: build-package
 build-package:

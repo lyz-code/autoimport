@@ -4,11 +4,10 @@ import importlib
 import inspect
 import os
 import re
-from pathlib import Path
 from typing import Dict, List, Optional
 
 import autoflake
-import pyflakes
+from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
 from pyprojroot import here
 
 common_statements: Dict[str, str] = {
@@ -33,12 +32,11 @@ common_statements: Dict[str, str] = {
 class SourceCode:  # noqa: R090
     """Python source code entity."""
 
-    def __init__(self, source_code: str, file_path: Optional[Path] = None) -> None:
+    def __init__(self, source_code: str) -> None:
         """Initialize the object."""
         self.docstring: List[str] = []
         self.imports: List[str] = []
         self.code: List[str] = []
-        self.path = file_path
         self._split_code(source_code)
 
     def _split_code(self, source_code: str) -> None:
@@ -165,10 +163,10 @@ class SourceCode:  # noqa: R090
         error_messages = autoflake.check(self._join_code())
 
         for message in error_messages:
-            if isinstance(message, pyflakes.messages.UndefinedName):
+            if isinstance(message, (UndefinedName, UndefinedExport)):
                 object_name = message.message_args[0]
                 self._add_package(object_name)
-            elif isinstance(message, pyflakes.messages.UnusedImport):
+            elif isinstance(message, UnusedImport):
                 import_name = message.message_args[0]
                 self._remove_unused_imports(import_name)
 
@@ -210,7 +208,8 @@ class SourceCode:  # noqa: R090
                 return package
         return None
 
-    def _find_package_in_our_project(self, name: str) -> Optional[str]:
+    @staticmethod
+    def _find_package_in_our_project(name: str) -> Optional[str]:
         """Search the name in the objects of the package we are developing.
 
         Args:
@@ -220,12 +219,12 @@ class SourceCode:  # noqa: R090
             import_string: String required to import the package.
         """
         # Find the package name
-        if self.path is None:
-            path = os.getcwd()
-        project_package = os.path.basename(here(path)).replace("-", "_")
+        project_package = os.path.basename(here()).replace("-", "_")
         package_objects = extract_package_objects(project_package)
 
-        if package_objects is None:
+        # nocover: as the tests are run inside the autoimport virtualenv, it will
+        # always find the objects on that package
+        if package_objects is None:  # pragma: nocover
             return None
         try:
             return package_objects[name]

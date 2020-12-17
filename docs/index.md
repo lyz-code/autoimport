@@ -85,25 +85,34 @@ objects:
 
 * The modules referenced in `PYTHONPATH`.
 * The `typing` library objects.
-* The objects of the Python project you are developing, assuming you are
-    executing the program in a directory of the project and you can import it.
 * The common statements.
 
-Where some of the common statements are:
+    Where some of the common statements are:
 
-* `BeautifulSoup` -> `from bs4 import BeautifulSoup`
-* `call` -> `from unittest.mock import call`
-* `CaptureFixture` -> `from _pytest.capture import CaptureFixture`
-* `CliRunner` -> `from click.testing import CliRunner`
-* `copyfile` -> `from shutil import copyfile`
-* `dedent` -> `from textwrap import dedent`
-* `LocalPath` -> `from py._path.local import LocalPath`
-* `LogCaptureFixture` -> `from _pytest.logging import LogCaptureFixture`
-* `Mock` -> `from unittest.mock import Mock`
-* `patch` -> `from unittest.mock import patch`
-* `StringIO` -> `from io import StringIO`
-* `TempdirFactory` -> `from _pytest.tmpdir import TempdirFactory`
-* `YAMLError` -> `from yaml import YAMLError`
+        * `BeautifulSoup` -> `from bs4 import BeautifulSoup`
+        * `call` -> `from unittest.mock import call`
+        * `CaptureFixture` -> `from _pytest.capture import CaptureFixture`
+        * `CliRunner` -> `from click.testing import CliRunner`
+        * `copyfile` -> `from shutil import copyfile`
+        * `dedent` -> `from textwrap import dedent`
+        * `LocalPath` -> `from py._path.local import LocalPath`
+        * `LogCaptureFixture` -> `from _pytest.logging import LogCaptureFixture`
+        * `Mock` -> `from unittest.mock import Mock`
+        * `patch` -> `from unittest.mock import patch`
+        * `StringIO` -> `from io import StringIO`
+        * `TempdirFactory` -> `from _pytest.tmpdir import TempdirFactory`
+        * `YAMLError` -> `from yaml import YAMLError`
+
+* The objects of the Python project you are developing, assuming you are
+    executing the program in a directory of the project and you can import it.
+
+!!! warning "It may not work if you use pip install -e ."
+    Given that you execute `autoimport` inside a virtualenv where the package is
+    installed with `pip install -e .`, when there is an import error in a file
+    that is indexed in the package, `autoimport` won't be able to read the
+    package contents as the `import` statement will fail. So it's a good idea to
+    run autoimport from a virtualenv that has a stable version of the package we
+    are developing.
 
 ## Remove unused import statements
 

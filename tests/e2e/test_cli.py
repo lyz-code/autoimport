@@ -5,6 +5,7 @@ from textwrap import dedent
 
 import pytest
 from click.testing import CliRunner
+from py._path.local import LocalPath
 
 from autoimport.entrypoints.cli import cli
 from autoimport.version import __version__
@@ -28,9 +29,9 @@ def test_version(runner: CliRunner) -> None:
     )
 
 
-def test_corrects_one_file(runner: CliRunner, tmpdir) -> None:
+def test_corrects_one_file(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Correct the source code of a file."""
-    test_file = tmpdir.join("source.py")
+    test_file = tmpdir.join("source.py")  # type: ignore
     test_file.write("os.getcwd()")
     fixed_source = dedent(
         """\
@@ -46,11 +47,11 @@ def test_corrects_one_file(runner: CliRunner, tmpdir) -> None:
 
 
 @pytest.mark.secondary
-def test_corrects_three_files(runner: CliRunner, tmpdir) -> None:
+def test_corrects_three_files(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Correct the source code of multiple files."""
     test_files = []
     for file_number in range(3):
-        test_file = tmpdir.join(f"source_{file_number}.py")
+        test_file = tmpdir.join(f"source_{file_number}.py")  # type: ignore
         test_file.write("os.getcwd()")
         test_files.append(test_file)
     fixed_source = dedent(
