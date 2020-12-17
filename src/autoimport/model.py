@@ -222,7 +222,9 @@ class SourceCode:  # noqa: R090
         project_package = os.path.basename(here()).replace("-", "_")
         package_objects = extract_package_objects(project_package)
 
-        if package_objects is None:
+        # nocover: as the tests are run inside the autoimport virtualenv, it will
+        # always find the objects on that package
+        if package_objects is None:  # pragma: nocover
             return None
         try:
             return package_objects[name]
