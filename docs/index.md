@@ -85,6 +85,8 @@ objects:
 
 * The modules referenced in `PYTHONPATH`.
 * The `typing` library objects.
+* The objects of the Python project you are developing, assuming you are
+    executing the program in a directory of the project and you can import it.
 * The common statements.
 
 Where some of the common statements are:

@@ -1,12 +1,15 @@
 """Define the entities."""
 
 import importlib
+import inspect
+import os
 import re
-import typing
+from pathlib import Path
 from typing import Dict, List, Optional
 
 import autoflake
 import pyflakes
+from pyprojroot import here
 
 common_statements: Dict[str, str] = {
     "BeautifulSoup": "from bs4 import BeautifulSoup",
@@ -30,11 +33,12 @@ common_statements: Dict[str, str] = {
 class SourceCode:  # noqa: R090
     """Python source code entity."""
 
-    def __init__(self, source_code: str) -> None:
+    def __init__(self, source_code: str, file_path: Optional[Path] = None) -> None:
         """Initialize the object."""
         self.docstring: List[str] = []
         self.imports: List[str] = []
         self.code: List[str] = []
+        self.path = file_path
         self._split_code(source_code)
 
     def _split_code(self, source_code: str) -> None:
@@ -184,6 +188,7 @@ class SourceCode:  # noqa: R090
 
         It will search in these places:
 
+        * In the package we are developing.
         * Modules in PYTHONPATH.
         * Typing library.
         * Common statements.
@@ -197,12 +202,35 @@ class SourceCode:  # noqa: R090
         for check in [
             "_find_package_in_modules",
             "_find_package_in_typing",
+            "_find_package_in_our_project",
             "_find_package_in_common_statements",
         ]:
             package = getattr(self, check)(name)
             if package is not None:
                 return package
         return None
+
+    def _find_package_in_our_project(self, name: str) -> Optional[str]:
+        """Search the name in the objects of the package we are developing.
+
+        Args:
+            name: package name
+
+        Returns:
+            import_string: String required to import the package.
+        """
+        # Find the package name
+        if self.path is None:
+            path = os.getcwd()
+        project_package = os.path.basename(here(path)).replace("-", "_")
+        package_objects = extract_package_objects(project_package)
+
+        if package_objects is None:
+            return None
+        try:
+            return package_objects[name]
+        except KeyError:
+            return None
 
     @staticmethod
     def _find_package_in_modules(name: str) -> Optional[str]:
@@ -233,15 +261,12 @@ class SourceCode:  # noqa: R090
         Returns:
             import_string: Python 3.7 type checking compatible import string.
         """
-        typing_objects = dir(typing)
+        typing_objects = extract_package_objects("typing")
 
-        # Clean the internal objects (started with _ or __)
-        typing_objects = [obj for obj in typing_objects if not re.match("^_.*", obj)]
-
-        if name in typing_objects:
-            return f"from typing import {name}"
-
-        return None
+        try:
+            return typing_objects[name]
+        except KeyError:
+            return None
 
     @staticmethod
     def _find_package_in_common_statements(name: str) -> Optional[str]:
@@ -304,3 +329,54 @@ class SourceCode:  # noqa: R090
                     if re.match(fr"\s*?{object_name},?", self.imports[line_number]):
                         self.imports.pop(line_number)
                         return
+
+
+def extract_package_objects(name: str) -> Dict[str, str]:
+    """Extract the package objects and their import string.
+
+    Returns:
+        objects: A dictionary with the object name as a key and the import string
+            as the value.
+    """
+    package_objects: Dict[str, str] = {}
+    package_modules = []
+
+    try:
+        package_modules.append(__import__(name))
+    except ModuleNotFoundError:
+        return package_objects
+
+    for package_module in package_modules:
+        for package_object_tuple in inspect.getmembers(package_module):
+            object_name = package_object_tuple[0]
+            package_object = package_object_tuple[1]
+            # If the object is a function or a class
+            if inspect.isfunction(package_object) or inspect.isclass(package_object):
+                if (
+                    object_name not in package_objects.keys()
+                    and name in package_object.__module__
+                ):
+                    # Try to load the object from the module instead of the
+                    # submodules.
+                    if (
+                        hasattr(package_module, "__all__")
+                        and object_name in package_module.__all__
+                    ):
+                        package_objects[
+                            object_name
+                        ] = f"from {package_module.__name__} import {object_name}"
+                    else:
+                        package_objects[
+                            object_name
+                        ] = f"from {package_object.__module__} import {object_name}"
+
+            elif not re.match(r"^_.*", object_name):
+                # The rest of objects
+                package_objects[
+                    object_name
+                ] = f"from {package_module.__name__} import {object_name}"
+
+        for module in inspect.getmembers(package_module, inspect.ismodule):
+            if module[1].__package__ == name:
+                package_modules.append(module[1])
+    return package_objects
