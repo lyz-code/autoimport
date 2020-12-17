@@ -1,3 +1,18 @@
+## 0.3.0 (2020-12-17)
+
+### Feat
+
+- Add imports of the local package objects
+- make autoimport manage the commonly used imports
+
+### Refactor
+
+- move the business logic to the SourceCode entity
+
+### fix
+
+- remove all unused imports instead of just one
+
 ## 0.2.2 (2020-12-11)
 
 ### Fix
