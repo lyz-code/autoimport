@@ -208,7 +208,8 @@ class SourceCode:  # noqa: R090
                 return package
         return None
 
-    def _find_package_in_our_project(self, name: str) -> Optional[str]:
+    @staticmethod
+    def _find_package_in_our_project(name: str) -> Optional[str]:
         """Search the name in the objects of the package we are developing.
 
         Args:
