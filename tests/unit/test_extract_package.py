@@ -50,3 +50,14 @@ def test_extraction_returns_the_package_dictionaries() -> None:
     }
     for object_name, object_import_string in desired_objects.items():
         assert result[object_name] == object_import_string
+
+
+def test_extraction_returns_empty_dict_if_package_is_not_importable() -> None:
+    """
+    Given: Autoimport can't import the package.
+    When: the extract package objects is called.
+    Then: An empty directory is returned
+    """
+    result = extract_package_objects("inexistent")
+
+    assert result == {}
