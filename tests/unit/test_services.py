@@ -648,3 +648,25 @@ def test_fix_autoimports_objects_defined_in_the_root_of_the_package() -> None:
     result = fix_code(source)
 
     assert result == fixed_source
+
+
+def test_fix_autoimports_objects_defined_in___all__special_variable() -> None:
+    """
+    Given: Some missing packages in the __all__ variable
+    When: Fix code is run.
+    Then: The import is done
+    """
+    source = dedent(
+        """\
+        __all__ = ['fix_code']"""
+    )
+    fixed_source = dedent(
+        """\
+        from autoimport import fix_code
+
+        __all__ = ['fix_code']"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
