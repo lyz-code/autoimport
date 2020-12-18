@@ -40,6 +40,20 @@ class SourceCode:  # noqa: R090
         self.code: List[str] = []
         self._split_code(source_code)
 
+    def fix(self) -> str:
+        """Fix python source code to correct import statements.
+
+        It corrects these errors:
+
+            * Add missed import statements.
+            * Remove unused import statements.
+            * Move import statements to the top.
+        """
+        self._move_imports_to_top()
+        self._fix_flake_import_errors()
+
+        return self._join_code()
+
     def _split_code(self, source_code: str) -> None:
         """Split the source code in the different sections.
 
@@ -151,20 +165,6 @@ class SourceCode:  # noqa: R090
         # Add new lines between existent sections
         return "\n\n".join(sections).strip()
 
-    def fix(self) -> str:
-        """Fix python source code to correct import statements.
-
-        It corrects these errors:
-
-            * Add missed import statements.
-            * Remove unused import statements.
-            * Move import statements to the top.
-        """
-        self._move_imports_to_top()
-        self._fix_flake_import_errors()
-
-        return self._join_code()
-
     def _move_imports_to_top(self) -> None:
         """Fix python source code to move import statements to the top of the file.
 
@@ -199,8 +199,11 @@ class SourceCode:  # noqa: R090
                 elif ")" in line:
                     multiline_import = False
 
-                self.imports.append(line)
                 code_lines_to_remove.append(line)
+                if not multiline_import:
+                    line = line.strip()
+
+                self.imports.append(line)
 
         for line in code_lines_to_remove:
             self.code.remove(line)
@@ -247,8 +250,8 @@ class SourceCode:  # noqa: R090
         for check in [
             "_find_package_in_modules",
             "_find_package_in_typing",
-            "_find_package_in_our_project",
             "_find_package_in_common_statements",
+            "_find_package_in_our_project",
         ]:
             package = getattr(self, check)(name)
             if package is not None:
