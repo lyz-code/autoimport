@@ -670,3 +670,29 @@ def test_fix_autoimports_objects_defined_in___all__special_variable() -> None:
     result = fix_code(source)
 
     assert result == fixed_source
+
+
+def test_fix_respects_type_checking_import_statements() -> None:
+    """
+    Given: Code with if TYPE_CHECKING imports
+    When: Fix code is run.
+    Then: The imports are not moved above the if statement.
+    """
+    source = dedent(
+        """\
+        import os
+        from typing import TYPE_CHECKING
+
+        if TYPE_CHECKING:
+            from .model import Book
+
+        os.getcwd()
+
+
+        def read_book(book: Book):
+            pass"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
