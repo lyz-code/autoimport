@@ -36,20 +36,37 @@ class SourceCode:  # noqa: R090
         """Initialize the object."""
         self.docstring: List[str] = []
         self.imports: List[str] = []
+        self.typing: List[str] = []
         self.code: List[str] = []
         self._split_code(source_code)
 
     def _split_code(self, source_code: str) -> None:
-        """Split the source code in docstring, import statements and code.
+        """Split the source code in the different sections.
+
+        * Module Docstring
+        * Import statements
+        * Typing statements
+        * Code.
 
         Args:
             source_code: Source code to be corrected.
         """
         source_code_lines = source_code.splitlines()
+
+        self._extract_docstring(source_code_lines)
+        self._extract_import_statements(source_code_lines)
+        self._extract_typing_statements(source_code_lines)
+        self._extract_code(source_code_lines)
+
+    def _extract_docstring(self, source_lines: List[str]) -> None:
+        """Save the module docstring from the source code into self.docstring.
+
+        Args:
+            source_lines: A list containing all code lines.
+        """
         docstring_type: Optional[str] = None
 
-        # Extract the module docstring from the code.
-        for line in source_code_lines:
+        for line in source_lines:
             if re.match(r'"{3}.*"{3}', line):
                 # Match single line docstrings
                 self.docstring.append(line)
@@ -64,11 +81,18 @@ class SourceCode:  # noqa: R090
                 break
             self.docstring.append(line)
 
-        # Extract the import lines from the code.
+    def _extract_import_statements(self, source_lines: List[str]) -> None:
+        """Save the import statements from the source code into self.imports.
+
+        Args:
+            source_lines: A list containing all code lines.
+        """
         import_start_line = len(self.docstring)
         multiline_import = False
 
-        for line in source_code_lines[import_start_line:]:
+        for line in source_lines[import_start_line:]:
+            if re.match(r"^if TYPE_CHECKING:$", line):
+                break
             if (
                 re.match(r"^\s*(from .*)?import.[^\'\"]*$", line)
                 or line == ""
@@ -83,9 +107,31 @@ class SourceCode:  # noqa: R090
             else:
                 break
 
+    def _extract_typing_statements(self, source_lines: List[str]) -> None:
+        """Save the typing statements from the source code into self.typing.
+
+        Args:
+            source_lines: A list containing all code lines.
+        """
+        typing_start_line = len(self.docstring) + len(self.imports)
+
+        if re.match(r"^if TYPE_CHECKING:$", source_lines[typing_start_line]):
+            self.typing.append(source_lines[typing_start_line])
+            typing_start_line += 1
+            for line in source_lines[typing_start_line:]:
+                if not re.match(r"^\s+.*", line):
+                    break
+                self.typing.append(line)
+
+    def _extract_code(self, source_lines: List[str]) -> None:
+        """Save the code from the source code into self.code.
+
+        Args:
+            source_lines: A list containing all code lines.
+        """
         # Extract the code lines
-        code_start_line = len(self.docstring) + len(self.imports)
-        self.code = source_code_lines[code_start_line:]
+        code_start_line = len(self.docstring) + len(self.imports) + len(self.typing)
+        self.code = source_lines[code_start_line:]
 
     def _join_code(self) -> str:
         """Join the source code from docstring, import statements and code lines.
@@ -98,7 +144,8 @@ class SourceCode:  # noqa: R090
         # Remove new lines at start and end of each section.
         sections = [
             "\n".join(section).strip()
-            for section in (self.docstring, self.imports, self.code)
+            for section in (self.docstring, self.imports, self.typing, self.code)
+            if len(section) > 0
         ]
 
         # Add new lines between existent sections
