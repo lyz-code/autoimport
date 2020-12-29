@@ -1,3 +1,13 @@
+## 0.4.2 (2020-12-29)
+
+### Fix
+
+- wrong import indentation when moving up the imports.
+
+### perf
+
+- common import statements are now run sooner
+
 ## 0.4.1 (2020-12-29)
 
 ### Fix
