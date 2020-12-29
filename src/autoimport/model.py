@@ -103,11 +103,14 @@ class SourceCode:  # noqa: R090
         """
         import_start_line = len(self.docstring)
         multiline_import = False
+        try_line: Optional[str] = None
 
         for line in source_lines[import_start_line:]:
             if re.match(r"^if TYPE_CHECKING:$", line):
                 break
-            if (
+            if re.match(r"^(try|except.*):$", line):
+                try_line = line
+            elif (
                 re.match(r"^\s*(from .*)?import.[^\'\"]*$", line)
                 or line == ""
                 or multiline_import
@@ -117,6 +120,11 @@ class SourceCode:  # noqa: R090
                     multiline_import = True
                 elif ")" in line:
                     multiline_import = False
+
+                if try_line:
+                    self.imports.append(try_line)
+                    try_line = None
+
                 self.imports.append(line)
             else:
                 break

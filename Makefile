@@ -182,6 +182,7 @@ bump-version:
 
 	cz bump --changelog --no-verify
 	git push --tags
+	git push
 
 	@echo ""
 
