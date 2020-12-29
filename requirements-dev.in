@@ -42,7 +42,6 @@ bandit
 mypy
 
 # Formatters
-autoimport
 black
 isort
 yamlfix
