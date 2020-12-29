@@ -1,10 +1,13 @@
 """Command line interface definition."""
 
+import logging
 from typing import Tuple
 
 import click
 
 from autoimport import services, version
+
+log = logging.getLogger(__name__)
 
 
 @click.command()
@@ -12,7 +15,10 @@ from autoimport import services, version
 @click.argument("files", type=click.File("r+"), nargs=-1)
 def cli(files: Tuple[str]) -> None:
     """Corrects the source code of the specified files."""
-    fixed_code = services.fix_files(files)
+    try:
+        fixed_code = services.fix_files(files)
+    except FileNotFoundError as error:
+        log.error(error)
 
     if fixed_code is not None:
         print(fixed_code, end="")

@@ -7,6 +7,7 @@ from os.path import basename, splitext
 from setuptools import find_packages, setup
 
 # Avoid loading the package to extract the version
+
 with open("src/autoimport/version.py") as fp:
     version_match = re.search(r'__version__ = "(?P<version>.*)"', fp.read())
     if version_match is None:
@@ -16,7 +17,7 @@ with open("src/autoimport/version.py") as fp:
 setup(
     name="autoimport",
     version=version,
-    description="A Cookiecutter template for creating Python projects",
+    description="Autoimport missing python libraries.",
     author="Lyz",
     author_email="lyz-code-security-advisories@riseup.net",
     license="GNU General Public License v3",
@@ -25,6 +26,7 @@ setup(
     url="https://github.com/lyz-code/autoimport",
     packages=find_packages("src"),
     package_dir={"": "src"},
+    package_data={"autoimport": ["py.typed"]},
     py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     python_requires=">=3.6",
     classifiers=[
@@ -45,5 +47,5 @@ setup(
         [console_scripts]
         autoimport=autoimport.entrypoints.cli:cli
     """,
-    install_requires=["autoflake", "Click", "pyprojroot"],
+    install_requires=["autoflake", "Click", "pyprojroot", "sh"],
 )

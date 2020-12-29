@@ -372,8 +372,9 @@ def test_fix_moves_import_statements_in_indented_code_to_the_top() -> None:
     """
     source = dedent(
         """\
-        a = 3
+        import requests
 
+        requests.get('hi')
 
         def test():
             import os
@@ -381,10 +382,11 @@ def test_fix_moves_import_statements_in_indented_code_to_the_top() -> None:
     )
     fixed_source = dedent(
         """\
+        import requests
+
         import os
 
-        a = 3
-
+        requests.get('hi')
 
         def test():
             os.getcwd()"""

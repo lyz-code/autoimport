@@ -1,6 +1,6 @@
-.DEFAULT_GOAL := all
-isort = isort src docs/examples tests setup.py
-black = black --target-version py37 src docs/examples tests setup.py
+.DEFAULT_GOAL := test
+isort = isort --skip tests/assets src docs/examples tests setup.py
+black = black --exclude assets --target-version py37 src docs/examples tests setup.py
 
 .PHONY: install
 install:
@@ -15,9 +15,18 @@ update:
 	@echo "- Updating dependencies -"
 	@echo "-------------------------"
 
-	pip-compile -U --allow-unsafe
-	pip-compile -U --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
-	pip-compile -U --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
+	rm requirements.txt
+	touch requirements.txt
+	pip-compile -Ur --allow-unsafe
+
+	rm docs/requirements.txt
+	touch docs/requirements.txt
+	pip-compile -Ur --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
+
+	rm requirements-dev.txt
+	touch requirements-dev.txt
+	pip-compile -Ur --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
+
 	pip install -r requirements-dev.txt
 
 	@echo ""
@@ -39,7 +48,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	flakehell lint src/ tests/ setup.py
+	flakehell lint --exclude assets src/ tests/ setup.py
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -89,6 +98,7 @@ clean:
 
 	rm -rf `find . -name __pycache__`
 	rm -f `find . -type f -name '*.py[co]' `
+	rm -f `find . -type f -name '*.rej' `
 	rm -f `find . -type f -name '*~' `
 	rm -f `find . -type f -name '.*~' `
 	rm -rf .cache
