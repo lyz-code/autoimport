@@ -698,3 +698,27 @@ def test_fix_respects_type_checking_import_statements() -> None:
     result = fix_code(source)
 
     assert result == source
+
+
+def test_fix_respects_try_except_in_import_statements() -> None:
+    """
+    Given: Code with try except statements in the imports.
+    When: Fix code is run
+    Then: The try except statements are respected
+    """
+    source = dedent(
+        """\
+        import os
+
+        try:
+            from typing import TypedDict  # noqa
+        except ImportError:
+            from mypy_extensions import TypedDict  # <=3.7
+
+        os.getcwd()
+        Movie = TypedDict('Movie', {'name': str, 'year': int})"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
