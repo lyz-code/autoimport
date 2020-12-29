@@ -1,3 +1,9 @@
+## 0.4.1 (2020-12-29)
+
+### Fix
+
+- make fix_code respect if TYPE_CHECKING statements
+
 ## 0.4.0 (2020-12-17)
 
 ### Refactor
