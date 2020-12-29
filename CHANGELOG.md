@@ -1,3 +1,13 @@
+## 0.4.3 (2020-12-29)
+
+### Fix
+
+- respect try except statements in imports
+
+### fix
+
+- remove autoimport from development dependencies
+
 ## 0.4.2 (2020-12-29)
 
 ### Fix
