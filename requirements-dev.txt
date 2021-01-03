@@ -353,7 +353,7 @@ requests==2.25.1
     #   safety
 ruyaml==0.20.0
     # via yamlfix
-safety==1.10.0
+safety==1.10.1
     # via -r requirements-dev.in
 sh==1.14.1
     # via -r requirements.txt
