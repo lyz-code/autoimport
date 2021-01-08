@@ -17,11 +17,13 @@ common_statements: Dict[str, str] = {
     "CliRunner": "from click.testing import CliRunner",
     "copyfile": "from shutil import copyfile",
     "dedent": "from textwrap import dedent",
+    "FrozenDateTimeFactory": "from freezegun.api import FrozenDateTimeFactory",
     "LocalPath": "from py._path.local import LocalPath",
     "LogCaptureFixture": "from _pytest.logging import LogCaptureFixture",
     "Mock": "from unittest.mock import Mock",
     "patch": "from unittest.mock import patch",
     "StringIO": "from io import StringIO",
+    "suppress": "from contextlib import suppress",
     "TempdirFactory": "from _pytest.tmpdir import TempdirFactory",
     "YAMLError": "from yaml import YAMLError",
 }
