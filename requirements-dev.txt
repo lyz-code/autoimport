@@ -355,7 +355,7 @@ requests==2.25.1
     #   safety
 ruyaml==0.20.0
     # via yamlfix
-safety==1.10.2
+safety==1.10.2.post1
     # via -r requirements-dev.in
 sh==1.14.1
     # via -r requirements.txt
@@ -416,7 +416,7 @@ urllib3==1.26.2
     #   -r docs/requirements.txt
     #   flakehell
     #   requests
-virtualenv==20.3.0
+virtualenv==20.3.1
     # via pre-commit
 wrapt==1.12.1
     # via astroid
