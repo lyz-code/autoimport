@@ -240,7 +240,7 @@ mkdocs-material==6.2.4
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
     #   mkdocs-material-extensions
-mkdocs-minify-plugin==0.3.0
+mkdocs-minify-plugin==0.4.0
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
@@ -355,7 +355,7 @@ requests==2.25.1
     #   safety
 ruyaml==0.20.0
     # via yamlfix
-safety==1.10.2.post1
+safety==1.10.3
     # via -r requirements-dev.in
 sh==1.14.1
     # via -r requirements.txt
