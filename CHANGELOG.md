@@ -1,3 +1,9 @@
+## 0.5.0 (2021-01-25)
+
+### Feat
+
+- add FrozenDateTimeFactory and suppress import statements
+
 ## 0.4.3 (2020-12-29)
 
 ### Fix
