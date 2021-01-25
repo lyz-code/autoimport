@@ -1,6 +1,6 @@
 """Define the entities."""
 
-import importlib
+import importlib.util
 import inspect
 import os
 import re
@@ -301,7 +301,7 @@ class SourceCode:  # noqa: R090
         Returns:
             import_string: String required to import the package.
         """
-        package_specs = importlib.util.find_spec(name)  # type: ignore
+        package_specs = importlib.util.find_spec(name)
 
         try:
             importlib.util.module_from_spec(package_specs)  # type: ignore
