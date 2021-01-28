@@ -157,18 +157,7 @@ idna==2.10
     #   -r docs/requirements.txt
     #   requests
 importlib-metadata==3.4.0
-    # via
-    #   -r docs/requirements.txt
-    #   flake8
-    #   flake8-comprehensions
-    #   flake8-simplify
-    #   flake8-typing-imports
-    #   markdown
-    #   pluggy
-    #   pre-commit
-    #   pytest
-    #   stevedore
-    #   virtualenv
+    # via -r docs/requirements.txt
 iniconfig==1.1.1
     # via pytest
 isort==5.7.0
@@ -287,7 +276,7 @@ pip-tools==5.5.0
     # via -r requirements-dev.in
 pluggy==0.13.1
     # via pytest
-pre-commit==2.9.3
+pre-commit==2.10.0
     # via -r requirements-dev.in
 py==1.10.0
     # via pytest
@@ -400,17 +389,13 @@ tqdm==4.56.0
     #   nltk
 typed-ast==1.4.2
     # via
-    #   astroid
     #   black
-    #   flake8-annotations
     #   mypy
 typing-extensions==3.7.4.3
     # via
     #   -r docs/requirements.txt
     #   black
-    #   importlib-metadata
     #   mypy
-    #   pytkdocs
 urllib3==1.26.3
     # via
     #   -r docs/requirements.txt
