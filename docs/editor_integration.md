@@ -1,5 +1,18 @@
-For a smother experience, you can run `autoimport` each time you save your file
-in your editor or make a commit.
+For a smoother experience, you can run `autoimport` automatically each
+time each time you save your file in your editor and each time you
+perform a `git commit`.
+
+# Vim
+
+To integrate `autoimport` into Vim, I recommend using the [ale
+plugin](https://github.com/dense-analysis/ale).
+
+!!! note ""
+
+    If you are new to ALE, check [this
+    post](https://lyz-code.github.io/blue-book/linux/vim/vim_plugins/#ale).
+
+`ale` is configured to run `autoimport` automatically by default.
 
 # [pre-commit](https://pre-commit.com/)
 
@@ -18,6 +31,3 @@ repos:
     hooks:
       - id: autoimport
 ```
-
-# Vim
-...
