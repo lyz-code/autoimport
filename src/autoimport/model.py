@@ -11,12 +11,14 @@ from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
 from pyprojroot import here
 
 common_statements: Dict[str, str] = {
+    "BaseModel": "from pydantic import BaseModel  # noqa: E0611",
     "BeautifulSoup": "from bs4 import BeautifulSoup",
     "call": "from unittest.mock import call",
     "CaptureFixture": "from _pytest.capture import CaptureFixture",
     "CliRunner": "from click.testing import CliRunner",
     "copyfile": "from shutil import copyfile",
     "dedent": "from textwrap import dedent",
+    "Faker": "from faker import Faker",
     "FrozenDateTimeFactory": "from freezegun.api import FrozenDateTimeFactory",
     "LocalPath": "from py._path.local import LocalPath",
     "LogCaptureFixture": "from _pytest.logging import LogCaptureFixture",
@@ -36,7 +38,7 @@ class SourceCode:  # noqa: R090
 
     def __init__(self, source_code: str) -> None:
         """Initialize the object."""
-        self.docstring: List[str] = []
+        self.header: List[str] = []
         self.imports: List[str] = []
         self.typing: List[str] = []
         self.code: List[str] = []
@@ -69,13 +71,15 @@ class SourceCode:  # noqa: R090
         """
         source_code_lines = source_code.splitlines()
 
-        self._extract_docstring(source_code_lines)
+        self._extract_header(source_code_lines)
         self._extract_import_statements(source_code_lines)
         self._extract_typing_statements(source_code_lines)
         self._extract_code(source_code_lines)
 
-    def _extract_docstring(self, source_lines: List[str]) -> None:
-        """Save the module docstring from the source code into self.docstring.
+    def _extract_header(self, source_lines: List[str]) -> None:
+        """Save the module leading comments and docstring from the source code.
+
+        Save them into self.header.
 
         Args:
             source_lines: A list containing all code lines.
@@ -84,18 +88,22 @@ class SourceCode:  # noqa: R090
 
         for line in source_lines:
             if re.match(r'"{3}.*"{3}', line):
-                # Match single line docstrings
-                self.docstring.append(line)
+                # Match single line docstrings.
+                self.header.append(line)
                 break
+
             if docstring_type == "start_multiple_lines" and re.match(r'""" ?', line):
                 # Match end of multiple line docstrings
                 docstring_type = "multiple_lines"
             elif re.match(r'"{3}.*', line):
                 # Match multiple line docstrings start
                 docstring_type = "start_multiple_lines"
+            elif re.match(r"#.*", line):
+                # Match leading comments
+                pass
             elif docstring_type in [None, "multiple_lines"]:
                 break
-            self.docstring.append(line)
+            self.header.append(line)
 
     def _extract_import_statements(self, source_lines: List[str]) -> None:
         """Save the import statements from the source code into self.imports.
@@ -103,7 +111,7 @@ class SourceCode:  # noqa: R090
         Args:
             source_lines: A list containing all code lines.
         """
-        import_start_line = len(self.docstring)
+        import_start_line = len(self.header)
         multiline_import = False
         try_line: Optional[str] = None
 
@@ -137,7 +145,7 @@ class SourceCode:  # noqa: R090
         Args:
             source_lines: A list containing all code lines.
         """
-        typing_start_line = len(self.docstring) + len(self.imports)
+        typing_start_line = len(self.header) + len(self.imports)
 
         if re.match(r"^if TYPE_CHECKING:$", source_lines[typing_start_line]):
             self.typing.append(source_lines[typing_start_line])
@@ -154,7 +162,7 @@ class SourceCode:  # noqa: R090
             source_lines: A list containing all code lines.
         """
         # Extract the code lines
-        code_start_line = len(self.docstring) + len(self.imports) + len(self.typing)
+        code_start_line = len(self.header) + len(self.imports) + len(self.typing)
         self.code = source_lines[code_start_line:]
 
     def _join_code(self) -> str:
@@ -168,7 +176,7 @@ class SourceCode:  # noqa: R090
         # Remove new lines at start and end of each section.
         sections = [
             "\n".join(section).strip()
-            for section in (self.docstring, self.imports, self.typing, self.code)
+            for section in (self.header, self.imports, self.typing, self.code)
             if len(section) > 0
         ]
 

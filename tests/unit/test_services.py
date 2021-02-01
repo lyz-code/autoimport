@@ -722,3 +722,32 @@ def test_fix_respects_try_except_in_import_statements() -> None:
     result = fix_code(source)
 
     assert result == source
+
+
+def test_fix_respects_leading_comments() -> None:
+    """
+    Given: Code with initial comments like shebang and editor configuration.
+    When: Fix code is run
+    Then: The comment statements are respected
+    """
+    source = dedent(
+        '''\
+        #!/usr/bin/env python3
+        # -*- coding: latin-1 -*-
+        """docstring"""
+        print(os.path.exists("."))'''
+    )
+    desired_source = dedent(
+        '''\
+        #!/usr/bin/env python3
+        # -*- coding: latin-1 -*-
+        """docstring"""
+
+        import os
+
+        print(os.path.exists("."))'''
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
