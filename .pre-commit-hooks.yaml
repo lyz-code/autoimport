@@ -1,0 +1,9 @@
+- id: autoimport
+  name: autoimport
+  entry: autoimport
+  require_serial: true
+  language: python
+  language_version: python3
+  types_or: [cython, pyi, python]
+  args: []
+  minimum_pre_commit_version: '2.9.0'
