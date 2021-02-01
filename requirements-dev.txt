@@ -57,7 +57,7 @@ click==7.1.2
     #   yamlfix
 colorama==0.4.4
     # via flakehell
-coverage==5.3.1
+coverage==5.4
     # via pytest-cov
 distlib==0.3.1
     # via virtualenv
@@ -105,7 +105,7 @@ flake8-pytest-style==1.3.0
     # via -r requirements-dev.in
 flake8-pytest==1.3
     # via -r requirements-dev.in
-flake8-simplify==0.12.0
+flake8-simplify==0.13.0
     # via -r requirements-dev.in
 flake8-typing-imports==1.10.1
     # via -r requirements-dev.in
@@ -175,7 +175,7 @@ isort==5.7.0
     # via
     #   -r requirements-dev.in
     #   pylint
-jinja2==2.11.2
+jinja2==2.11.3
     # via
     #   -r docs/requirements.txt
     #   mkdocs
@@ -235,7 +235,7 @@ mkdocs-material-extensions==1.0.1
     # via
     #   -r docs/requirements.txt
     #   mkdocs-material
-mkdocs-material==6.2.5
+mkdocs-material==6.2.7
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
@@ -270,7 +270,7 @@ nltk==3.5
     #   lunr
 nodeenv==1.5.0
     # via pre-commit
-packaging==20.8
+packaging==20.9
     # via
     #   dparse
     #   pytest
@@ -287,7 +287,7 @@ pip-tools==5.5.0
     # via -r requirements-dev.in
 pluggy==0.13.1
     # via pytest
-pre-commit==2.9.3
+pre-commit==2.10.0
     # via -r requirements-dev.in
 py==1.10.0
     # via pytest
@@ -309,7 +309,7 @@ pygments==2.7.4
     #   mkdocs-material
 pylint==2.6.0
     # via -r requirements-dev.in
-pymdown-extensions==8.1
+pymdown-extensions==8.1.1
     # via
     #   -r docs/requirements.txt
     #   mkdocs-material
@@ -322,7 +322,7 @@ pytest-cov==2.11.1
     # via -r requirements-dev.in
 pytest-pythonpath==0.7.3
     # via -r requirements-dev.in
-pytest==6.2.1
+pytest==6.2.2
     # via
     #   -r requirements-dev.in
     #   pytest-cov
@@ -331,7 +331,7 @@ pytkdocs==0.10.1
     # via
     #   -r docs/requirements.txt
     #   mkdocstrings
-pytz==2020.5
+pytz==2021.1
     # via
     #   -r docs/requirements.txt
     #   babel
@@ -411,18 +411,18 @@ typing-extensions==3.7.4.3
     #   importlib-metadata
     #   mypy
     #   pytkdocs
-urllib3==1.26.2
+urllib3==1.26.3
     # via
     #   -r docs/requirements.txt
     #   flakehell
     #   requests
-virtualenv==20.4.0
+virtualenv==20.4.2
     # via pre-commit
 wrapt==1.12.1
     # via astroid
 yamlfix==0.3.0
     # via -r requirements-dev.in
-yamllint==1.25.0
+yamllint==1.26.0
     # via -r requirements-dev.in
 zipp==3.4.0
     # via
@@ -430,7 +430,7 @@ zipp==3.4.0
     #   importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
-pip==21.0
+pip==21.0.1
     # via pip-tools
 setuptools==52.0.0
     # via
