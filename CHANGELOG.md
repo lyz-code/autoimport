@@ -1,3 +1,13 @@
+## 0.6.0 (2021-02-01)
+
+### Fix
+
+- respect shebang and leading comments
+
+### feat
+
+- add BaseModel and Faker to common statements
+
 ## 0.5.0 (2021-01-25)
 
 ### Feat
