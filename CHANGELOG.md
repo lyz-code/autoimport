@@ -1,3 +1,13 @@
+## 0.6.1 (2021-02-02)
+
+### Fix
+
+- respect newlines in the header section
+
+### fix
+
+- respect document trailing newline
+
 ## 0.6.0 (2021-02-01)
 
 ### Fix
