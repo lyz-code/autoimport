@@ -432,7 +432,7 @@ zipp==3.4.0
 # The following packages are considered to be unsafe in a requirements file:
 pip==21.0.1
     # via pip-tools
-setuptools==52.0.0
+setuptools==53.0.0
     # via
     #   flake8-annotations-complexity
     #   flake8-expression-complexity
