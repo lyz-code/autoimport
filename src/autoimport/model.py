@@ -42,6 +42,7 @@ class SourceCode:  # noqa: R090
         self.imports: List[str] = []
         self.typing: List[str] = []
         self.code: List[str] = []
+        self._trailing_newline = False
         self._split_code(source_code)
 
     def fix(self) -> str:
@@ -75,6 +76,8 @@ class SourceCode:  # noqa: R090
         self._extract_import_statements(source_code_lines)
         self._extract_typing_statements(source_code_lines)
         self._extract_code(source_code_lines)
+        if source_code.endswith("\n"):
+            self._trailing_newline = True
 
     def _extract_header(self, source_lines: List[str]) -> None:
         """Save the module leading comments and docstring from the source code.
@@ -98,8 +101,8 @@ class SourceCode:  # noqa: R090
             elif re.match(r'"{3}.*', line):
                 # Match multiple line docstrings start
                 docstring_type = "start_multiple_lines"
-            elif re.match(r"#.*", line):
-                # Match leading comments
+            elif re.match(r"#.*", line) or line == "":
+                # Match leading comments and empty lines
                 pass
             elif docstring_type in [None, "multiple_lines"]:
                 break
@@ -181,7 +184,13 @@ class SourceCode:  # noqa: R090
         ]
 
         # Add new lines between existent sections
-        return "\n\n".join(sections).strip()
+        source_code = "\n\n".join(sections).strip()
+
+        # Respect the trailing newline
+        if self._trailing_newline:
+            source_code += "\n"
+
+        return source_code
 
     def _move_imports_to_top(self) -> None:
         """Fix python source code to move import statements to the top of the file.
