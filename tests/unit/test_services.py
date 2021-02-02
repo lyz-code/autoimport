@@ -751,3 +751,53 @@ def test_fix_respects_leading_comments() -> None:
     result = fix_code(source)
 
     assert result == desired_source
+
+
+def test_fix_respects_leading_comments_with_new_lines() -> None:
+    """
+    Given: Code with initial comments with new lines and a trailing newline.
+    When: Fix code is run.
+    Then: The comment statements and trailing newline are respected.
+    """
+    source = dedent(
+        '''\
+        #!/usr/bin/env python3
+        # -*- coding: latin-1 -*-
+
+        # pylint: disable=foobar
+
+        """
+
+        This is the docstring.
+
+        """
+
+        import sys
+
+        print(os.path.exists(sys.argv[1]))
+        '''
+    )
+    desired_source = dedent(
+        '''\
+        #!/usr/bin/env python3
+        # -*- coding: latin-1 -*-
+
+        # pylint: disable=foobar
+
+        """
+
+        This is the docstring.
+
+        """
+
+        import sys
+
+        import os
+
+        print(os.path.exists(sys.argv[1]))
+        '''
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
