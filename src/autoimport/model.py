@@ -354,7 +354,7 @@ class SourceCode:  # noqa: R090
         Returns:
             import_string
         """
-        if name in common_statements.keys():
+        if name in common_statements:
             return common_statements[name]
 
         return None
