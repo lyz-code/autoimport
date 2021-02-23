@@ -12,7 +12,7 @@ astor==0.8.1
     # via flake8-simplify
 astpretty==2.1.0
     # via flake8-expression-complexity
-astroid==2.4.2
+astroid==2.5.0
     # via pylint
 asttokens==2.0.4
     # via flake8-aaa
@@ -103,7 +103,7 @@ flake8-pytest-style==1.3.0
     # via -r requirements-dev.in
 flake8-pytest==1.3
     # via -r requirements-dev.in
-flake8-simplify==0.13.0
+flake8-simplify==0.14.0
     # via -r requirements-dev.in
 flake8-typing-imports==1.10.1
     # via -r requirements-dev.in
@@ -148,7 +148,7 @@ htmlmin==0.1.12
     # via
     #   -r docs/requirements.txt
     #   mkdocs-minify-plugin
-identify==1.5.13
+identify==1.5.14
     # via pre-commit
 idna==2.10
     # via
@@ -186,7 +186,7 @@ jsmin==2.2.2
     # via
     #   -r docs/requirements.txt
     #   mkdocs-minify-plugin
-lazy-object-proxy==1.4.3
+lazy-object-proxy==1.5.2
     # via astroid
 livereload==2.6.3
     # via
@@ -233,7 +233,7 @@ mkdocs-material-extensions==1.0.1
     # via
     #   -r docs/requirements.txt
     #   mkdocs-material
-mkdocs-material==6.2.8
+mkdocs-material==7.0.0
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
@@ -305,7 +305,7 @@ pygments==2.8.0
     #   -r docs/requirements.txt
     #   flakehell
     #   mkdocs-material
-pylint==2.6.2
+pylint==2.7.0
     # via -r requirements-dev.in
 pymdown-extensions==8.1.1
     # via
@@ -362,7 +362,6 @@ sh==1.14.1
 six==1.15.0
     # via
     #   -r docs/requirements.txt
-    #   astroid
     #   asttokens
     #   bandit
     #   flake8-debugger
