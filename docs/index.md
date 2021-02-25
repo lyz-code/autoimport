@@ -189,6 +189,13 @@ giants, namely:
 [Yamlfix](https://github.com/lyz-code/yamlfix)
 : YAML fixer.
 
+# Alternatives
+
+If you like the idea but not how we solved the problem, take a look at this
+other solutions:
+
+* [smart-imports](https://github.com/Tiendil/smart-imports)
+
 # Contributing
 
 For guidance on setting up a development environment, and how to make
