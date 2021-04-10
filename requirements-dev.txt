@@ -156,7 +156,7 @@ htmlmin==0.1.12
     # via
     #   -r docs/requirements.txt
     #   mkdocs-minify-plugin
-identify==2.2.2
+identify==2.2.3
     # via pre-commit
 idna==2.10
     # via
@@ -281,7 +281,7 @@ nltk==3.6.1
     # via
     #   -r docs/requirements.txt
     #   lunr
-nodeenv==1.5.0
+nodeenv==1.6.0
     # via pre-commit
 packaging==20.9
     # via
@@ -455,7 +455,7 @@ zipp==3.4.1
 # The following packages are considered to be unsafe in a requirements file:
 pip==21.0.1
     # via pip-tools
-setuptools==54.2.0
+setuptools==56.0.0
     # via
     #   flake8-annotations-complexity
     #   flake8-expression-complexity
