@@ -18,6 +18,7 @@ common_statements: Dict[str, str] = {
     "CliRunner": "from click.testing import CliRunner",
     "copyfile": "from shutil import copyfile",
     "dedent": "from textwrap import dedent",
+    "Enum": "from enum import Enum",
     "Faker": "from faker import Faker",
     "FrozenDateTimeFactory": "from freezegun.api import FrozenDateTimeFactory",
     "LocalPath": "from py._path.local import LocalPath",
