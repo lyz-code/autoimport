@@ -1,24 +1,25 @@
 {
-    "template": "git@github.com:lyz-code/cookiecutter-python-project.git",
-    "commit": "eb843686f193e960289970605612eb9529973fa4",
-    "context": {
-        "cookiecutter": {
-            "project_name": "Autoimport",
-            "project_slug": "autoimport",
-            "project_description": "Autoimport missing python libraries.",
-            "requirements": "autoflake",
-            "configure_command_line": "True",
-            "read_configuration_from_yaml": "True",
-            "github_user": "lyz-code",
-            "github_token_pass_path": "internet/github.lyz-code.api_token",
-            "pypi_token_pass_path": "internet/pypi.token",
-            "test_pypi_token_pass_path": "internet/test.pypi.token",
-            "author": "Lyz",
-            "author_email": "lyz-code-security-advisories@riseup.net",
-            "security_advisories_email": "lyz-code-security-advisories@riseup.net",
-            "project_underscore_slug": "autoimport",
-            "_template": "git@github.com:lyz-code/cookiecutter-python-project.git"
-        }
-    },
-    "directory": null
+  "template": "git@github.com:lyz-code/cookiecutter-python-project.git",
+  "commit": "51d0afe22f5049c0eee3af4e546e794de695844e",
+  "context": {
+    "cookiecutter": {
+      "project_name": "Autoimport",
+      "project_slug": "autoimport",
+      "project_description": "Autoimport missing python libraries.",
+      "requirements": "autoflake",
+      "configure_command_line": "True",
+      "read_configuration_from_yaml": "True",
+      "github_user": "lyz-code",
+      "github_token_pass_path": "internet/github.lyz-code.api_token",
+      "pypi_token_pass_path": "internet/pypi.token",
+      "test_pypi_token_pass_path": "internet/test.pypi.token",
+      "author": "Lyz",
+      "author_email": "lyz-code-security-advisories@riseup.net",
+      "security_advisories_email": "lyz-code-security-advisories@riseup.net",
+      "project_underscore_slug": "autoimport",
+      "_template": "git@github.com:lyz-code/cookiecutter-python-project.git"
+    }
+  },
+  "directory": null,
+  "checkout": null
 }
