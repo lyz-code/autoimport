@@ -1,3 +1,17 @@
+## 0.7.0 (2021-04-23)
+
+### Fix
+
+- install wheel in the build pipeline
+
+### feat
+
+- add a ci job to test that the program is installable
+
+### Perf
+
+- add new Enum import alias
+
 ## 0.6.1 (2021-02-02)
 
 ### Fix
