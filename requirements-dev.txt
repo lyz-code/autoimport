@@ -69,6 +69,8 @@ coverage==5.5
     # via pytest-cov
 distlib==0.3.1
     # via virtualenv
+distro==1.5.0
+    # via ruyaml
 dlint==0.11.0
     # via -r requirements-dev.in
 dparse==0.5.1
@@ -256,6 +258,10 @@ mkdocs-minify-plugin==0.4.0
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
+mkdocs-section-index==0.2.3
+    # via
+    #   -r docs/requirements.in
+    #   -r docs/requirements.txt
 mkdocs==1.1.2
     # via
     #   -r docs/requirements.in
@@ -266,6 +272,7 @@ mkdocs==1.1.2
     #   mkdocs-htmlproofer-plugin
     #   mkdocs-material
     #   mkdocs-minify-plugin
+    #   mkdocs-section-index
     #   mkdocstrings
 mkdocstrings==0.15.0
     # via
@@ -368,9 +375,7 @@ requests==2.25.1
     #   -r docs/requirements.txt
     #   mkdocs-htmlproofer-plugin
     #   safety
-ruamel.yaml.clib==0.2.2
-    # via ruamel.yaml
-ruamel.yaml==0.17.4
+ruyaml==0.20.0
     # via yamlfix
 safety==1.10.3
     # via -r requirements-dev.in
@@ -442,7 +447,7 @@ wheel==0.36.2
     #   astunparse
 wrapt==1.12.1
     # via astroid
-yamlfix==0.4.1
+yamlfix==0.5.0
     # via -r requirements-dev.in
 yamllint==1.26.1
     # via -r requirements-dev.in
@@ -460,5 +465,6 @@ setuptools==56.0.0
     #   flake8-annotations-complexity
     #   flake8-expression-complexity
     #   flake8-variables-names
+    #   ruyaml
     #   safety
     #   yamllint

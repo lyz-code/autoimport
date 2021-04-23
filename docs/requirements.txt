@@ -74,6 +74,8 @@ mkdocs-material==7.1.2
     #   mkdocs-material-extensions
 mkdocs-minify-plugin==0.4.0
     # via -r docs/requirements.in
+mkdocs-section-index==0.2.3
+    # via -r docs/requirements.in
 mkdocs==1.1.2
     # via
     #   -r docs/requirements.in
@@ -83,6 +85,7 @@ mkdocs==1.1.2
     #   mkdocs-htmlproofer-plugin
     #   mkdocs-material
     #   mkdocs-minify-plugin
+    #   mkdocs-section-index
     #   mkdocstrings
 mkdocstrings==0.15.0
     # via -r docs/requirements.in
