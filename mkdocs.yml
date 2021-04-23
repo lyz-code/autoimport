@@ -3,7 +3,7 @@ site_name: Autoimport
 site_author: Lyz
 site_url: https://lyz-code.github.io/autoimport
 nav:
-  - Overview: index.md
+  - Autoimport: index.md
   - Editor integration: editor_integration.md
   - Reference: reference.md
   - Contributing: contributing.md
@@ -24,6 +24,7 @@ plugins:
       fallback_to_build_date: true
   - minify:
       minify_html: true
+  - section-index
 
 markdown_extensions:
   - abbr
@@ -55,17 +56,17 @@ markdown_extensions:
 
 theme:
   name: material
-  custom_dir: 'docs/theme'
+  custom_dir: docs/theme
   # logo: 'images/logo.bmp'
   features:
     - navigation.instant
   palette:
-    primary: 'blue grey'
-    accent: 'light blue'
+    primary: blue grey
+    accent: light blue
 
 extra_css:
-  - 'stylesheets/extra.css'
-  - 'stylesheets/links.css'
+  - stylesheets/extra.css
+  - stylesheets/links.css
 
 repo_name: lyz-code/autoimport
 repo_url: https://github.com/lyz-code/autoimport
