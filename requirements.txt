@@ -12,5 +12,5 @@ pyflakes==2.3.1
     # via autoflake
 pyprojroot==0.2.0
     # via autoimport (setup.py)
-sh==1.14.1
+sh==1.14.2
     # via autoimport (setup.py)
