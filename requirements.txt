@@ -8,7 +8,7 @@ autoflake==1.4
     # via autoimport (setup.py)
 click==8.0.1
     # via autoimport (setup.py)
-importlib-metadata==4.4.0
+importlib-metadata==4.5.0
     # via click
 pyflakes==2.3.1
     # via autoflake
