@@ -239,11 +239,14 @@ class SourceCode:  # noqa: R090
     def _fix_flake_import_errors(self) -> None:
         """Fix python source code to correct missed or unused import statements."""
         error_messages = autoflake.check(self._join_code())
+        fixed_packages = []
 
         for message in error_messages:
             if isinstance(message, (UndefinedName, UndefinedExport)):
                 object_name = message.message_args[0]
-                self._add_package(object_name)
+                if object_name not in fixed_packages:
+                    self._add_package(object_name)
+                    fixed_packages.append(object_name)
             elif isinstance(message, UnusedImport):
                 import_name = message.message_args[0]
                 self._remove_unused_imports(import_name)

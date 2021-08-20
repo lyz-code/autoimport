@@ -801,3 +801,29 @@ def test_fix_respects_leading_comments_with_new_lines() -> None:
     result = fix_code(source)
 
     assert result == desired_source
+
+
+def test_fix_imports_dependency_only_once() -> None:
+    """
+    Given: Code with a line that uses a package three times.
+    When: Fix code is run.
+    Then: The dependency is imported only once
+    """
+    source = dedent(
+        """\
+        def f(x):
+            return os.getcwd() + os.getcwd() + os.getcwd()
+        """
+    )
+    desired_source = dedent(
+        """\
+        import os
+
+        def f(x):
+            return os.getcwd() + os.getcwd() + os.getcwd()
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
