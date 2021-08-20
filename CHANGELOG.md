@@ -1,3 +1,9 @@
+## 0.7.1 (2021-08-20)
+
+### Fix
+
+- prevent autoimport from importing same package many times
+
 ## 0.7.0 (2021-04-23)
 
 ### Fix
