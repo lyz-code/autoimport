@@ -300,7 +300,13 @@ class SourceCode:  # noqa: R090
             import_string: String required to import the package.
         """
         # Find the package name
-        project_package = os.path.basename(here()).replace("-", "_")
+        try:
+            project_package = os.path.basename(here()).replace("-", "_")
+        except RecursionError:  # pragma: no cover
+            # I don't know how to make a test that raises this error :(
+            # To manually reproduce, follow the steps of
+            # https://github.com/lyz-code/autoimport/issues/131
+            return None
         package_objects = extract_package_objects(project_package)
 
         # nocover: as the tests are run inside the autoimport virtualenv, it will
