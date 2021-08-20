@@ -1,3 +1,9 @@
+## 0.7.2 (2021-08-20)
+
+### Fix
+
+- avoid RecursionError when searching for packages inside the project
+
 ## 0.7.1 (2021-08-20)
 
 ### Fix
