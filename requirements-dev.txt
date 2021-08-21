@@ -5,12 +5,14 @@
 #    pip-compile --allow-unsafe --output-file=requirements-dev.txt requirements-dev.in
 #
 appdirs==1.4.4
-    # via black
+    # via
+    #   black
+    #   pylint
 astor==0.8.1
     # via flake8-simplify
 astpretty==2.1.0
     # via flake8-expression-complexity
-astroid==2.6.6
+astroid==2.7.2
     # via pylint
 asttokens==2.0.5
     # via flake8-aaa
@@ -329,7 +331,7 @@ pygments==2.10.0
     #   -r docs/requirements.txt
     #   flakehell
     #   mkdocs-material
-pylint==2.9.6
+pylint==2.10.1
     # via -r requirements-dev.in
 pymdown-extensions==8.2
     # via
