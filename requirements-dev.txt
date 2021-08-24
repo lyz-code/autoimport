@@ -454,7 +454,7 @@ urllib3==1.26.6
     #   requests
 virtualenv==20.7.2
     # via pre-commit
-watchdog==2.1.4
+watchdog==2.1.5
     # via
     #   -r docs/requirements.txt
     #   mkdocs
@@ -465,7 +465,7 @@ wheel==0.37.0
     #   pip-tools
 wrapt==1.12.1
     # via astroid
-yamlfix==0.6.0
+yamlfix==0.7.0
     # via -r requirements-dev.in
 yamllint==1.26.3
     # via -r requirements-dev.in
