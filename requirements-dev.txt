@@ -255,7 +255,7 @@ mkdocs-htmlproofer-plugin==0.6.0
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
-mkdocs-material==7.2.4
+mkdocs-material==7.2.5
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
@@ -465,7 +465,7 @@ wheel==0.37.0
     #   pip-tools
 wrapt==1.12.1
     # via astroid
-yamlfix==0.7.0
+yamlfix==0.7.1
     # via -r requirements-dev.in
 yamllint==1.26.3
     # via -r requirements-dev.in
