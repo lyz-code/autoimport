@@ -15,9 +15,7 @@ astroid==2.7.2
 asttokens==2.0.5
     # via flake8-aaa
 astunparse==1.6.3
-    # via
-    #   -r docs/requirements.txt
-    #   pytkdocs
+    # via -r docs/requirements.txt
 attrs==21.2.0
     # via
     #   flake8-bugbear
@@ -40,9 +38,7 @@ beautifulsoup4==4.9.3
 black==21.7b0
     # via -r requirements-dev.in
 cached-property==1.5.2
-    # via
-    #   -r docs/requirements.txt
-    #   pytkdocs
+    # via -r docs/requirements.txt
 certifi==2021.5.30
     # via
     #   -r docs/requirements.txt
@@ -170,19 +166,7 @@ importlib-metadata==4.7.1
     # via
     #   -r docs/requirements.txt
     #   -r requirements.txt
-    #   click
-    #   flake8
-    #   flake8-comprehensions
-    #   flake8-simplify
-    #   flake8-typing-imports
-    #   markdown
     #   mkdocs
-    #   pep517
-    #   pluggy
-    #   pre-commit
-    #   pytest
-    #   stevedore
-    #   virtualenv
 iniconfig==1.1.1
     # via pytest
 isort==5.9.3
@@ -309,7 +293,7 @@ platformdirs==2.2.0
     #   virtualenv
 pluggy==0.13.1
     # via pytest
-pre-commit==2.14.0
+pre-commit==2.14.1
     # via -r requirements-dev.in
 py==1.10.0
     # via
@@ -431,22 +415,11 @@ tomli==1.2.1
     # via
     #   black
     #   pep517
-typed-ast==1.4.3
-    # via
-    #   astroid
-    #   black
-    #   flake8-annotations
-    #   mypy
 typing-extensions==3.10.0.0
     # via
     #   -r docs/requirements.txt
     #   -r requirements.txt
-    #   astroid
-    #   black
-    #   gitpython
-    #   importlib-metadata
     #   mypy
-    #   pytkdocs
 urllib3==1.26.6
     # via
     #   -r docs/requirements.txt
@@ -474,7 +447,6 @@ zipp==3.5.0
     #   -r docs/requirements.txt
     #   -r requirements.txt
     #   importlib-metadata
-    #   pep517
 
 # The following packages are considered to be unsafe in a requirements file:
 pip==21.2.4
