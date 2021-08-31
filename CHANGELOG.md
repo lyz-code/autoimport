@@ -1,3 +1,9 @@
+## 0.7.3 (2021-08-31)
+
+### Fix
+
+- let autoimport handle empty files
+
 ## 0.7.2 (2021-08-20)
 
 ### Fix
