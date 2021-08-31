@@ -151,7 +151,9 @@ class SourceCode:  # noqa: R090
         """
         typing_start_line = len(self.header) + len(self.imports)
 
-        if re.match(r"^if TYPE_CHECKING:$", source_lines[typing_start_line]):
+        if len(source_lines) > 0 and re.match(
+            r"^if TYPE_CHECKING:$", source_lines[typing_start_line]
+        ):
             self.typing.append(source_lines[typing_start_line])
             typing_start_line += 1
             for line in source_lines[typing_start_line:]:

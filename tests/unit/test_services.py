@@ -827,3 +827,16 @@ def test_fix_imports_dependency_only_once() -> None:
     result = fix_code(source)
 
     assert result == desired_source
+
+
+def test_fix_doesnt_fail_on_empty_file() -> None:
+    """
+    Given: An empty file
+    When: Fix code is run.
+    Then: The output doesn't change
+    """
+    source = ""
+
+    result = fix_code(source)
+
+    assert result == source
