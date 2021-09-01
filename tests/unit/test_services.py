@@ -840,3 +840,44 @@ def test_fix_doesnt_fail_on_empty_file() -> None:
     result = fix_code(source)
 
     assert result == source
+
+
+def test_file_that_only_has_unused_imports() -> None:
+    """
+    Given: A file that only has unused imports.
+    When: Fix code is run.
+    Then: The output should be a single empty line.
+    """
+    source = dedent(
+        """\
+        import os
+        import sys
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == "\n"
+
+
+def test_file_that_only_has_unused_imports_with_no_qa() -> None:
+    """
+    Given: A file that has unused imports, but one marked with noqa.
+    When: Fix code is run.
+    Then: The output should be only the import marked with noqa.
+    """
+    source = dedent(
+        """\
+        import os  # noqa: F401
+        import sys
+        """
+    )
+    desired_source = dedent(
+        """\
+        import os  # noqa: F401
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
