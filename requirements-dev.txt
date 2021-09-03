@@ -308,7 +308,7 @@ platformdirs==2.3.0
     #   virtualenv
 pluggy==1.0.0
     # via pytest
-pre-commit==2.14.1
+pre-commit==2.15.0
     # via -r requirements-dev.in
 py==1.10.0
     # via
@@ -464,7 +464,7 @@ wheel==0.37.0
     #   pip-tools
 wrapt==1.12.1
     # via astroid
-yamlfix==0.7.1
+yamlfix==0.7.2
     # via -r requirements-dev.in
 yamllint==1.26.3
     # via -r requirements-dev.in
