@@ -450,7 +450,7 @@ typing-extensions==3.10.0.2
     #   mypy
     #   pylint
     #   pytkdocs
-urllib3==1.26.6
+urllib3==1.26.7
     # via
     #   -r docs/requirements.txt
     #   flakehell
