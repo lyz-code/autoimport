@@ -257,7 +257,7 @@ mkdocs-htmlproofer-plugin==0.7.0
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
-mkdocs-material==7.2.8
+mkdocs-material==7.3.0
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
@@ -273,7 +273,7 @@ mkdocs-section-index==0.3.1
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
-mkdocstrings==0.16.0
+mkdocstrings==0.16.1
     # via
     #   -r docs/requirements.in
     #   -r docs/requirements.txt
