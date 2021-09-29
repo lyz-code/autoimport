@@ -18,5 +18,5 @@ sh==1.14.2
     # via autoimport (setup.py)
 typing-extensions==3.10.0.2
     # via importlib-metadata
-zipp==3.5.0
+zipp==3.5.1
     # via importlib-metadata
