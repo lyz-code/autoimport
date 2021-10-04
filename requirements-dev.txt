@@ -13,9 +13,7 @@ astroid==2.8.0
 asttokens==2.0.5
     # via flake8-aaa
 astunparse==1.6.3
-    # via
-    #   -r docs/requirements.txt
-    #   pytkdocs
+    # via -r docs/requirements.txt
 attrs==21.2.0
     # via
     #   flake8-bugbear
@@ -38,9 +36,7 @@ beautifulsoup4==4.10.0
 black==21.9b0
     # via -r requirements-dev.in
 cached-property==1.5.2
-    # via
-    #   -r docs/requirements.txt
-    #   pytkdocs
+    # via -r docs/requirements.txt
 certifi==2021.5.30
     # via
     #   -r docs/requirements.txt
@@ -62,7 +58,7 @@ click==8.0.1
     #   yamlfix
 colorama==0.4.4
     # via flakehell
-coverage==5.5
+coverage[toml]==5.5
     # via pytest-cov
 distlib==0.3.3
     # via virtualenv
@@ -168,19 +164,7 @@ importlib-metadata==4.8.1
     # via
     #   -r docs/requirements.txt
     #   -r requirements.txt
-    #   click
-    #   flake8
-    #   flake8-comprehensions
-    #   flake8-simplify
-    #   flake8-typing-imports
-    #   markdown
     #   mkdocs
-    #   pep517
-    #   pluggy
-    #   pre-commit
-    #   pytest
-    #   stevedore
-    #   virtualenv
 iniconfig==1.1.1
     # via pytest
 isort==5.9.3
@@ -353,7 +337,7 @@ pytest==6.2.5
     #   pytest-forked
     #   pytest-pythonpath
     #   pytest-xdist
-pytest-cov==2.12.1
+pytest-cov==3.0.0
     # via -r requirements-dev.in
 pytest-forked==1.3.0
     # via pytest-xdist
@@ -422,23 +406,17 @@ stevedore==3.4.0
     # via bandit
 toml==0.10.2
     # via
+    #   coverage
     #   dparse
     #   flakehell
     #   mypy
     #   pre-commit
     #   pylint
     #   pytest
-    #   pytest-cov
 tomli==1.2.1
     # via
     #   black
     #   pep517
-typed-ast==1.4.3
-    # via
-    #   astroid
-    #   black
-    #   flake8-annotations
-    #   mypy
 typing-extensions==3.10.0.2
     # via
     #   -r docs/requirements.txt
@@ -446,10 +424,8 @@ typing-extensions==3.10.0.2
     #   astroid
     #   black
     #   gitpython
-    #   importlib-metadata
     #   mypy
     #   pylint
-    #   pytkdocs
 urllib3==1.26.7
     # via
     #   -r docs/requirements.txt
@@ -477,7 +453,6 @@ zipp==3.6.0
     #   -r docs/requirements.txt
     #   -r requirements.txt
     #   importlib-metadata
-    #   pep517
 
 # The following packages are considered to be unsafe in a requirements file:
 pip==21.2.4
