@@ -1,4 +1,4 @@
--r requirements.txt
+-c requirements.txt
 
 mkdocs
 mkdocs-git-revision-date-localized-plugin

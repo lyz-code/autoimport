@@ -1,5 +1,5 @@
--r requirements.txt
--r docs/requirements.in
+-c requirements.txt
+-c docs/requirements.in
 
 # Testing
 pytest
