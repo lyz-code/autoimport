@@ -4,8 +4,8 @@ black = black --exclude assets --target-version py37 src docs/examples tests set
 
 .PHONY: install
 install:
-	python -m pip install -U setuptools pip
-	pip install -r requirements-dev.txt
+	python -m pip install -U setuptools pip pip-tools
+	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
 	pip install -e .
 	pre-commit install
 
@@ -14,6 +14,9 @@ update:
 	@echo "-------------------------"
 	@echo "- Updating dependencies -"
 	@echo "-------------------------"
+
+  # Sync your virtualenv with the expected state
+	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
 
 	pip install -U pip
 
@@ -29,7 +32,10 @@ update:
 	touch requirements-dev.txt
 	pip-compile -Ur --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
 
-	pip install -r requirements-dev.txt
+  # Sync your virtualenv with the new state
+	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
+
+  pip install -e .
 
 	@echo ""
 
