@@ -9,7 +9,7 @@ repos:
       - id: check-merge-conflict
       - id: end-of-file-fixer
   - repo: https://github.com/ambv/black
-    rev: master
+    rev: 21.9b0
     hooks:
       - id: black
         language_version: python3.7
@@ -20,9 +20,9 @@ repos:
         id: mypy
         args: [--no-warn-unused-ignores, --ignore-missing-imports]
         files: src
-  - repo: https://github.com/life4/flakehell/
-    rev: master
-    hooks:
-      - name: Run flakehell static analysis tool
-        id: flakehell
-        exclude: index.md
+  # - repo: https://github.com/flakehell/flakehell/
+  #   rev: v.0.8.0
+  #   hooks:
+  #     - name: Run flakehell static analysis tool
+  #       id: flakehell
+  #       exclude: index.md
