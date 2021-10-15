@@ -35,7 +35,7 @@ update:
   # Sync your virtualenv with the new state
 	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
 
-  pip install -e .
+	pip install -e .
 
 	@echo ""
 
