@@ -840,3 +840,21 @@ def test_fix_doesnt_fail_on_empty_file() -> None:
     result = fix_code(source)
 
     assert result == source
+
+
+def test_file_that_only_has_unused_imports() -> None:
+    """
+    Given: A file that only has unused imports.
+    When: Fix code is run.
+    Then: The output should be a single empty line.
+    """
+    source = dedent(
+        """\
+        import os
+        import sys
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == "\n"
