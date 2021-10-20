@@ -289,6 +289,8 @@ typed-ast==1.4.3
     #   black
     #   flake8-annotations
     #   mypy
+types-toml==0.10.1
+    # via -r requirements-dev.in
 typing-extensions==3.10.0.2
     # via
     #   -c docs/requirements.txt
