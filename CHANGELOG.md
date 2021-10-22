@@ -1,3 +1,9 @@
+## 0.7.5 (2021-10-22)
+
+### Fix
+
+- ignore unused import statements with noqa autoimport line
+
 ## 0.7.4 (2021-10-15)
 
 ### Fix
