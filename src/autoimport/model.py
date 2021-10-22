@@ -381,6 +381,10 @@ class SourceCode:  # noqa: R090
         object_name = import_name.split(".")[-1]
 
         for line in self.imports:
+            # Ignore the lines containing # noqa: autoimport
+            if re.match(r".*?# ?noqa:.*?autoimport.*", line):
+                continue
+
             # If it's the only line, remove it
             if re.match(fr"(from {package_name} )?import {object_name}$", line):
                 self.imports.remove(line)
