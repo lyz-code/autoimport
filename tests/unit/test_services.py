@@ -491,6 +491,18 @@ def test_fix_doesnt_move_import_statements_with_noqa_to_the_top() -> None:
     assert result == source
 
 
+def test_fix_doesnt_fail_on_noqa_lines_on_unused_import() -> None:
+    """Ignore lines that have # noqa: autoimport."""
+    source = dedent(
+        """\
+        from os import getcwd # noqa: autoimport"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
+
+
 def test_fix_respects_noqa_in_from_import_lines_in_multiple_lines() -> None:
     """
     Given: Multiple from X import Y lines, some with multiline format with noqa
