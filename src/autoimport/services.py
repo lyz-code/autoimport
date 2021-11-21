@@ -4,7 +4,7 @@ Classes and functions that connect the different domain model objects with the a
 and handlers to achieve the program's purpose.
 """
 
-from typing import Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 from _io import TextIOWrapper
 
@@ -49,7 +49,7 @@ def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
     return None
 
 
-def fix_code(original_source_code: str) -> str:
+def fix_code(original_source_code: str, config: Optional[Dict[str, Any]] = None) -> str:
     """Fix python source code to correct import statements.
 
     It corrects these errors:
@@ -64,4 +64,4 @@ def fix_code(original_source_code: str) -> str:
     Returns:
         Corrected source code.
     """
-    return SourceCode(original_source_code).fix()
+    return SourceCode(original_source_code, config=config).fix()

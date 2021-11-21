@@ -4,7 +4,7 @@ import importlib.util
 import inspect
 import os
 import re
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
@@ -37,12 +37,15 @@ common_statements: Dict[str, str] = {
 class SourceCode:  # noqa: R090
     """Python source code entity."""
 
-    def __init__(self, source_code: str) -> None:
+    def __init__(
+        self, source_code: str, config: Optional[Dict[str, Any]] = None
+    ) -> None:
         """Initialize the object."""
         self.header: List[str] = []
         self.imports: List[str] = []
         self.typing: List[str] = []
         self.code: List[str] = []
+        self.config: Dict[str, Any] = config if config else {}
         self._trailing_newline = False
         self._split_code(source_code)
 
@@ -356,8 +359,7 @@ class SourceCode:  # noqa: R090
         except KeyError:
             return None
 
-    @staticmethod
-    def _find_package_in_common_statements(name: str) -> Optional[str]:
+    def _find_package_in_common_statements(self, name: str) -> Optional[str]:
         """Search in the common statements the object name.
 
         Args:
@@ -366,8 +368,13 @@ class SourceCode:  # noqa: R090
         Returns:
             import_string
         """
-        if name in common_statements:
-            return common_statements[name]
+        if "common_statements" in self.config:
+            local_common_statements = self.config["common_statements"]
+        else:
+            local_common_statements = common_statements
+
+        if name in local_common_statements:
+            return local_common_statements[name]
 
         return None
 
