@@ -11,7 +11,7 @@ from _io import TextIOWrapper
 from autoimport.model import SourceCode
 
 
-def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
+def fix_files(files: Tuple[TextIOWrapper], config: Dict[str, Any]) -> Optional[str]:
     """Fix the python source code of a list of files.
 
     If the input is taken from stdin, it will output the value to stdout.
@@ -24,7 +24,7 @@ def fix_files(files: Tuple[TextIOWrapper]) -> Optional[str]:
     """
     for file_wrapper in files:
         source = file_wrapper.read()
-        fixed_source = fix_code(source)
+        fixed_source = fix_code(source, config)
 
         try:
             # Click testing runner doesn't simulate correctly the reading from stdin

@@ -4,6 +4,7 @@ import logging
 from typing import Tuple
 
 import click
+from maison.config import ProjectConfig
 
 from autoimport import services, version
 
@@ -15,8 +16,9 @@ log = logging.getLogger(__name__)
 @click.argument("files", type=click.File("r+"), nargs=-1)
 def cli(files: Tuple[str]) -> None:
     """Corrects the source code of the specified files."""
+    config = ProjectConfig(project_name="autoimport").to_dict()
     try:
-        fixed_code = services.fix_files(files)
+        fixed_code = services.fix_files(files, config)
     except FileNotFoundError as error:
         log.error(error)
 
