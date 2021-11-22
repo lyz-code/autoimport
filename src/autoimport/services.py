@@ -11,7 +11,9 @@ from _io import TextIOWrapper
 from autoimport.model import SourceCode
 
 
-def fix_files(files: Tuple[TextIOWrapper], config: Dict[str, Any]) -> Optional[str]:
+def fix_files(
+    files: Tuple[TextIOWrapper], config: Optional[Dict[str, Any]] = None
+) -> Optional[str]:
     """Fix the python source code of a list of files.
 
     If the input is taken from stdin, it will output the value to stdout.
