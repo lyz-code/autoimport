@@ -368,10 +368,9 @@ class SourceCode:  # noqa: R090
         Returns:
             import_string
         """
+        local_common_statements = common_statements.copy()
         if "common_statements" in self.config:
-            local_common_statements = self.config["common_statements"]
-        else:
-            local_common_statements = common_statements
+            local_common_statements.update(self.config["common_statements"])
 
         if name in local_common_statements:
             return local_common_statements[name]
