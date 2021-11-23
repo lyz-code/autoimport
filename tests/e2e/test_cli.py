@@ -82,3 +82,31 @@ def test_corrects_code_from_stdin(runner: CliRunner) -> None:
 
     assert result.exit_code == 0
     assert result.stdout == fixed_source
+
+
+def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> None:
+    """Allow common_statements to be defined in pyproject.toml"""
+    pyproject_toml = tmpdir.join("pyproject.toml")  # type: ignore
+    pyproject_toml.write(
+        dedent(
+            """\
+            [tool.autoimport]
+            common_statements = { "FooBar" = "from baz_qux import FooBar" }
+            """
+        )
+    )
+    test_file = tmpdir.join("source.py")  # type: ignore
+    test_file.write("FooBar\n")
+    fixed_source = dedent(
+        """\
+        from baz_qux import FooBar
+
+        FooBar
+        """
+    )
+    with tmpdir.as_cwd():
+
+        result = runner.invoke(cli, [str(test_file)])
+
+    assert result.exit_code == 0
+    assert test_file.read() == fixed_source

@@ -870,3 +870,55 @@ def test_file_that_only_has_unused_imports() -> None:
     result = fix_code(source)
 
     assert result == "\n"
+
+
+def test_file_with_common_statement() -> None:
+    """
+    Given: Code with a commonly-used object.
+    When: Fix code is run.
+    Then: The appropriate import statement from the common_statements dict is added.
+    """
+    source = dedent(
+        """\
+        BeautifulSoup
+        """
+    )
+    desired_source = dedent(
+        """\
+        from bs4 import BeautifulSoup
+
+        BeautifulSoup
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
+
+
+def test_file_with_custom_common_statement() -> None:
+    """
+    Given: Code that uses an undefined object called `FooBar`.
+    When:
+        Fix code is run and a `config` dict is passed specifying `FooBar` as a common
+        statement.
+    Then:
+        The appropriate import statement from the common_statements dict is added.
+    """
+    source = dedent(
+        """\
+        FooBar
+        """
+    )
+    custom_config = {"common_statements": {"FooBar": "from baz_qux import FooBar"}}
+    desired_source = dedent(
+        """\
+        from baz_qux import FooBar
+
+        FooBar
+        """
+    )
+
+    result = fix_code(source, config=custom_config)
+
+    assert result == desired_source

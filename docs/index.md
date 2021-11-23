@@ -140,6 +140,23 @@ from os import getcwd # noqa: autoimport
 getcwd()
 ```
 
+
+# Configuration
+
+`autoimport` uses the `maison` library to discover and read your project-local
+`pyproject.toml` file (if it exists). This file can be used to configure
+`autoimport`'s behavior: the `tool.autoimport.common_statements` table in that
+file can be used to define a custom set of "common statements", overriding the
+default set of common statements mentioned above. For example:
+
+```toml
+# pyproject.toml
+
+[tool.autoimport.common_statements]
+"np" = "import numpy as np"
+"FooBar" = "from baz_qux import FooBar"
+```
+
 # References
 
 As most open sourced programs, `autoimport` is standing on the shoulders of
