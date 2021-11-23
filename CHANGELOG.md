@@ -1,3 +1,9 @@
+## 0.8.0 (2021-11-23)
+
+### Feat
+
+- extend common statements
+
 ## 0.7.5 (2021-10-22)
 
 ### Fix
