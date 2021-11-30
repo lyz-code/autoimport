@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://lyz-code.github.io/autoimport/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lyz-code.github.io/autoimport/contributing/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lyz-code.github.io/autoimport/editor_integration/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lyz-code.github.io/autoimport/reference/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lyz-code.github.io/autoimport/adr/001-high_level_problem_analysis/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lyz-code.github.io/autoimport/adr/002-initial_program_design/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://lyz-code.github.io/autoimport/adr/adr/</loc>
-         <lastmod>2021-11-23</lastmod>
+         <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
