@@ -1,3 +1,9 @@
+## 0.9.1 (2021-11-30)
+
+### Fix
+
+- support the removal of from x import y as z statements
+
 ## 0.9.0 (2021-11-30)
 
 ### Feat
