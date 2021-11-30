@@ -17,6 +17,7 @@ common_statements: Dict[str, str] = {
     "CaptureFixture": "from _pytest.capture import CaptureFixture",
     "CliRunner": "from click.testing import CliRunner",
     "copyfile": "from shutil import copyfile",
+    "datetime": "from datetime import datetime",
     "dedent": "from textwrap import dedent",
     "Enum": "from enum import Enum",
     "Faker": "from faker import Faker",
@@ -24,6 +25,7 @@ common_statements: Dict[str, str] = {
     "LocalPath": "from py._path.local import LocalPath",
     "LogCaptureFixture": "from _pytest.logging import LogCaptureFixture",
     "Mock": "from unittest.mock import Mock",
+    "ModelFactory": "from pydantic_factories import ModelFactory",
     "patch": "from unittest.mock import patch",
     "StringIO": "from io import StringIO",
     "suppress": "from contextlib import suppress",
@@ -284,9 +286,9 @@ class SourceCode:  # noqa: R090
             import_string: String required to import the package.
         """
         for check in [
+            "_find_package_in_common_statements",
             "_find_package_in_modules",
             "_find_package_in_typing",
-            "_find_package_in_common_statements",
             "_find_package_in_our_project",
         ]:
             package = getattr(self, check)(name)
@@ -381,7 +383,7 @@ class SourceCode:  # noqa: R090
         """Remove unused import statements.
 
         Args:
-            import_name: Name of the imported object.
+            import_name: Name of the imported object to remove.
         """
         package_name = ".".join(import_name.split(".")[:-1])
         object_name = import_name.split(".")[-1]
@@ -392,7 +394,7 @@ class SourceCode:  # noqa: R090
                 continue
 
             # If it's the only line, remove it
-            if re.match(fr"(from {package_name} )?import {object_name}$", line):
+            if re.match(fr"(from {package_name} )?import {object_name}( *#.*)?$", line):
                 self.imports.remove(line)
                 return
             # If it shares the line with other objects, just remove the unused one.

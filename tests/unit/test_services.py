@@ -922,3 +922,57 @@ def test_file_with_custom_common_statement() -> None:
     result = fix_code(source, config=custom_config)
 
     assert result == desired_source
+
+
+def test_file_with_comment_in_import() -> None:
+    """
+    Given: Code with a comment on two import statements
+    When: Fix code is run.
+    Then: The unused import line is removed with it's comment
+    """
+    source = dedent(
+        """\
+        import os  # comment 1
+        import sys  # comment 2
+
+        os.getcwd()
+        """
+    )
+    desired_source = dedent(
+        """\
+        import os  # comment 1
+
+        os.getcwd()
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
+
+
+def test_file_with_comment_in_from_import() -> None:
+    """
+    Given: Code with a comment on two import statements
+    When: Fix code is run.
+    Then: The unused import line is removed with it's comment
+    """
+    source = dedent(
+        """\
+        import os  # comment 1
+        from textwrap import dedent # comment 2
+
+        os.getcwd()
+        """
+    )
+    desired_source = dedent(
+        """\
+        import os  # comment 1
+
+        os.getcwd()
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
