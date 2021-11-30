@@ -286,9 +286,9 @@ class SourceCode:  # noqa: R090
             import_string: String required to import the package.
         """
         for check in [
+            "_find_package_in_common_statements",
             "_find_package_in_modules",
             "_find_package_in_typing",
-            "_find_package_in_common_statements",
             "_find_package_in_our_project",
         ]:
             package = getattr(self, check)(name)
