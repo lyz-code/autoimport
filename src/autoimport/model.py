@@ -394,7 +394,10 @@ class SourceCode:  # noqa: R090
                 continue
 
             # If it's the only line, remove it
-            if re.match(fr"(from {package_name} )?import {object_name}( *#.*)?$", line):
+            if re.match(
+                fr"(from {package_name} )?import {object_name}( *as [a-z]+)?( *#.*)?$",
+                line,
+            ):
                 self.imports.remove(line)
                 return
             # If it shares the line with other objects, just remove the unused one.

@@ -976,3 +976,20 @@ def test_file_with_comment_in_from_import() -> None:
     result = fix_code(source)
 
     assert result == desired_source
+
+
+def test_file_with_import_as() -> None:
+    """
+    Given: Code with an from x import y as z import statement
+    When: Fix code is run.
+    Then: The unused import line is removed
+    """
+    source = dedent(
+        """\
+        from subprocess import run as run
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == "\n"
