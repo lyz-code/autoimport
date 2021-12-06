@@ -495,7 +495,7 @@ def test_fix_doesnt_fail_on_noqa_lines_on_unused_import() -> None:
     """Ignore lines that have # noqa: autoimport."""
     source = dedent(
         """\
-        from os import getcwd # noqa: autoimport"""
+        from os import getcwd  # noqa: autoimport"""
     )
 
     result = fix_code(source)

@@ -1,10 +1,12 @@
 """Define the entities."""
 
+import ast
+import functools
 import importlib.util
 import inspect
 import os
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Sequence
 
 import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
@@ -290,11 +292,54 @@ class SourceCode:  # noqa: R090
             "_find_package_in_modules",
             "_find_package_in_typing",
             "_find_package_in_our_project",
+            "_find_package_in_configs",
         ]:
             package = getattr(self, check)(name)
             if package is not None:
                 return package
         return None
+
+    @staticmethod
+    @functools.lru_cache
+    def _load_config_imports(
+        config_paths: Sequence[str] = ("~/.autoimport_ns.py", "./.autoimport_ns.py"),
+    ) -> Dict[str, str]:
+        ns: Dict[str, str] = {}
+
+        for config_path in config_paths:
+            config_path = os.path.expanduser(config_path)
+            try:
+                with open(config_path) as fobj:
+                    config_code = fobj.read()
+            except FileNotFoundError:
+                continue
+
+            # An alternative approach would be to `exec(config_code, ns)`,
+            # which would be able to support `if`s and other dynamicity, but
+            # would not be able to support anything but classes/functions.
+            statements = ast.parse(config_code).body
+            for stmt in statements:
+                if isinstance(stmt, ast.Import):
+                    for imp in stmt.names:
+                        if imp.asname:
+                            ns[imp.asname] = f"import {imp.name} as {imp.asname}"
+                        else:
+                            ns[imp.name] = f"import {imp.name}"
+                elif isinstance(stmt, ast.ImportFrom):
+                    for imp in stmt.names:
+                        if imp.asname:
+                            ns[
+                                imp.asname
+                            ] = f"from {stmt.module} import {imp.name} as {imp.asname}"
+                        else:
+                            ns[imp.name] = f"from {stmt.module} import {imp.name}"
+
+        return ns
+
+    @classmethod
+    def _find_package_in_configs(cls, name: str) -> Optional[str]:
+        ns = cls._load_config_imports()
+        return ns.get(name)
 
     @staticmethod
     def _find_package_in_our_project(name: str) -> Optional[str]:
