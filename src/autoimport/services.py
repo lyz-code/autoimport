@@ -12,7 +12,7 @@ from autoimport.model import SourceCode
 
 
 def fix_files(
-    files: Tuple[TextIOWrapper], config: Optional[Dict[str, Any]] = None
+    files: Tuple[TextIOWrapper, ...], config: Optional[Dict[str, Any]] = None
 ) -> Optional[str]:
     """Fix the python source code of a list of files.
 

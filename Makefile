@@ -9,6 +9,11 @@ install:
 	pip install -e .
 	pre-commit install
 
+# An environment setup that requires linux+docker and does not require the particular python version to be available.
+.PHONY: install-docker
+install-docker:
+	docker run --rm -it -v "$(pwd):/code" --user "$(id -u)" --workdir /code -e HOME=/code python:3.7 bash -c "rm -rf env && python3.7 -m venv env && . ./env/bin/activate && make install && bash"
+
 .PHONY: update
 update:
 	@echo "-------------------------"
