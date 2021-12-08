@@ -31,7 +31,7 @@ def test_version(runner: CliRunner) -> None:
 
 def test_corrects_one_file(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Correct the source code of a file."""
-    test_file = tmpdir.join("source.py")  # type: ignore
+    test_file = tmpdir / "source.py"
     test_file.write("os.getcwd()")
     fixed_source = dedent(
         """\
@@ -51,7 +51,7 @@ def test_corrects_three_files(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Correct the source code of multiple files."""
     test_files = []
     for file_number in range(3):
-        test_file = tmpdir.join(f"source_{file_number}.py")  # type: ignore
+        test_file = tmpdir / f"source_{file_number}.py"
         test_file.write("os.getcwd()")
         test_files.append(test_file)
     fixed_source = dedent(
@@ -84,29 +84,44 @@ def test_corrects_code_from_stdin(runner: CliRunner) -> None:
     assert result.stdout == fixed_source
 
 
+PYPROJECT_CONFIG = """
+[tool.autoimport]
+common_statements = { "FooBar" = "from baz.qux import FooBar" }
+"""
+PYPROJECT_CONFIG_TEST_SOURCE = "FooBar\n"
+PYPROJECT_CONFIG_FIXED_SOURCE = """\
+from baz.qux import FooBar
+
+FooBar
+"""
+
+
 def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Allow common_statements to be defined in pyproject.toml"""
-    pyproject_toml = tmpdir.join("pyproject.toml")  # type: ignore
-    pyproject_toml.write(
-        dedent(
-            """\
-            [tool.autoimport]
-            common_statements = { "FooBar" = "from baz_qux import FooBar" }
-            """
-        )
-    )
-    test_file = tmpdir.join("source.py")  # type: ignore
-    test_file.write("FooBar\n")
-    fixed_source = dedent(
-        """\
-        from baz_qux import FooBar
-
-        FooBar
-        """
-    )
+    pyproject_toml = tmpdir / "pyproject.toml"
+    pyproject_toml.write(PYPROJECT_CONFIG)
+    test_file = tmpdir / "source.py"
+    test_file.write(PYPROJECT_CONFIG_TEST_SOURCE)
     with tmpdir.as_cwd():
 
         result = runner.invoke(cli, [str(test_file)])
 
     assert result.exit_code == 0
-    assert test_file.read() == fixed_source
+    assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE
+
+
+def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
+    """Allow common_statements to be defined in pyproject.toml"""
+    cfg_dir = tmpdir / "cfg"
+    cfg_dir.mkdir()
+    pyproject_toml = cfg_dir / "pyproject.toml"
+    pyproject_toml.write(PYPROJECT_CONFIG)
+    code_dir = tmpdir / "code"
+    code_dir.mkdir()
+    test_file = code_dir / "source.py"
+    test_file.write(PYPROJECT_CONFIG_TEST_SOURCE)
+
+    result = runner.invoke(cli, ["--config-file", str(pyproject_toml), str(test_file)])
+
+    assert result.exit_code == 0
+    assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE

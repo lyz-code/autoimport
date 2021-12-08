@@ -157,6 +157,13 @@ default set of common statements mentioned above. For example:
 "FooBar" = "from baz_qux import FooBar"
 ```
 
+It is also possible to specify a different path for this config file:
+
+```bash
+$: autoimport --config-file ~/.autoimport.toml file.py
+```
+
+
 # References
 
 As most open sourced programs, `autoimport` is standing on the shoulders of
