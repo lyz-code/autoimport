@@ -11,6 +11,8 @@ from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
 from pyprojroot import here
 
 common_statements: Dict[str, str] = {
+    "ABC": "from abc import ABC",
+    "abstractmethod": "from abc import abstractmethod",
     "BaseModel": "from pydantic import BaseModel  # noqa: E0611",
     "BeautifulSoup": "from bs4 import BeautifulSoup",
     "call": "from unittest.mock import call",
@@ -26,6 +28,7 @@ common_statements: Dict[str, str] = {
     "LogCaptureFixture": "from _pytest.logging import LogCaptureFixture",
     "Mock": "from unittest.mock import Mock",
     "ModelFactory": "from pydantic_factories import ModelFactory",
+    "Path": "from pathlib import Path",
     "patch": "from unittest.mock import patch",
     "StringIO": "from io import StringIO",
     "suppress": "from contextlib import suppress",
