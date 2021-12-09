@@ -52,6 +52,8 @@ class SourceCode:  # noqa: R090
         self.code: List[str] = []
         self.config: Dict[str, Any] = config if config else {}
         self._trailing_newline = False
+        self._affect_indented_imports = self.config.get("affect_indented_imports", True)
+        self._import_line_re_prefix = r"^\s*" if self._affect_indented_imports else r"^"
         self._split_code(source_code)
 
     def fix(self) -> str:
@@ -133,7 +135,10 @@ class SourceCode:  # noqa: R090
             if re.match(r"^(try|except.*):$", line):
                 try_line = line
             elif (
-                re.match(r"^\s*(from .*)?import.[^\'\"]*$", line)
+                re.match(
+                    self._import_line_re_prefix + r"(from .*)?import.[^\'\"]*$",
+                    line,
+                )
                 or line == ""
                 or multiline_import
             ):
@@ -225,7 +230,10 @@ class SourceCode:  # noqa: R090
             if (
                 "=" not in line
                 and not multiline_string
-                and re.match(r"^\s*(?:from .*)?import .[^\'\"]*$", line)
+                and re.match(
+                    self._import_line_re_prefix + r"(?:from .*)?import .[^\'\"]*$",
+                    line,
+                )
             ) or multiline_import:
                 # Ignore the lines containing # noqa: autoimport
                 if re.match(r".*?# ?noqa:.*?autoimport.*", line):

@@ -10,6 +10,9 @@ from py._path.local import LocalPath
 from autoimport.entrypoints.cli import cli
 from autoimport.version import __version__
 
+# When invoking the CLI for tests, ignore the config outside the repository.
+COMMON_OPTIONS = ["--no-global-config"]
+
 
 @pytest.fixture(name="runner")
 def fixture_runner() -> CliRunner:
@@ -19,7 +22,7 @@ def fixture_runner() -> CliRunner:
 
 def test_version(runner: CliRunner) -> None:
     """Prints program version when called with --version."""
-    result = runner.invoke(cli, ["--version"])
+    result = runner.invoke(cli, COMMON_OPTIONS + ["--version"])
 
     assert result.exit_code == 0
     assert re.match(
@@ -40,7 +43,7 @@ def test_corrects_one_file(runner: CliRunner, tmpdir: LocalPath) -> None:
         os.getcwd()"""
     )
 
-    result = runner.invoke(cli, [str(test_file)])
+    result = runner.invoke(cli, COMMON_OPTIONS + [str(test_file)])
 
     assert result.exit_code == 0
     assert test_file.read() == fixed_source
@@ -61,7 +64,10 @@ def test_corrects_three_files(runner: CliRunner, tmpdir: LocalPath) -> None:
         os.getcwd()"""
     )
 
-    result = runner.invoke(cli, [str(test_file) for test_file in test_files])
+    result = runner.invoke(
+        cli,
+        COMMON_OPTIONS + [str(test_file) for test_file in test_files],
+    )
 
     assert result.exit_code == 0
     for test_file in test_files:
@@ -78,7 +84,7 @@ def test_corrects_code_from_stdin(runner: CliRunner) -> None:
         os.getcwd()"""
     )
 
-    result = runner.invoke(cli, ["-"], input=source)
+    result = runner.invoke(cli, COMMON_OPTIONS + ["-"], input=source)
 
     assert result.exit_code == 0
     assert result.stdout == fixed_source
@@ -104,7 +110,7 @@ def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> No
     test_file.write(PYPROJECT_CONFIG_TEST_SOURCE)
     with tmpdir.as_cwd():
 
-        result = runner.invoke(cli, [str(test_file)])
+        result = runner.invoke(cli, COMMON_OPTIONS + [str(test_file)])
 
     assert result.exit_code == 0
     assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE
@@ -121,7 +127,10 @@ def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
     test_file = code_dir / "source.py"
     test_file.write(PYPROJECT_CONFIG_TEST_SOURCE)
 
-    result = runner.invoke(cli, ["--config-file", str(pyproject_toml), str(test_file)])
+    result = runner.invoke(
+        cli,
+        COMMON_OPTIONS + ["--config-file", str(pyproject_toml), str(test_file)],
+    )
 
     assert result.exit_code == 0
     assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE

@@ -647,6 +647,8 @@ def test_fix_autoimports_objects_defined_in_the_root_of_the_package() -> None:
         And that object belongs to the root of the python package.
     When: Fix code is run.
     Then: The import is done
+
+    Note that for this test the current folder must be named `autoimport`.
     """
     source = dedent(
         """\
@@ -669,6 +671,8 @@ def test_fix_autoimports_objects_defined_in___all__special_variable() -> None:
     Given: Some missing packages in the __all__ variable
     When: Fix code is run.
     Then: The import is done
+
+    Note that for this test the current folder must be named `autoimport`.
     """
     source = dedent(
         """\

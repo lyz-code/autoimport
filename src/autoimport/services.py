@@ -4,11 +4,57 @@ Classes and functions that connect the different domain model objects with the a
 and handlers to achieve the program's purpose.
 """
 
-from typing import Any, Dict, Optional, Tuple
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 from _io import TextIOWrapper
+from maison.config import ProjectConfig
 
 from autoimport.model import SourceCode
+
+# To consider: use `xdg.xdg_config_home() / "autoimport" / "config.toml"`
+GLOBAL_CONFIG_PATH = "~/.config/autoimport/config.toml"
+CONFIG_PROJECT_NAME = "autoimport"
+
+
+def _read_single_config(config_paths: Optional[List[str]] = None) -> Dict[str, Any]:
+    return ProjectConfig(
+        project_name=CONFIG_PROJECT_NAME,
+        source_files=config_paths,
+    ).to_dict()
+
+
+def deep_updated(target: Dict[str, Any], source: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Recursive non-mutating `target.update(source)`.
+
+    >>> target = dict(things=dict(a=1, b=2))
+    >>> deep_updated(target, dict(things=dict(b=22, c=33), other_things=44))
+    {'things': {'a': 1, 'b': 22, 'c': 33}, 'other_things': 44}
+    >>> target
+    {'things': {'a': 1, 'b': 2}}
+    """
+    target = target.copy()
+    for key, value in source.items():
+        if isinstance(value, dict):
+            target[key] = deep_updated(target.get(key) or {}, value)
+        else:
+            target[key] = value
+    return target
+
+
+def read_configs(
+    config_file: Optional[str] = None,
+    no_global_config: bool = False,
+) -> Dict[str, Any]:
+    """Read configuration files with semantics corresponding to the CLI options."""
+    if not no_global_config:
+        global_config_full_path = str(Path(GLOBAL_CONFIG_PATH).expanduser())
+        global_config = _read_single_config([global_config_full_path])
+    else:
+        global_config = {}
+    local_config = _read_single_config([config_file] if config_file else None)
+    return deep_updated(global_config, local_config)
 
 
 def fix_files(
