@@ -1,3 +1,9 @@
+## 0.11.0 (2021-12-21)
+
+### Feat
+
+- support multi paragraph sections inside the TYPE_CHECKING block
+
 ## 0.10.0 (2021-12-08)
 
 ### Feat
