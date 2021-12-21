@@ -712,6 +712,34 @@ def test_fix_respects_type_checking_import_statements() -> None:
     assert result == source
 
 
+def test_fix_respects_multiparagraph_type_checking_import_statements() -> None:
+    """
+    Given: Code with two paragraphs of imports inside an if TYPE_CHECKING block
+    When: Fix code is run.
+    Then: The imports are not moved above the if statement.
+    """
+    source = dedent(
+        """\
+        import os
+        from typing import TYPE_CHECKING
+
+        if TYPE_CHECKING:
+            from .model import Book
+
+            from other import Other
+
+        os.getcwd()
+
+
+        def read_book(book: Book, other: Other):
+            pass"""
+    )
+
+    result = fix_code(source)
+
+    assert result == source
+
+
 def test_fix_respects_try_except_in_import_statements() -> None:
     """
     Given: Code with try except statements in the imports.

@@ -33,6 +33,7 @@ common_statements: Dict[str, str] = {
     "StringIO": "from io import StringIO",
     "suppress": "from contextlib import suppress",
     "TempdirFactory": "from _pytest.tmpdir import TempdirFactory",
+    "tz": "from dateutil import tz",
     "YAMLError": "from yaml import YAMLError",
 }
 
@@ -165,7 +166,7 @@ class SourceCode:  # noqa: R090
             self.typing.append(source_lines[typing_start_line])
             typing_start_line += 1
             for line in source_lines[typing_start_line:]:
-                if not re.match(r"^\s+.*", line):
+                if not re.match(r"^\s+.*", line) and line != "":
                     break
                 self.typing.append(line)
 
