@@ -56,10 +56,15 @@ os.getcwd()
 
 `autoimport` can be used both as command line tool and as a library.
 
+It can be parsed either an array of files and/or a directory.
+
+A parsed directory will have `autoimport` be executed on all recursively found python files in said directory.
+
 * As a command line tool:
 
     ```bash
     $: autoimport file.py
+    $: autoimport dir/
     ```
 
 * As a library:
@@ -67,7 +72,7 @@ os.getcwd()
     ```python
     from autoimport import fix_files
 
-    fix_files(['file.py'])
+    fix_files(['file.py', 'dir/'])
     ```
 
 !!! warning ""
