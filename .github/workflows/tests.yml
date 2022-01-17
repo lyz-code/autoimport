@@ -4,12 +4,9 @@ name: Tests
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
-      - '*'          # matches every branch that doesn't contain a '/'
-      - '*/*'        # matches every branch containing a single '/'
-      - '**'         # matches every branch
-      - '!gh-pages'  # excludes gh-pages
+      - master
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 jobs:
   Tests:
     runs-on: ubuntu-latest
