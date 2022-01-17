@@ -365,6 +365,15 @@ class SourceCode:  # noqa: R090
         except KeyError:
             return None
 
+    def _get_additional_statements(self) -> Dict[str, str]:
+        """When parsing to the cli via --config-file the config becomes nested."""
+        common_statements = self.config.get("common_statements")
+        if common_statements:
+            return common_statements
+        return (
+            self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
+        )
+
     def _find_package_in_common_statements(self, name: str) -> Optional[str]:
         """Search in the common statements the object name.
 
@@ -375,8 +384,9 @@ class SourceCode:  # noqa: R090
             import_string
         """
         local_common_statements = common_statements.copy()
-        if "common_statements" in self.config:
-            local_common_statements.update(self.config["common_statements"])
+        additional_statements = self._get_additional_statements()
+        if additional_statements:
+            local_common_statements.update(additional_statements)
 
         if name in local_common_statements:
             return local_common_statements[name]
