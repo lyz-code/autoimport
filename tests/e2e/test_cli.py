@@ -1,6 +1,7 @@
 """Test the command line interface."""
 
 import re
+from pathlib import Path
 from textwrap import dedent
 
 import pytest
@@ -66,6 +67,34 @@ def test_corrects_three_files(runner: CliRunner, tmpdir: LocalPath) -> None:
     assert result.exit_code == 0
     for test_file in test_files:
         assert test_file.read() == fixed_source
+
+
+def test_correct_all_files_in_dir_recursively(
+    runner: CliRunner, test_dir: Path
+) -> None:
+    """Ensure files and dirs can be parsed and fixes associated files."""
+    result = runner.invoke(cli, [str(test_dir)])
+
+    assert result.exit_code == 0
+    fixed_source = "import os\n\nos.getcwd()"
+    assert (test_dir / "test_file1.py").read_text() == fixed_source
+    assert (test_dir / "subdir/test_file2.py").read_text() == fixed_source
+
+
+def test_correct_mix_dir_and_files(
+    runner: CliRunner, test_dir: Path, tmpdir: LocalPath
+) -> None:
+    """Ensure all files in a given directory get fixed by autoimport."""
+    test_file = tmpdir / "source.py"
+    test_file.write("os.getcwd()")
+
+    result = runner.invoke(cli, [str(test_dir), str(test_file)])
+
+    assert result.exit_code == 0
+    fixed_source = "import os\n\nos.getcwd()"
+    assert (test_dir / "test_file1.py").read_text() == fixed_source
+    assert (test_dir / "subdir/test_file2.py").read_text() == fixed_source
+    assert test_file.read() == fixed_source
 
 
 def test_corrects_code_from_stdin(runner: CliRunner) -> None:
