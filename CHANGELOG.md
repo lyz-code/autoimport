@@ -1,3 +1,9 @@
+## 1.0.2 (2022-01-21)
+
+### Fix
+
+- don't touch files that are not going to be changed
+
 ## 1.0.1 (2022-01-21)
 
 ### Fix
