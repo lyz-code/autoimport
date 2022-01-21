@@ -28,6 +28,9 @@ def fix_files(
         source = file_wrapper.read()
         fixed_source = fix_code(source, config)
 
+        if fixed_source == source:
+            continue
+
         try:
             # Click testing runner doesn't simulate correctly the reading from stdin
             # instead of setting the name attribute to `<stdin>` it gives an

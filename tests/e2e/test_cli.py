@@ -1,5 +1,6 @@
 """Test the command line interface."""
 
+import os
 import re
 from pathlib import Path
 from textwrap import dedent
@@ -154,3 +155,21 @@ def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
 
     assert result.exit_code == 0
     assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE
+
+
+def test_fix_files_doesnt_touch_the_file_if_its_not_going_to_change_it(
+    runner: CliRunner, tmpdir: LocalPath
+) -> None:
+    """
+    Given: A file that doesn't need any change
+    When: fix files is run
+    Then: The file is untouched
+    """
+    test_file = tmpdir / "source.py"
+    test_file.write("a = 1")
+    modified_time = os.path.getmtime(test_file)
+
+    result = runner.invoke(cli, [str(test_file)])
+
+    assert result.exit_code == 0
+    assert os.path.getmtime(test_file) == modified_time
