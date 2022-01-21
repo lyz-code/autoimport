@@ -1,3 +1,9 @@
+## 1.0.1 (2022-01-21)
+
+### Fix
+
+- remove empty multiline import statements
+
 ## 1.0.0 (2022-01-18)
 
 ## 0.11.0 (2021-12-21)
