@@ -441,11 +441,20 @@ class SourceCode:  # noqa: R090
             ):
                 # fmt: on
                 line_number = self.imports.index(line)
+                # Remove the object name from the multiline imports
                 while line_number + 1 < len(self.imports):
                     line_number += 1
                     if re.match(fr"\s*?{object_name},?", self.imports[line_number]):
                         self.imports.pop(line_number)
-                        return
+                        break
+
+                # Remove the whole import if there is no other object loaded
+                if re.match(r"\s*from .* import", self.imports[line_number - 1]) \
+                        and self.imports[line_number] == ')':
+                    self.imports.pop(line_number)
+                    self.imports.pop(line_number - 1)
+
+                return
 
 
 def extract_package_objects(name: str) -> Dict[str, str]:

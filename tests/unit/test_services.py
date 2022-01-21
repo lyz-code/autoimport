@@ -1021,3 +1021,23 @@ def test_file_with_import_as() -> None:
     result = fix_code(source)
 
     assert result == "\n"
+
+
+def test_file_with_non_used_multiline_import() -> None:
+    """
+    Given: Code with a multiline from import where no one is used.
+    When: Fix code is run.
+    Then: The unused import line is removed
+    """
+    source = dedent(
+        """\
+        from foo import (
+            bar,
+            baz,
+        )
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == "\n"
