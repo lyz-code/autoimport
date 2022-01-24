@@ -1041,3 +1041,53 @@ def test_file_with_non_used_multiline_import() -> None:
     result = fix_code(source)
 
     assert result == "\n"
+
+
+def test_file_with_import_and_seperator() -> None:
+    """Ensure import lines with seperators are fixed correctly."""
+    source = dedent(
+        """
+        a = 1
+        import pdb;pdb.set_trace()
+        b = 2
+        """
+    )
+    expected = dedent(
+        """
+        import pdb
+
+        a = 1
+        pdb.set_trace()
+        b = 2
+        """
+    ).replace("\n", "", 1)
+
+    result = fix_code(source)
+
+    assert result == expected
+
+
+def test_file_with_import_and_seperator_indentation() -> None:
+    """Ensure import lines with seperators are fixed correctly when indented."""
+    source = dedent(
+        """
+        Class Person:
+            import pdb; pdb.set_trace()
+            def say_hi(self):
+                print('hi')
+        """
+    )
+    expected = dedent(
+        """
+        import pdb
+
+        Class Person:
+            pdb.set_trace()
+            def say_hi(self):
+                print('hi')
+        """
+    ).replace("\n", "", 1)
+
+    result = fix_code(source)
+
+    assert result == expected

@@ -4,7 +4,7 @@ import importlib.util
 import inspect
 import os
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
@@ -213,7 +213,7 @@ class SourceCode:  # noqa: R090
         multiline_string = False
         code_lines_to_remove = []
 
-        for line in self.code:
+        for line_num, line in enumerate(self.code):
             # Process multiline strings, taking care not to catch single line strings
             # defined with three quotes.
             if re.match(r"^.*?(\"|\'){3}.*?(?!\1{3})$", line) and not re.match(
@@ -232,6 +232,13 @@ class SourceCode:  # noqa: R090
                 if re.match(r".*?# ?noqa:.*?autoimport.*", line):
                     continue
 
+                # process lines using separation markers
+                if ";" in line:
+                    import_line, next_line = self._split_separation_line(line)
+                    self.imports.append(import_line.strip())
+                    self.code[line_num] = next_line
+                    continue
+
                 # Process multiline import statements
                 if "(" in line:
                     multiline_import = True
@@ -246,6 +253,14 @@ class SourceCode:  # noqa: R090
 
         for line in code_lines_to_remove:
             self.code.remove(line)
+
+    def _split_separation_line(self, line: str) -> Tuple[str, str]:
+        """Split separation lines into two and return both lines back."""
+        first_line, next_line = line.split(";")
+        # add correct number of leading spaces
+        num_lspaces = len(first_line) - len(first_line.lstrip())
+        next_line = f"{' ' * num_lspaces}{next_line.lstrip()}"
+        return first_line, next_line
 
     def _fix_flake_import_errors(self) -> None:
         """Fix python source code to correct missed or unused import statements."""
