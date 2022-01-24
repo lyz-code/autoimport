@@ -204,6 +204,16 @@ class SourceCode:  # noqa: R090
 
         return source_code
 
+    @staticmethod
+    def _should_ignore_line(line: str) -> bool:
+        """Determine whether a line should be ignored by autoimport or not."""
+        return any(
+            [
+                re.match(r".*?# ?fmt:.*?skip.*", line),
+                re.match(r".*?# ?noqa:.*?autoimport.*", line),
+            ]
+        )
+
     def _move_imports_to_top(self) -> None:
         """Fix python source code to move import statements to the top of the file.
 
@@ -228,8 +238,7 @@ class SourceCode:  # noqa: R090
                 and not multiline_string
                 and re.match(r"^\s*(?:from .*)?import .[^\'\"]*$", line)
             ) or multiline_import:
-                # Ignore the lines containing # noqa: autoimport
-                if re.match(r".*?# ?noqa:.*?autoimport.*", line):
+                if self._should_ignore_line(line):
                     continue
 
                 # process lines using separation markers
@@ -418,8 +427,7 @@ class SourceCode:  # noqa: R090
         object_name = import_name.split(".")[-1]
 
         for line in self.imports:
-            # Ignore the lines containing # noqa: autoimport
-            if re.match(r".*?# ?noqa:.*?autoimport.*", line):
+            if self._should_ignore_line(line):
                 continue
 
             # If it's the only line, remove it

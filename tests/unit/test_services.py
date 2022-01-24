@@ -503,6 +503,21 @@ def test_fix_doesnt_fail_on_noqa_lines_on_unused_import() -> None:
     assert result == source
 
 
+def test_fix_respects_fmt_skip_lines() -> None:
+    """Ignore lines that have # fmt: skip."""
+    source = dedent(
+        """
+        def why():
+            import pdb;pdb.set_trace()  # fmt: skip
+            return 'dunno'
+        """
+    ).replace("\n", "", 1)
+
+    result = fix_code(source)
+
+    assert result == source
+
+
 def test_fix_respects_noqa_in_from_import_lines_in_multiple_lines() -> None:
     """
     Given: Multiple from X import Y lines, some with multiline format with noqa
