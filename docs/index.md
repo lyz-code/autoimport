@@ -135,7 +135,7 @@ While we fix it you can write the import statement wherever you are in the file
 and the next time you run `autoimport` it will get moved to the top.
 
 If you don't want a specific line to go to the top, add the `# noqa: autoimport`
-at the end. For example:
+or `# fmt: skip` at the end. For example:
 
 ```python
 a = 1
