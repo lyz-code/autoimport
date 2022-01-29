@@ -4,6 +4,7 @@ import os
 import re
 from pathlib import Path
 from textwrap import dedent
+from typing import Dict, List, Optional
 
 import pytest
 from click.testing import CliRunner
@@ -16,7 +17,7 @@ from autoimport.version import __version__
 @pytest.fixture(name="runner")
 def fixture_runner() -> CliRunner:
     """Configure the Click cli test runner."""
-    return CliRunner(mix_stderr=False)
+    return CliRunner(mix_stderr=False, env={"XDG_CONFIG_HOME": "/dev/null"})
 
 
 def test_version(runner: CliRunner) -> None:
@@ -138,6 +139,82 @@ def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> No
 
     assert result.exit_code == 0
     assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE
+
+
+@pytest.mark.parametrize(
+    ("create_global_conf", "use_local_conf", "create_pyproject", "expected_imports"),
+    [
+        pytest.param(True, False, False, "from g import G", id="global"),
+        pytest.param(False, True, False, "from l import L", id="local"),
+        pytest.param(False, False, True, "from p import P", id="pyproject"),
+        pytest.param(
+            True, True, False, "from g import G\nfrom l import L", id="global-and-local"
+        ),
+        pytest.param(
+            True,
+            False,
+            True,
+            "from g import G\nfrom p import P",
+            id="global-and-pyproject",
+        ),
+        pytest.param(False, True, True, "from l import L", id="local-and-pyproject"),
+        pytest.param(
+            True,
+            True,
+            True,
+            "from g import G\nfrom l import L",
+            id="global-and-local-and-pyproject",
+        ),
+    ],
+)
+def test_global_and_local_config(
+    runner: CliRunner,
+    tmpdir: LocalPath,
+    create_global_conf: bool,
+    use_local_conf: bool,
+    create_pyproject: bool,
+    expected_imports: str,
+) -> None:
+    """
+    Test interaction between the following:
+      - presence of the global config file $XDG_CONFIG_HOME/autoimport/config.toml
+      - use of the --config-file flag to specify a local config file
+      - presence of a pyproject.toml file
+    """
+    conf_global = '[common_statements]\n"G" = "from g import G"'
+    conf_local = '[common_statements]\n"L" = "from l import L"'
+    conf_pyproject = '[tool.autoimport.common_statements]\n"P" = "from p import P"'
+    code_path = tmpdir / "code.py"
+    original_code = dedent(
+        """
+    G
+    L
+    P
+    """
+    )
+    code_path.write(original_code)
+    args: List[str] = [str(code_path)]
+    env: Dict[str, Optional[str]] = {}
+    if create_global_conf:
+        xdg_home = tmpdir / "xdg_home"
+        env["XDG_CONFIG_HOME"] = str(Path(xdg_home).resolve())  # must be absolute path
+        global_conf_path = xdg_home / "autoimport" / "config.toml"
+        global_conf_path.ensure()
+        global_conf_path.write(conf_global)
+    if use_local_conf:
+        local_conf_path = tmpdir / "cfg" / "local.toml"
+        local_conf_path.ensure()
+        local_conf_path.write(conf_local)
+        args.extend(["--config-file", str(local_conf_path)])
+    if create_pyproject:
+        pyproject_path = tmpdir / "pyproject.toml"
+        pyproject_path.write(conf_pyproject)
+    with tmpdir.as_cwd():
+
+        result = runner.invoke(cli, args, env=env)
+
+    assert result.exit_code == 0
+    assert code_path.read() == expected_imports + "\n" + original_code
 
 
 def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:

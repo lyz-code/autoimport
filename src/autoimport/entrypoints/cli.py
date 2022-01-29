@@ -3,9 +3,10 @@
 import logging
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Any, Optional, Sequence, Tuple, Union
+from typing import Any, List, Optional, Sequence, Tuple, Union
 
 import click
+import xdg
 from maison.config import ProjectConfig
 
 from autoimport import services, version
@@ -52,17 +53,32 @@ class FileOrDir(click.ParamType):
             return get_files(path)
 
 
+def get_global_config_path() -> Path:
+    """Get global config path."""
+    return xdg.xdg_config_home() / "autoimport" / "config.toml"
+
+
 @click.command()
 @click.version_option(version="", message=version.version_info())
 @click.option("--config-file", default=None)
 @click.argument("files", type=FileOrDir(), nargs=-1)
 def cli(files: NestedSequence, config_file: Optional[str] = None) -> None:
     """Corrects the source code of the specified files."""
-    flattened_files = flatten(files)
+    # compose configuration
+    config_files: List[str] = []
+    global_config_path = get_global_config_path()
+    if global_config_path.is_file():
+        config_files.append(str(global_config_path))
+    if config_file is not None:
+        config_files.append(config_file)
+    else:
+        config_files.append("pyproject.toml")
     config = ProjectConfig(
-        project_name="autoimport",
-        source_files=[config_file] if config_file else None,
+        project_name="autoimport", source_files=config_files, merge_configs=True
     ).to_dict()
+
+    # process inputs
+    flattened_files = flatten(files)
     try:
         fixed_code = services.fix_files(flattened_files, config)
     except FileNotFoundError as error:
