@@ -21,7 +21,7 @@ backports.entry-points-selectable==1.1.0
     # via virtualenv
 bandit==1.7.0
     # via -r requirements-dev.in
-black==21.9b0
+black==22.1.0
     # via -r requirements-dev.in
 certifi==2021.10.8
     # via
@@ -136,22 +136,6 @@ idna==3.3
     # via
     #   -c docs/requirements.txt
     #   requests
-importlib-metadata==4.8.1
-    # via
-    #   -c docs/requirements.txt
-    #   -c requirements.txt
-    #   backports.entry-points-selectable
-    #   click
-    #   flake8
-    #   flake8-comprehensions
-    #   flake8-simplify
-    #   flake8-typing-imports
-    #   pep517
-    #   pluggy
-    #   pre-commit
-    #   pytest
-    #   stevedore
-    #   virtualenv
 iniconfig==1.1.1
     # via pytest
 isort==5.9.3
@@ -245,8 +229,6 @@ pyyaml==6.0
     #   dparse
     #   pre-commit
     #   yamllint
-regex==2021.10.8
-    # via black
 requests==2.26.0
     # via
     #   -c docs/requirements.txt
@@ -283,24 +265,12 @@ tomli==1.2.1
     #   black
     #   coverage
     #   pep517
-typed-ast==1.4.3
-    # via
-    #   astroid
-    #   black
-    #   flake8-annotations
-    #   mypy
 types-toml==0.10.1
     # via -r requirements-dev.in
 typing-extensions==3.10.0.2
     # via
-    #   -c docs/requirements.txt
     #   -c requirements.txt
-    #   astroid
-    #   black
-    #   gitpython
-    #   importlib-metadata
     #   mypy
-    #   pylint
 urllib3==1.26.7
     # via
     #   -c docs/requirements.txt
@@ -309,21 +279,13 @@ urllib3==1.26.7
 virtualenv==20.8.1
     # via pre-commit
 wheel==0.37.0
-    # via
-    #   -c docs/requirements.txt
-    #   pip-tools
+    # via pip-tools
 wrapt==1.13.2
     # via astroid
 yamlfix==0.7.2
     # via -r requirements-dev.in
 yamllint==1.26.3
     # via -r requirements-dev.in
-zipp==3.6.0
-    # via
-    #   -c docs/requirements.txt
-    #   -c requirements.txt
-    #   importlib-metadata
-    #   pep517
 
 # The following packages are considered to be unsafe in a requirements file:
 pip==21.3
