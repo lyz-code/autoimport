@@ -2,7 +2,7 @@
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.0.4"
+version = "1.0.5"
 tag_format = "$version"
 version_files = [
     "src/autoimport/version.py",
