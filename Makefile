@@ -1,13 +1,11 @@
 .DEFAULT_GOAL := test
-isort = isort --skip tests/assets src docs/examples tests setup.py
-black = black --exclude assets --target-version py37 src docs/examples tests setup.py
+isort = pdm run isort --skip tests/assets src tests setup.py
+black = pdm run black --exclude assets --target-version py39 src tests
 
 .PHONY: install
 install:
-	python -m pip install -U setuptools pip pip-tools
-	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
-	pip install -e .
-	pre-commit install
+	pdm install --dev
+	pdm run pre-commit install
 
 .PHONY: update
 update:
@@ -15,27 +13,8 @@ update:
 	@echo "- Updating dependencies -"
 	@echo "-------------------------"
 
-  # Sync your virtualenv with the expected state
-	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
-
-	pip install -U pip
-
-	rm requirements.txt
-	touch requirements.txt
-	pip-compile -Ur --allow-unsafe
-
-	rm docs/requirements.txt
-	touch docs/requirements.txt
-	pip-compile -Ur --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
-
-	rm requirements-dev.txt
-	touch requirements-dev.txt
-	pip-compile -Ur --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
-
-  # Sync your virtualenv with the new state
-	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
-
-	pip install -e .
+	pdm update --no-sync
+	pdm sync --clean
 
 	@echo ""
 
@@ -56,7 +35,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	flakehell lint --exclude assets src/ tests/ setup.py
+	pdm run flakehell lint --exclude assets src/ tests/ setup.py
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -68,7 +47,7 @@ mypy:
 	@echo "- Testing mypy -"
 	@echo "----------------"
 
-	mypy src
+	pdm run mypy src
 
 	@echo ""
 
@@ -81,7 +60,7 @@ test-code:
 	@echo "- Testing code -"
 	@echo "----------------"
 
-	pytest --cov-report term-missing --cov src tests ${ARGS}
+	pdm run pytest --cov-report term-missing --cov src tests ${ARGS}
 
 	@echo ""
 
@@ -119,7 +98,6 @@ clean:
 	rm -rf build
 	rm -rf dist
 	rm -f src/*.c pydantic/*.so
-	python setup.py clean
 	rm -rf site
 	rm -rf docs/_build
 	rm -rf docs/.changelog.md docs/.version.md docs/.tmp_schema_mappings.html
@@ -134,7 +112,7 @@ docs: test-examples
 	@echo "- Serving documentation -"
 	@echo "-------------------------"
 
-	mkdocs serve
+	pdm run mkdocs serve
 
 	@echo ""
 
@@ -158,8 +136,7 @@ build-package: clean
 	@echo "- Building the package -"
 	@echo "------------------------"
 
-	python setup.py -q bdist_wheel
-	python setup.py -q sdist
+	pdm build
 
 	@echo ""
 
@@ -169,7 +146,7 @@ build-docs: test-examples
 	@echo "- Building documentation -"
 	@echo "--------------------------"
 
-	mkdocs build
+	pdm run mkdocs build
 
 	@echo ""
 
@@ -215,9 +192,9 @@ security:
 	@echo "- Testing security -"
 	@echo "--------------------"
 
-	safety check
+	pdm run safety check
 	@echo ""
-	bandit -r src
+	pdm run bandit -r src
 
 	@echo ""
 
@@ -227,6 +204,6 @@ release:
 	@echo "- Generating Release -"
 	@echo "----------------------"
 
-	cz bump --changelog
+	pdm run cz bump --changelog
 
 	@echo ""

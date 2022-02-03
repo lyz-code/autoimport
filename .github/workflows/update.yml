@@ -12,12 +12,10 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
+      - uses: pdm-project/setup-pdm@main
+        name: Setup Python and PDM
         with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install pip-tools
+          python-version: 3.9
       - name: Update requirements
         run: make update
       - name: Install the program

@@ -5,8 +5,130 @@ name = "cz_conventional_commits"
 version = "1.0.5"
 tag_format = "$version"
 version_files = [
+    "pyproject.toml:version",
     "src/autoimport/version.py",
 ]
+
+# --------- PDM -------------
+
+[project]
+# PEP 621 project metadata
+# See https://www.python.org/dev/peps/pep-0621/
+version = "1.0.4"
+authors = [
+    {name = "Lyz", email = "lyz@riseup.net"},
+]
+license = {text = "GPL-3.0-only"}
+requires-python = ">=3.7,<3.11"
+dependencies = [
+    "click>=8.0.3",
+    "autoflake>=1.4",
+    "pyprojroot>=0.2.0",
+    "sh>=1.14.2",
+    "maison>=1.3.0",
+]
+name = "autoimport"
+description = "Autoimport missing python libraries."
+readme = "README.md"
+classifiers=[
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 only (GPLv3)",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Utilities",
+    "Natural Language :: English",
+]
+
+[project.urls]
+Issues = "https://github.com/lyz-code/autoimport/issues"
+homepage = "https://github.com/lyz-code/autoimport"
+documentation = "https://lyz-code.github.io/autoimport"
+
+[project.scripts]
+autoimport = "autoimport.entrypoints.cli:cli"
+
+[project.optional-dependencies]
+[tool.pdm]
+includes = ["autoimport/py.typed"]
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "yamllint>=1.26.3",
+    "flakehell>=0.9.0",
+    "flake8-aaa>=0.12.0",
+    "flake8-annotations>=2.7.0",
+    "flake8-annotations-complexity>=0.0.6",
+    "flake8-typing-imports>=1.11.0",
+    "flake8-bugbear>=21.11.29",
+    "flake8-debugger>=4.0.0",
+    "flake8-fixme>=1.1.1",
+    "flake8-markdown>=0.3.0",
+    "flake8-mutable>=1.2.0",
+    "flake8-pytest>=1.3",
+    "flake8-pytest-style>=1.5.1",
+    "flake8-simplify>=0.14.2",
+    "flake8-variables-names>=0.0.4",
+    "flake8-comprehensions>=3.7.0",
+    "flake8-expression-complexity>=0.0.9",
+    "flake8-use-fstring>=1.3",
+    "flake8-eradicate>=1.2.0",
+    "flake8-docstrings>=1.6.0",
+    "pep8-naming>=0.12.1",
+    "dlint>=0.12.0",
+    "pylint>=2.12.2",
+    # Remove the upper cap when https://github.com/flakehell/flakehell/issues/22
+    # is resolved
+    "flake8<4.0.0,>=3.9.2",
+]
+test = [
+    "pytest>=6.2.5",
+    "pytest-cov>=3.0.0",
+    "pytest-xdist>=2.4.0",
+    "pytest-freezegun>=0.4.2",
+    "pydantic-factories>=0.5.0",
+]
+doc = [
+    "mkdocs>=1.2.3",
+    "mkdocs-git-revision-date-localized-plugin>=0.11",
+    "mkdocs-htmlproofer-plugin>=0.7.0",
+    "mkdocs-minify-plugin>=0.5.0",
+    "mkdocs-autolinks-plugin>=0.4.0",
+    "mkdocs-material>=8.0.5",
+    "mkdocstrings>=0.16.2",
+    "markdown-include>=0.6.0",
+    "mkdocs-section-index>=0.3.2",
+]
+security = [
+    "safety>=1.10.3",
+    "bandit>=1.7.1",
+]
+fixers = [
+    "autoimport>=0.9.1",
+    "black>=21.12b0",
+    "isort>=5.10.1",
+    "yamlfix>=0.8.0",
+]
+typing = [
+    "mypy>=0.910",
+    "types-toml>=0.10.3",
+]
+dev = [
+    "pre-commit>=2.16.0",
+    "twine>=3.8.0",
+    "commitizen>=2.20.4",
+]
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
+
 
 # --------- Black -------------
 
@@ -38,7 +160,6 @@ exclude = '''
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-vv --tb=short -n auto"
-python_paths = "."
 norecursedirs = [
     ".tox",
     ".git",
@@ -162,8 +283,41 @@ generated-members = "sh"
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
 
-# --------- Build-system -------------
+# --------- Mypy -------------
 
-[build-system]
-requires = ["setuptools >= 40.6.0", "wheel"]
-build-backend = "setuptools.build_meta"
+[tool.mypy]
+show_error_codes = true
+follow_imports = "silent"
+ignore_missing_imports = false
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+warn_unused_configs = true
+disallow_subclassing_any = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+# Required to not have  error: Untyped decorator makes function on fixtures and
+# parametrize decorators
+disallow_untyped_decorators = false
+
+[[tool.mypy.overrides]]
+module = [
+    "goodconf",
+    "pytest",
+    "autoflake",
+    "pyflakes.*",
+    "isort",
+    "_io",
+    "pyprojroot",
+    "sh",
+    "virtualenv",
+]
+ignore_missing_imports = true
