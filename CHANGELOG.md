@@ -1,3 +1,11 @@
+## 1.1.0 (2022-02-03)
+
+### Feat
+
+- use pdm to manage dependencies
+- use pdm to manage dependencies
+- add support for python 3.10
+
 ## 1.0.5 (2022-02-03)
 
 ## 1.0.4 (2022-01-25)

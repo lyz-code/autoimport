@@ -2,7 +2,7 @@
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.0.5"
+version = "1.1.0"
 tag_format = "$version"
 version_files = [
     "pyproject.toml:version",
@@ -14,7 +14,7 @@ version_files = [
 [project]
 # PEP 621 project metadata
 # See https://www.python.org/dev/peps/pep-0621/
-version = "1.0.4"
+dynamic = ["version"]
 authors = [
     {name = "Lyz", email = "lyz@riseup.net"},
 ]
@@ -33,7 +33,7 @@ readme = "README.md"
 classifiers=[
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU General Public License v3 only (GPLv3)",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: Unix",
     "Operating System :: POSIX",
     "Programming Language :: Python",
@@ -55,8 +55,10 @@ documentation = "https://lyz-code.github.io/autoimport"
 autoimport = "autoimport.entrypoints.cli:cli"
 
 [project.optional-dependencies]
+
 [tool.pdm]
 includes = ["autoimport/py.typed"]
+version = {from = "src/autoimport/version.py"}
 
 [tool.pdm.dev-dependencies]
 lint = [
