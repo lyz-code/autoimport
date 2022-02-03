@@ -432,13 +432,13 @@ class SourceCode:  # noqa: R090
 
             # If it's the only line, remove it
             if re.match(
-                fr"(from {package_name} )?import {object_name}( *as [a-z]+)?( *#.*)?$",
+                rf"(from {package_name} )?import {object_name}( *as [a-z]+)?( *#.*)?$",
                 line,
             ):
                 self.imports.remove(line)
                 return
             # If it shares the line with other objects, just remove the unused one.
-            if re.match(fr"from {package_name} import .*?{object_name}", line):
+            if re.match(rf"from {package_name} import .*?{object_name}", line):
                 # fmt: off
                 # Format is required until there is no more need of the
                 # experimental-string-processing flag of the Black formatter.
