@@ -37,7 +37,7 @@ jobs:
           rm -r .git/hooks
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add requirements.txt docs/requirements.txt requirements-dev.txt
+          git add pdm.lock
           git diff-index --quiet HEAD \
             || git commit -m "chore: update dependency requirements"
       - name: Push changes
