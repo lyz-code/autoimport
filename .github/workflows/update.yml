@@ -12,10 +12,19 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: pdm-project/setup-pdm@main
-        name: Setup Python and PDM
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          # All these steps are required so that mypy behaves equally than the
+          # local environment, once mypy supports __pypackages__ try to use the
+          # github action
+          pip install virtualenv pdm
+          virtualenv .venv
+          source .venv/bin/activate
+          pdm config use_venv True
       - name: Update requirements
         run: make update
       - name: Install the program
