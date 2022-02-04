@@ -5,6 +5,7 @@ on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   PyPI:
