@@ -33,10 +33,7 @@ jobs:
       - name: Test linters
         run: make lint
       - name: Test type checkers
-        run: |
-          pdm run mypy --version
-          pdm config
-          make mypy
+        run: make mypy
       - name: Test security
         run: make security
       - name: Test with pytest
