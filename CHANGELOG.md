@@ -1,3 +1,10 @@
+## 1.1.1 (2022-02-04)
+
+### Fix
+
+- correct the package building
+- correct the package building
+
 ## 1.1.0 (2022-02-03)
 
 ### Feat
