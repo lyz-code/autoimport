@@ -70,15 +70,15 @@ dependencies = [
 
 [[package]]
 name = "autoimport"
-version = "1.0.4"
-requires_python = ">=3.7"
+version = "1.1.1"
+requires_python = ">=3.7,<3.11"
 summary = "Autoimport missing python libraries."
 dependencies = [
-    "Click",
-    "autoflake",
-    "maison",
-    "pyprojroot",
-    "sh",
+    "autoflake>=1.4",
+    "click>=8.0.3",
+    "maison>=1.3.0",
+    "pyprojroot>=0.2.0",
+    "sh>=1.14.2",
 ]
 
 [[package]]
@@ -213,7 +213,7 @@ extras = ["toml"]
 requires_python = ">=3.7"
 summary = "Code coverage measurement for Python"
 dependencies = [
-    "coverage==6.3.1",
+    "coverage>=5.2.1",
     "tomli",
 ]
 
@@ -559,7 +559,7 @@ summary = "An HTML Minifier"
 
 [[package]]
 name = "identify"
-version = "2.4.7"
+version = "2.4.8"
 requires_python = ">=3.7"
 summary = "File identification library for Python"
 
@@ -636,7 +636,7 @@ summary = "Powerful and Pythonic XML processing library combining libxml2/libxsl
 
 [[package]]
 name = "maison"
-version = "1.3.0"
+version = "1.4.0"
 requires_python = ">=3.6.1,<4.0.0"
 summary = "Maison"
 dependencies = [
@@ -718,7 +718,7 @@ dependencies = [
 
 [[package]]
 name = "mkdocs-git-revision-date-localized-plugin"
-version = "0.11.1"
+version = "0.12"
 requires_python = ">=3.6"
 summary = "Mkdocs plugin that enables displaying the localized date of the last git modification of a markdown file."
 dependencies = [
@@ -987,7 +987,7 @@ summary = "Find project root paths and return relative project files"
 
 [[package]]
 name = "pytest"
-version = "6.2.5"
+version = "7.0.0"
 requires_python = ">=3.6"
 summary = "pytest: simple powerful testing with Python"
 dependencies = [
@@ -999,7 +999,7 @@ dependencies = [
     "packaging",
     "pluggy<2.0,>=0.12",
     "py>=1.8.2",
-    "toml",
+    "tomli>=1.0.0",
 ]
 
 [[package]]
@@ -1391,9 +1391,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
 "autoflake 1.4" = [
     {file = "autoflake-1.4.tar.gz", hash = "sha256:61a353012cff6ab94ca062823d1fb2f692c4acda51c76ff83a8d77915fba51ea"},
 ]
-"autoimport 1.0.4" = [
-    {file = "autoimport-1.0.4-py3-none-any.whl", hash = "sha256:de8cba5d42c462041ba9a0ce99846e1ad99953ab8897f1658cafb922d0289d00"},
-    {file = "autoimport-1.0.4.tar.gz", hash = "sha256:3fdea9c02fc2c90bc2b330cf883c30d346434acb010a7442bcc0d815c0aa74c3"},
+"autoimport 1.1.1" = [
+    {file = "autoimport-1.1.1-py3-none-any.whl", hash = "sha256:f839cc3ed6c923104b40932aafa6babd8260629c76cca7fc9a27729a85906095"},
+    {file = "autoimport-1.1.1.tar.gz", hash = "sha256:0ebd6d639693b3f3127abee171a2486142a606953b409d618f9104206bf05a33"},
 ]
 "babel 2.9.1" = [
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
@@ -1733,9 +1733,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
 "htmlmin 0.1.12" = [
     {file = "htmlmin-0.1.12.tar.gz", hash = "sha256:50c1ef4630374a5d723900096a961cff426dff46b48f34d194a81bbe14eca178"},
 ]
-"identify 2.4.7" = [
-    {file = "identify-2.4.7-py2.py3-none-any.whl", hash = "sha256:e64210654dfbca6ced33230eb1b137591a0981425e1a60b4c6c36309f787bbd5"},
-    {file = "identify-2.4.7.tar.gz", hash = "sha256:8408f01e0be25492017346d7dffe7e7711b762b23375c775d24d3bc38618fabc"},
+"identify 2.4.8" = [
+    {file = "identify-2.4.8-py2.py3-none-any.whl", hash = "sha256:a55bdd671b6063eb837af938c250ec00bba6e610454265133b0d2db7ae718d0f"},
+    {file = "identify-2.4.8.tar.gz", hash = "sha256:97e839c1779f07011b84c92af183e1883d9745d532d83412cca1ca76d3808c1c"},
 ]
 "idna 3.3" = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
@@ -1869,9 +1869,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "lxml-4.7.1-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:447d5009d6b5447b2f237395d0018901dcc673f7d9f82ba26c1b9f9c3b444b60"},
     {file = "lxml-4.7.1.tar.gz", hash = "sha256:a1613838aa6b89af4ba10a0f3a972836128801ed008078f8c1244e65958f1b24"},
 ]
-"maison 1.3.0" = [
-    {file = "maison-1.3.0-py3-none-any.whl", hash = "sha256:b23413d61ec01966fa9fbc819789f1388363fc19cb995a4f534284a338ebdccc"},
-    {file = "maison-1.3.0.tar.gz", hash = "sha256:c3132e55ce68adf641686ea5e71d10e4dcf47098ef146905bd1b688ac8c858a3"},
+"maison 1.4.0" = [
+    {file = "maison-1.4.0-py3-none-any.whl", hash = "sha256:591a6ffe972558685cf2c3fdbff3dfa1e6b57a0227c50d387426ab9745e5939b"},
+    {file = "maison-1.4.0.tar.gz", hash = "sha256:9843758d7772e0fc3ca93cf3abfdd39656f41bc75f026fd8bfb5a0ac17f27a7e"},
 ]
 "markdown 3.3.6" = [
     {file = "Markdown-3.3.6-py3-none-any.whl", hash = "sha256:9923332318f843411e9932237530df53162e29dc7a4e2b91e35764583c46c9a3"},
@@ -1971,9 +1971,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "mkdocs_autorefs-0.3.1-py3-none-any.whl", hash = "sha256:f0fd7c115eaafda7fb16bf5ff5d70eda55d7c0599eac64f8b25eacf864312a85"},
     {file = "mkdocs-autorefs-0.3.1.tar.gz", hash = "sha256:12baad29359f468b44d980ed35b713715409097a1d8e3d0ef90962db95205eda"},
 ]
-"mkdocs-git-revision-date-localized-plugin 0.11.1" = [
-    {file = "mkdocs_git_revision_date_localized_plugin-0.11.1-py3-none-any.whl", hash = "sha256:397dae5482531c3df6a434db35d6a2eb10174a14693ec17060b9ade7fd1682e2"},
-    {file = "mkdocs-git-revision-date-localized-plugin-0.11.1.tar.gz", hash = "sha256:ce19b3af90f076d1b55b68f841059c9fcb7c9d53f93b3323f0a493492f4cc841"},
+"mkdocs-git-revision-date-localized-plugin 0.12" = [
+    {file = "mkdocs_git_revision_date_localized_plugin-0.12-py3-none-any.whl", hash = "sha256:ea1195a0106030dfe510dc4b070b8f9cb5fda7d47687ea74ee58a0a854036e2f"},
+    {file = "mkdocs-git-revision-date-localized-plugin-0.12.tar.gz", hash = "sha256:e7a2300151580a0f9d9956d81d3fa3235e28e104460faacf40ae5fe8dbbff11b"},
 ]
 "mkdocs-htmlproofer-plugin 0.8.0" = [
     {file = "mkdocs_htmlproofer_plugin-0.8.0-py3-none-any.whl", hash = "sha256:914fa007df4182e22440c5d23670eba36392e7f58f99de728f3b1d7cfb4847c6"},
@@ -2146,9 +2146,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "pyprojroot-0.2.0-py3-none-any.whl", hash = "sha256:741e8b4878a0d6bb6b06ec09aa05797130289e2127aa595b8f1cbadce697909f"},
     {file = "pyprojroot-0.2.0.tar.gz", hash = "sha256:a79900dc52ee097bfd8d917a3d45e2b98494c47a57ba3a71bf609d7a156732e8"},
 ]
-"pytest 6.2.5" = [
-    {file = "pytest-6.2.5-py3-none-any.whl", hash = "sha256:7310f8d27bc79ced999e760ca304d69f6ba6c6649c0b60fb0e04a4a77cacc134"},
-    {file = "pytest-6.2.5.tar.gz", hash = "sha256:131b36680866a76e6781d13f101efb86cf674ebb9762eb70d3082b6f29889e89"},
+"pytest 7.0.0" = [
+    {file = "pytest-7.0.0-py3-none-any.whl", hash = "sha256:42901e6bd4bd4a0e533358a86e848427a49005a3256f657c5c8f8dd35ef137a9"},
+    {file = "pytest-7.0.0.tar.gz", hash = "sha256:dad48ffda394e5ad9aa3b7d7ddf339ed502e5e365b1350e0af65f4a602344b11"},
 ]
 "pytest-cov 3.0.0" = [
     {file = "pytest_cov-3.0.0-py3-none-any.whl", hash = "sha256:578d5d15ac4a25e5f961c938b85a05b09fdaae9deef3bb6de9a6e766622ca7a6"},
