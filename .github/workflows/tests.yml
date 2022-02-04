@@ -7,6 +7,7 @@ on:  # yamllint disable-line rule:truthy
       - master
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch:
 jobs:
   Tests:
     runs-on: ubuntu-latest
