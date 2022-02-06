@@ -168,6 +168,29 @@ It is also possible to specify a different path for this config file:
 $: autoimport --config-file ~/.autoimport.toml file.py
 ```
 
+If using the `--config-file` flag to specify a file that is named
+something other than `pyproject.toml`, the autoimport settings
+should not be nested under toplevel `tool.autoimport` keys.
+
+```toml
+# .autoimport.toml
+
+[common_statements]
+"np" = "import numpy as np"
+"FooBar" = "from baz_qux import FooBar"
+```
+
+Furthermore, `autoimport` supports the use of a global configuration file,
+located at `autoimport/config.toml` under the xdg config home folder. For most
+users, this means that the file `~/.config/autoimport/config.toml`, if it
+exists, will be loaded and used as configuration for `autoimport`. As before,
+do not write `tool.autoimport` at the toplevel; just specify your global
+`autoimport` settings directly.
+
+The settings defined in the local `pyproject.toml` file (if found) or in the
+file specified by the `--config-file` flag (if given) will override the
+settings defined in the global `autoimport/config.toml` file.
+
 
 # References
 
