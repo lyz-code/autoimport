@@ -742,7 +742,7 @@ dependencies = [
 
 [[package]]
 name = "mkdocs-material"
-version = "8.1.9"
+version = "8.1.10"
 requires_python = ">=3.6"
 summary = "A Material Design theme for MkDocs"
 dependencies = [
@@ -783,17 +783,27 @@ dependencies = [
 
 [[package]]
 name = "mkdocstrings"
-version = "0.17.0"
-requires_python = ">=3.6.2"
+version = "0.18.0"
+requires_python = ">=3.7"
 summary = "Automatic documentation from sources, for MkDocs."
 dependencies = [
     "Jinja2>=2.11.1",
     "Markdown>=3.3",
     "MarkupSafe>=1.1",
-    "mkdocs-autorefs>=0.1",
+    "mkdocs-autorefs>=0.3.1",
     "mkdocs>=1.2",
+    "mkdocstrings-python-legacy>=0.2",
     "pymdown-extensions>=6.3",
-    "pytkdocs>=0.14.0",
+]
+
+[[package]]
+name = "mkdocstrings-python-legacy"
+version = "0.2.1"
+requires_python = ">=3.7"
+summary = "A legacy Python handler for mkdocstrings."
+dependencies = [
+    "mkdocstrings>=0.18",
+    "pytkdocs>=0.14",
 ]
 
 [[package]]
@@ -1168,7 +1178,7 @@ dependencies = [
 
 [[package]]
 name = "setuptools"
-version = "60.8.0"
+version = "60.8.1"
 requires_python = ">=3.7"
 summary = "Easily download, build, install, upgrade, and uninstall Python packages"
 
@@ -1979,9 +1989,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "mkdocs_htmlproofer_plugin-0.8.0-py3-none-any.whl", hash = "sha256:914fa007df4182e22440c5d23670eba36392e7f58f99de728f3b1d7cfb4847c6"},
     {file = "mkdocs-htmlproofer-plugin-0.8.0.tar.gz", hash = "sha256:48db49ede2d94939b4773feaa8159f88803bf5edd87ea99c78665f8d61107651"},
 ]
-"mkdocs-material 8.1.9" = [
-    {file = "mkdocs_material-8.1.9-py2.py3-none-any.whl", hash = "sha256:6feb433f29227b862418bd1009edeec2e52870770c476bf02840fc094b8823f2"},
-    {file = "mkdocs-material-8.1.9.tar.gz", hash = "sha256:a15873a5e116bf4615af4fcedc85a0537492464365286cba50310d96fb066958"},
+"mkdocs-material 8.1.10" = [
+    {file = "mkdocs_material-8.1.10-py2.py3-none-any.whl", hash = "sha256:e47ad89b98c32a0832509a72ade2114e0c84727a573018d768f4c6de19886b2f"},
+    {file = "mkdocs-material-8.1.10.tar.gz", hash = "sha256:10970bfe2628eaa41c379e9075121b1232f4304cac9876feac8ac9d0d2e9035b"},
 ]
 "mkdocs-material-extensions 1.0.3" = [
     {file = "mkdocs_material_extensions-1.0.3-py3-none-any.whl", hash = "sha256:a82b70e533ce060b2a5d9eb2bc2e1be201cf61f901f93704b4acf6e3d5983a44"},
@@ -1995,9 +2005,13 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "mkdocs_section_index-0.3.3-py3-none-any.whl", hash = "sha256:a79d8b6e21b5d9d4edf056246ea1d1d4f6c8705469c20bbe06e3ecd5b30fc4e7"},
     {file = "mkdocs-section-index-0.3.3.tar.gz", hash = "sha256:434c7c2378a7c2a7ce15f642fcb0cd04af741a7d157eab47e6c02c3eb8a52a98"},
 ]
-"mkdocstrings 0.17.0" = [
-    {file = "mkdocstrings-0.17.0-py3-none-any.whl", hash = "sha256:103fc1dd58cb23b7e0a6da5292435f01b29dc6fa0ba829132537f3f556f985de"},
-    {file = "mkdocstrings-0.17.0.tar.gz", hash = "sha256:75b5cfa2039aeaf3a5f5cf0aa438507b0330ce76c8478da149d692daa7213a98"},
+"mkdocstrings 0.18.0" = [
+    {file = "mkdocstrings-0.18.0-py3-none-any.whl", hash = "sha256:75e277f6a56a894a727efcf6d418d36cd43d4db7da9614c2dc23300e257d95ad"},
+    {file = "mkdocstrings-0.18.0.tar.gz", hash = "sha256:01d8ab962fc1f388c9b15cbf8c078b8738f92adf983b626d74135aaee2bce33a"},
+]
+"mkdocstrings-python-legacy 0.2.1" = [
+    {file = "mkdocstrings_python_legacy-0.2.1-py3-none-any.whl", hash = "sha256:a46f772b24d9a41f0b4eaa27a4ae70195cacc76af462fce691d085e0b4fc8c78"},
+    {file = "mkdocstrings-python-legacy-0.2.1.tar.gz", hash = "sha256:d8b032e1d1b4c75a601fcc5837249e2b2dc2cb21c9ad32a313ffaa54d5838242"},
 ]
 "mypy 0.931" = [
     {file = "mypy-0.931-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:3c5b42d0815e15518b1f0990cff7a705805961613e701db60387e6fb663fe78a"},
@@ -2253,9 +2267,9 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "SecretStorage-3.3.1-py3-none-any.whl", hash = "sha256:422d82c36172d88d6a0ed5afdec956514b189ddbfb72fefab0c8a1cee4eaf71f"},
     {file = "SecretStorage-3.3.1.tar.gz", hash = "sha256:fd666c51a6bf200643495a04abb261f83229dcb6fd8472ec393df7ffc8b6f195"},
 ]
-"setuptools 60.8.0" = [
-    {file = "setuptools-60.8.0-py3-none-any.whl", hash = "sha256:4f783948909b28124388eef286572e9e69c228b6866d44ac7475bd82e94b6503"},
-    {file = "setuptools-60.8.0.tar.gz", hash = "sha256:5d7a302d3c3ae24d3bbaaecf5c4544056b2dd44b3e6690014dc096d64f12d672"},
+"setuptools 60.8.1" = [
+    {file = "setuptools-60.8.1-py3-none-any.whl", hash = "sha256:07e97e2f1e5607d240454e98c75c7004560ac8417ca5ae1dbaa50811cb6cc95c"},
+    {file = "setuptools-60.8.1.tar.gz", hash = "sha256:23aad87cc27f4ae704079618c1d117a71bd43d41e355f0698c35f6b1c796d26c"},
 ]
 "sh 1.14.2" = [
     {file = "sh-1.14.2-py2.py3-none-any.whl", hash = "sha256:4921ac9c1a77ec8084bdfaf152fe14138e2b3557cc740002c1a97076321fce8a"},
