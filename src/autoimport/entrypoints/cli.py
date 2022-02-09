@@ -69,10 +69,9 @@ def cli(files: NestedSequence, config_file: Optional[str] = None) -> None:
     global_config_path = get_global_config_path()
     if global_config_path.is_file():
         config_files.append(str(global_config_path))
+    config_files.append("pyproject.toml")
     if config_file is not None:
         config_files.append(config_file)
-    else:
-        config_files.append("pyproject.toml")
     config = ProjectConfig(
         project_name="autoimport", source_files=config_files, merge_configs=True
     ).to_dict()
