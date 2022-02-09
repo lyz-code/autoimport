@@ -223,6 +223,85 @@ def test_global_and_local_config(
     assert code_path.read() == expected_imports + "\n" + original_code
 
 
+def test_global_and_local_config_precedence(
+    runner: CliRunner, tmpdir: LocalPath
+) -> None:
+    """
+    Test precedence of configuration specified in the global config vs
+    pyproject.toml vs --config-file. From low to high priority:
+      - global config file
+      - project-local pyproject.toml file
+      - file specified by the --config-file flag, if any
+    """
+    conf_global = dedent(
+        """
+        [common_statements]
+        "G" = "from g import G"
+        "A" = "from ga import A"
+        "B" = "from gb import B"
+        "C" = "from gc import C"
+        """
+    )
+    conf_pyproject = dedent(
+        """
+        [tool.autoimport.common_statements]
+        "A" = "from pa import A"
+        "C" = "from pc import C"
+        "D" = "from pd import D"
+        """
+    )
+    conf_local = dedent(
+        """
+        [common_statements]
+        "B" = "from lb import B"
+        "C" = "from lc import C"
+        "D" = "from ld import D"
+        """
+    )
+    code_path = tmpdir / "code.py"
+    original_code = dedent(
+        """
+        A
+        B
+        C
+        D
+        G
+        """
+    )
+    expected_imports = dedent(
+        """\
+        from pa import A
+        from lb import B
+        from lc import C
+        from ld import D
+        from g import G
+        """
+    )
+    code_path.write(original_code)
+    args: List[str] = [str(code_path)]
+    env: Dict[str, Optional[str]] = {}
+    # create_global_conf:
+    xdg_home = tmpdir / "xdg_home"
+    env["XDG_CONFIG_HOME"] = str(Path(xdg_home).resolve())  # must be absolute path
+    global_conf_path = xdg_home / "autoimport" / "config.toml"
+    global_conf_path.ensure()
+    global_conf_path.write(conf_global)
+    # use_local_conf:
+    local_conf_path = tmpdir / "cfg" / "local.toml"
+    local_conf_path.ensure()
+    local_conf_path.write(conf_local)
+    args.extend(["--config-file", str(local_conf_path)])
+    # create_pyproject:
+    pyproject_path = tmpdir / "pyproject.toml"
+    pyproject_path.write(conf_pyproject)
+    with tmpdir.as_cwd():
+
+        result = runner.invoke(cli, args, env=env)
+
+    assert result.exit_code == 0
+    assert code_path.read() == expected_imports + original_code
+
+
 def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Allow common_statements to be defined in pyproject.toml"""
     cfg_dir = tmpdir / "cfg"
