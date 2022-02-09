@@ -213,7 +213,7 @@ extras = ["toml"]
 requires_python = ">=3.7"
 summary = "Code coverage measurement for Python"
 dependencies = [
-    "coverage>=5.2.1",
+    "coverage==6.3.1",
     "tomli",
 ]
 
@@ -1335,6 +1335,12 @@ requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 summary = "Module for decorators, wrappers and monkey patching."
 
 [[package]]
+name = "xdg"
+version = "5.1.1"
+requires_python = ">=3.6,<4.0"
+summary = "Variables defined by the XDG Base Directory Specification"
+
+[[package]]
 name = "yamlfix"
 version = "0.8.0"
 requires_python = ">=3.7"
@@ -1363,7 +1369,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9eee1fc3"
+content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c33b17a3"
 
 [metadata.files]
 "argcomplete 1.12.3" = [
@@ -2449,6 +2455,10 @@ content_hash = "sha256:552dd91f0edb60bb3fc25bb5654077d00a28249dc2179f91e497d7dd9
     {file = "wrapt-1.13.3-cp39-cp39-win32.whl", hash = "sha256:0a017a667d1f7411816e4bf214646d0ad5b1da2c1ea13dec6c162736ff25a374"},
     {file = "wrapt-1.13.3-cp39-cp39-win_amd64.whl", hash = "sha256:81bd7c90d28a4b2e1df135bfbd7c23aee3050078ca6441bead44c42483f9ebfb"},
     {file = "wrapt-1.13.3.tar.gz", hash = "sha256:1fea9cd438686e6682271d36f3481a9f3636195578bab9ca3382e2f5f01fc185"},
+]
+"xdg 5.1.1" = [
+    {file = "xdg-5.1.1-py3-none-any.whl", hash = "sha256:865a7b56ed1d4cd2fce2ead1eddf97360843619757f473cd90b75f1817ca541d"},
+    {file = "xdg-5.1.1.tar.gz", hash = "sha256:aa619f26ccec6088b2a6018721d4ee86e602099b24644a90a8d3308a25acd06c"},
 ]
 "yamlfix 0.8.0" = [
     {file = "yamlfix-0.8.0-py3-none-any.whl", hash = "sha256:66094ed651d598baff809cfe9d0fdce447b70ad844c4319c18913a5ff58721af"},
