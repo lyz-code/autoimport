@@ -193,10 +193,10 @@ def test_global_and_local_config(
     code_path = tmpdir / "code.py"
     original_code = dedent(
         """
-    G
-    L
-    P
-    """
+        G
+        L
+        P
+        """
     )
     code_path.write(original_code)
     args: List[str] = [str(code_path)]
