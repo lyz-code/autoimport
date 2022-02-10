@@ -70,15 +70,16 @@ dependencies = [
 
 [[package]]
 name = "autoimport"
-version = "1.1.1"
+version = "1.2.0"
 requires_python = ">=3.7,<3.11"
 summary = "Autoimport missing python libraries."
 dependencies = [
     "autoflake>=1.4",
     "click>=8.0.3",
-    "maison>=1.3.0",
+    "maison>=1.4.0",
     "pyprojroot>=0.2.0",
     "sh>=1.14.2",
+    "xdg>=5.1.1",
 ]
 
 [[package]]
@@ -213,7 +214,7 @@ extras = ["toml"]
 requires_python = ">=3.7"
 summary = "Code coverage measurement for Python"
 dependencies = [
-    "coverage==6.3.1",
+    "coverage>=5.2.1",
     "tomli",
 ]
 
@@ -296,7 +297,7 @@ summary = "Irregular methods for regular expressions"
 
 [[package]]
 name = "faker"
-version = "12.1.0"
+version = "12.2.0"
 requires_python = ">=3.6"
 summary = "Faker is a Python package that generates fake data for you."
 dependencies = [
@@ -466,7 +467,7 @@ dependencies = [
 
 [[package]]
 name = "flake8-simplify"
-version = "0.15.1"
+version = "0.15.2"
 requires_python = ">=3.6.1"
 summary = "flake8 plugin which checks for code that can be simplified"
 dependencies = [
@@ -559,7 +560,7 @@ summary = "An HTML Minifier"
 
 [[package]]
 name = "identify"
-version = "2.4.8"
+version = "2.4.9"
 requires_python = ">=3.7"
 summary = "File identification library for Python"
 
@@ -864,7 +865,7 @@ summary = "Query metadatdata from sdists / bdists / installed packages."
 
 [[package]]
 name = "platformdirs"
-version = "2.4.1"
+version = "2.5.0"
 requires_python = ">=3.7"
 summary = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 
@@ -1178,7 +1179,7 @@ dependencies = [
 
 [[package]]
 name = "setuptools"
-version = "60.8.1"
+version = "60.8.2"
 requires_python = ">=3.7"
 summary = "Easily download, build, install, upgrade, and uninstall Python packages"
 
@@ -1407,9 +1408,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "autoflake 1.4" = [
     {file = "autoflake-1.4.tar.gz", hash = "sha256:61a353012cff6ab94ca062823d1fb2f692c4acda51c76ff83a8d77915fba51ea"},
 ]
-"autoimport 1.1.1" = [
-    {file = "autoimport-1.1.1-py3-none-any.whl", hash = "sha256:f839cc3ed6c923104b40932aafa6babd8260629c76cca7fc9a27729a85906095"},
-    {file = "autoimport-1.1.1.tar.gz", hash = "sha256:0ebd6d639693b3f3127abee171a2486142a606953b409d618f9104206bf05a33"},
+"autoimport 1.2.0" = [
+    {file = "autoimport-1.2.0-py3-none-any.whl", hash = "sha256:d31f9b819a1ff28cf3c2715e82e2218377a69895a1be30049b42d67fb06b3b61"},
+    {file = "autoimport-1.2.0.tar.gz", hash = "sha256:f746bf3ba1c79c325db2649edfa73555c6e0ffa8230036b4b82ddbdadc4c4a40"},
 ]
 "babel 2.9.1" = [
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
@@ -1637,9 +1638,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "exrex 0.10.5" = [
     {file = "exrex-0.10.5.tar.gz", hash = "sha256:3fb8b18fd9832eaff8b13dc042a4f63b13c5d684ee069f70a23ddfc6bcb708f3"},
 ]
-"faker 12.1.0" = [
-    {file = "Faker-12.1.0-py3-none-any.whl", hash = "sha256:534c9410cd003b794900504d37f0afaf8275bfe8865583250799f696cf227cd3"},
-    {file = "Faker-12.1.0.tar.gz", hash = "sha256:820e55f62b428a4d55f6700358167e84a6ba3f8371e9ef39f9ca03a504dcae18"},
+"faker 12.2.0" = [
+    {file = "Faker-12.2.0-py3-none-any.whl", hash = "sha256:2b6e3b10bbea344d2e29c902a9783e155e750ab69a83a220b3a04abb038392bf"},
+    {file = "Faker-12.2.0.tar.gz", hash = "sha256:9d51eed0a0d93ca768101344237406ad63e6d86a3ba3ea44fd824629ef634fc5"},
 ]
 "filelock 3.4.2" = [
     {file = "filelock-3.4.2-py3-none-any.whl", hash = "sha256:cf0fc6a2f8d26bd900f19bf33915ca70ba4dd8c56903eeb14e1e7a2fd7590146"},
@@ -1712,9 +1713,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "flake8_pytest_style-1.6.0-py3-none-any.whl", hash = "sha256:5fedb371a950e9fe0e0e6bfc854be7d99151271208f34cd2cc517681ece27780"},
     {file = "flake8-pytest-style-1.6.0.tar.gz", hash = "sha256:c1175713e9e11b78cd1a035ed0bca0d1e41d09c4af329a952750b61d4194ddac"},
 ]
-"flake8-simplify 0.15.1" = [
-    {file = "flake8_simplify-0.15.1-py3-none-any.whl", hash = "sha256:dafa439c33d87bbf0e1d2218ce9cc1395baaf6f94b6c8a0e92d7fe6ba8939c38"},
-    {file = "flake8_simplify-0.15.1.tar.gz", hash = "sha256:43c15229b0e1ecf6a1afaa6e02a42de961ceca57caaf74bac45818130dec44a3"},
+"flake8-simplify 0.15.2" = [
+    {file = "flake8_simplify-0.15.2-py3-none-any.whl", hash = "sha256:5e0e311743af57d6eb17f46a5c3c5d04df6a5adddc6183573a0ea455833816d6"},
+    {file = "flake8_simplify-0.15.2.tar.gz", hash = "sha256:852d9ba96b572f530e14e2b393985b4d017f82039910c38b107388ef28ceb6dc"},
 ]
 "flake8-typing-imports 1.12.0" = [
     {file = "flake8_typing_imports-1.12.0-py2.py3-none-any.whl", hash = "sha256:4a072a5f5975caedfbd364fb54755983cae812e2b2f0125f3a71237868971a25"},
@@ -1749,9 +1750,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "htmlmin 0.1.12" = [
     {file = "htmlmin-0.1.12.tar.gz", hash = "sha256:50c1ef4630374a5d723900096a961cff426dff46b48f34d194a81bbe14eca178"},
 ]
-"identify 2.4.8" = [
-    {file = "identify-2.4.8-py2.py3-none-any.whl", hash = "sha256:a55bdd671b6063eb837af938c250ec00bba6e610454265133b0d2db7ae718d0f"},
-    {file = "identify-2.4.8.tar.gz", hash = "sha256:97e839c1779f07011b84c92af183e1883d9745d532d83412cca1ca76d3808c1c"},
+"identify 2.4.9" = [
+    {file = "identify-2.4.9-py2.py3-none-any.whl", hash = "sha256:bff7c4959d68510bc28b99d664b6a623e36c6eadc933f89a4e0a9ddff9b4fee4"},
+    {file = "identify-2.4.9.tar.gz", hash = "sha256:e926ae3b3dc142b6a7a9c65433eb14ccac751b724ee255f7c2ed3b5970d764fb"},
 ]
 "idna 3.3" = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
@@ -2069,9 +2070,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "pkginfo-1.8.2-py2.py3-none-any.whl", hash = "sha256:c24c487c6a7f72c66e816ab1796b96ac6c3d14d49338293d2141664330b55ffc"},
     {file = "pkginfo-1.8.2.tar.gz", hash = "sha256:542e0d0b6750e2e21c20179803e40ab50598d8066d51097a0e382cba9eb02bff"},
 ]
-"platformdirs 2.4.1" = [
-    {file = "platformdirs-2.4.1-py3-none-any.whl", hash = "sha256:1d7385c7db91728b83efd0ca99a5afb296cab9d0ed8313a45ed8ba17967ecfca"},
-    {file = "platformdirs-2.4.1.tar.gz", hash = "sha256:440633ddfebcc36264232365d7840a970e75e1018d15b4327d11f91909045fda"},
+"platformdirs 2.5.0" = [
+    {file = "platformdirs-2.5.0-py3-none-any.whl", hash = "sha256:30671902352e97b1eafd74ade8e4a694782bd3471685e78c32d0fdfd3aa7e7bb"},
+    {file = "platformdirs-2.5.0.tar.gz", hash = "sha256:8ec11dfba28ecc0715eb5fb0147a87b1bf325f349f3da9aab2cd6b50b96b692b"},
 ]
 "pluggy 1.0.0" = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
@@ -2273,9 +2274,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "SecretStorage-3.3.1-py3-none-any.whl", hash = "sha256:422d82c36172d88d6a0ed5afdec956514b189ddbfb72fefab0c8a1cee4eaf71f"},
     {file = "SecretStorage-3.3.1.tar.gz", hash = "sha256:fd666c51a6bf200643495a04abb261f83229dcb6fd8472ec393df7ffc8b6f195"},
 ]
-"setuptools 60.8.1" = [
-    {file = "setuptools-60.8.1-py3-none-any.whl", hash = "sha256:07e97e2f1e5607d240454e98c75c7004560ac8417ca5ae1dbaa50811cb6cc95c"},
-    {file = "setuptools-60.8.1.tar.gz", hash = "sha256:23aad87cc27f4ae704079618c1d117a71bd43d41e355f0698c35f6b1c796d26c"},
+"setuptools 60.8.2" = [
+    {file = "setuptools-60.8.2-py3-none-any.whl", hash = "sha256:43a5575eea6d3459789316e1596a3d2a0d215260cacf4189508112f35c9a145b"},
+    {file = "setuptools-60.8.2.tar.gz", hash = "sha256:66b8598da112b8dc8cd941d54cf63ef91d3b50657b374457eda5851f3ff6a899"},
 ]
 "sh 1.14.2" = [
     {file = "sh-1.14.2-py2.py3-none-any.whl", hash = "sha256:4921ac9c1a77ec8084bdfaf152fe14138e2b3557cc740002c1a97076321fce8a"},
