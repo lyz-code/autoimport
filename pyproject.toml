@@ -291,6 +291,7 @@ extension-pkg-whitelist = "pydantic"
 # --------- Mypy -------------
 
 [tool.mypy]
+python_version = 3.9
 show_error_codes = true
 follow_imports = "silent"
 ignore_missing_imports = false
