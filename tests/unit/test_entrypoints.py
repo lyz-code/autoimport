@@ -1,6 +1,7 @@
 """Tests for all entrypints modules."""
 
 import re
+from io import TextIOWrapper
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -31,18 +32,19 @@ def test_custom_param_type_works_with_dir(test_dir: Path) -> None:
 
     result = param_type.convert(test_dir, None, None)
 
-    assert all(re.match(r".*file[1-2].py", f.name) for f in result)  # type: ignore
+    for file_ in result:
+        assert isinstance(file_, TextIOWrapper)
+        assert re.match(r".*file[1-2].py", file_.name)
 
 
 def test_custom_param_type_works_with_file(test_dir: Path) -> None:
     """Ensure the custom param type can be parsed a file."""
     param_type = FileOrDir()
 
-    result = param_type.convert(
-        test_dir / "test_file1.py", None, None
-    ).name  # type: ignore
+    result = param_type.convert(test_dir / "test_file1.py", None, None)
 
-    assert re.match(r".*file[1-2].py", result)
+    assert isinstance(result, TextIOWrapper)
+    assert re.match(r".*file[1-2].py", result.name)
 
 
 @pytest.mark.parametrize("filename", ["h.py", "new_dir"])
