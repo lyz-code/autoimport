@@ -1,3 +1,9 @@
+## 1.2.1 (2022-02-11)
+
+### Fix
+
+- correct pdm local installation so mypy works
+
 ## 1.2.0 (2022-02-09)
 
 ## 1.1.1 (2022-02-04)
