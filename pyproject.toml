@@ -2,7 +2,7 @@
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.1.1"
+version = "1.2.0"
 tag_format = "$version"
 version_files = [
     "pyproject.toml:version",
@@ -61,6 +61,7 @@ autoimport = "autoimport.entrypoints.cli:cli"
 version = {from = "src/autoimport/version.py"}
 package-dir = "src"
 source-includes = ["tests/"]
+editable-backend = "path"
 
 [tool.pdm.dev-dependencies]
 lint = [
@@ -290,6 +291,7 @@ extension-pkg-whitelist = "pydantic"
 # --------- Mypy -------------
 
 [tool.mypy]
+python_version = 3.9
 show_error_codes = true
 follow_imports = "silent"
 ignore_missing_imports = false
@@ -323,5 +325,6 @@ module = [
     "pyprojroot",
     "sh",
     "virtualenv",
+    "xdg",
 ]
 ignore_missing_imports = true

@@ -1,8 +1,9 @@
 """Tests for all entrypints modules."""
 
 import re
+from io import TextIOWrapper
 from pathlib import Path
-from typing import Sequence
+from typing import Any, Sequence
 
 import click
 import pytest
@@ -18,7 +19,7 @@ from autoimport.entrypoints.cli import FileOrDir, flatten, get_files
         ([["a", "b", "c"], "d"], ("a", "b", "c", "d")),
     ],
 )
-def test_flatten(sequence: Sequence, expected: Sequence) -> None:
+def test_flatten(sequence: Sequence[Any], expected: Sequence[Any]) -> None:
     """Test the flatten function works."""
     result = flatten(sequence)
 
@@ -31,16 +32,19 @@ def test_custom_param_type_works_with_dir(test_dir: Path) -> None:
 
     result = param_type.convert(test_dir, None, None)
 
-    assert all(re.match(r".*file[1-2].py", f.name) for f in result)
+    for file_ in result:
+        assert isinstance(file_, TextIOWrapper)
+        assert re.match(r".*file[1-2].py", file_.name)
 
 
 def test_custom_param_type_works_with_file(test_dir: Path) -> None:
     """Ensure the custom param type can be parsed a file."""
     param_type = FileOrDir()
 
-    result = param_type.convert(test_dir / "test_file1.py", None, None).name
+    result = param_type.convert(test_dir / "test_file1.py", None, None)
 
-    assert re.match(r".*file[1-2].py", result)
+    assert isinstance(result, TextIOWrapper)
+    assert re.match(r".*file[1-2].py", result.name)
 
 
 @pytest.mark.parametrize("filename", ["h.py", "new_dir"])
@@ -58,6 +62,6 @@ def test_custom_param_type_with_non_existing_files(
 
 def test_get_files(test_dir: Path) -> None:
     """Ensure we can get all files recursively from a given directory."""
-    result = get_files(test_dir)
+    result = get_files(str(test_dir))
 
     assert all(re.match(r".*file[1-2].py", f.name) for f in result)
