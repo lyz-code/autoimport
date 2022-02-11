@@ -38,7 +38,9 @@ def test_custom_param_type_works_with_file(test_dir: Path) -> None:
     """Ensure the custom param type can be parsed a file."""
     param_type = FileOrDir()
 
-    result = param_type.convert(test_dir / "test_file1.py", None, None).name  # type: ignore
+    result = param_type.convert(
+        test_dir / "test_file1.py", None, None
+    ).name  # type: ignore
 
     assert re.match(r".*file[1-2].py", result)
 
