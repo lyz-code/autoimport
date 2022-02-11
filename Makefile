@@ -47,7 +47,7 @@ mypy:
 	@echo "- Testing mypy -"
 	@echo "----------------"
 
-	pdm run mypy src
+	pdm run mypy src tests
 
 	@echo ""
 

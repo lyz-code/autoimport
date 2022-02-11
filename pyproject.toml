@@ -61,6 +61,7 @@ autoimport = "autoimport.entrypoints.cli:cli"
 version = {from = "src/autoimport/version.py"}
 package-dir = "src"
 source-includes = ["tests/"]
+editable-backend = "path"
 
 [tool.pdm.dev-dependencies]
 lint = [
@@ -323,5 +324,6 @@ module = [
     "pyprojroot",
     "sh",
     "virtualenv",
+    "xdg",
 ]
 ignore_missing_imports = true
