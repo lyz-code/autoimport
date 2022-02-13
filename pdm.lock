@@ -163,7 +163,7 @@ summary = "Validate configuration and produce human readable error messages."
 
 [[package]]
 name = "charset-normalizer"
-version = "2.0.11"
+version = "2.0.12"
 requires_python = ">=3.5.0"
 summary = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 
@@ -467,7 +467,7 @@ dependencies = [
 
 [[package]]
 name = "flake8-simplify"
-version = "0.15.2"
+version = "0.16.0"
 requires_python = ">=3.6.1"
 summary = "flake8 plugin which checks for code that can be simplified"
 dependencies = [
@@ -1284,7 +1284,7 @@ summary = "Typing stubs for toml"
 
 [[package]]
 name = "typing-extensions"
-version = "4.0.1"
+version = "4.1.0"
 requires_python = ">=3.6"
 summary = "Backported and Experimental Type Hints for Python 3.6+"
 
@@ -1517,9 +1517,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "cfgv-3.3.1-py2.py3-none-any.whl", hash = "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426"},
     {file = "cfgv-3.3.1.tar.gz", hash = "sha256:f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"},
 ]
-"charset-normalizer 2.0.11" = [
-    {file = "charset_normalizer-2.0.11-py3-none-any.whl", hash = "sha256:2842d8f5e82a1f6aa437380934d5e1cd4fcf2003b06fed6940769c164a480a45"},
-    {file = "charset-normalizer-2.0.11.tar.gz", hash = "sha256:98398a9d69ee80548c762ba991a4728bfc3836768ed226b3945908d1a688371c"},
+"charset-normalizer 2.0.12" = [
+    {file = "charset_normalizer-2.0.12-py3-none-any.whl", hash = "sha256:6881edbebdb17b39b4eaaa821b438bf6eddffb4468cf344f09f89def34a8b1df"},
+    {file = "charset-normalizer-2.0.12.tar.gz", hash = "sha256:2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597"},
 ]
 "click 8.0.3" = [
     {file = "click-8.0.3-py3-none-any.whl", hash = "sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3"},
@@ -1713,9 +1713,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "flake8_pytest_style-1.6.0-py3-none-any.whl", hash = "sha256:5fedb371a950e9fe0e0e6bfc854be7d99151271208f34cd2cc517681ece27780"},
     {file = "flake8-pytest-style-1.6.0.tar.gz", hash = "sha256:c1175713e9e11b78cd1a035ed0bca0d1e41d09c4af329a952750b61d4194ddac"},
 ]
-"flake8-simplify 0.15.2" = [
-    {file = "flake8_simplify-0.15.2-py3-none-any.whl", hash = "sha256:5e0e311743af57d6eb17f46a5c3c5d04df6a5adddc6183573a0ea455833816d6"},
-    {file = "flake8_simplify-0.15.2.tar.gz", hash = "sha256:852d9ba96b572f530e14e2b393985b4d017f82039910c38b107388ef28ceb6dc"},
+"flake8-simplify 0.16.0" = [
+    {file = "flake8_simplify-0.16.0-py3-none-any.whl", hash = "sha256:a4e05bb21dab96bdbbea26c19ca1444cd64a521e28376488c79e37abc33b0b61"},
+    {file = "flake8_simplify-0.16.0.tar.gz", hash = "sha256:c758f6b35811517d6986c3c71677fc89523f98fe58d52be6237e81d676840542"},
 ]
 "flake8-typing-imports 1.12.0" = [
     {file = "flake8_typing_imports-1.12.0-py2.py3-none-any.whl", hash = "sha256:4a072a5f5975caedfbd364fb54755983cae812e2b2f0125f3a71237868971a25"},
@@ -2355,9 +2355,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "types_toml-0.10.4-py3-none-any.whl", hash = "sha256:4a9ffd47bbcec49c6fde6351a889b2c1bd3c0ef309fa0eed60dc28e58c8b9ea6"},
     {file = "types-toml-0.10.4.tar.gz", hash = "sha256:9340e7c1587715581bb13905b3af30b79fe68afaccfca377665d5e63b694129a"},
 ]
-"typing-extensions 4.0.1" = [
-    {file = "typing_extensions-4.0.1-py3-none-any.whl", hash = "sha256:7f001e5ac290a0c0401508864c7ec868be4e701886d5b573a9528ed3973d9d3b"},
-    {file = "typing_extensions-4.0.1.tar.gz", hash = "sha256:4ca091dea149f945ec56afb48dae714f21e8692ef22a395223bcd328961b6a0e"},
+"typing-extensions 4.1.0" = [
+    {file = "typing_extensions-4.1.0-py3-none-any.whl", hash = "sha256:c13180fbaa7cd97065a4915ceba012bdb31dc34743e63ddee16360161d358414"},
+    {file = "typing_extensions-4.1.0.tar.gz", hash = "sha256:ba97c5143e5bb067b57793c726dd857b1671d4b02ced273ca0538e71ff009095"},
 ]
 "urllib3 1.26.8" = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
