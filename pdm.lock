@@ -297,7 +297,7 @@ summary = "Irregular methods for regular expressions"
 
 [[package]]
 name = "faker"
-version = "12.3.0"
+version = "12.3.3"
 requires_python = ">=3.6"
 summary = "Faker is a Python package that generates fake data for you."
 dependencies = [
@@ -560,7 +560,7 @@ summary = "An HTML Minifier"
 
 [[package]]
 name = "identify"
-version = "2.4.9"
+version = "2.4.10"
 requires_python = ">=3.7"
 summary = "File identification library for Python"
 
@@ -572,7 +572,7 @@ summary = "Internationalized Domain Names in Applications (IDNA)"
 
 [[package]]
 name = "importlib-metadata"
-version = "4.11.0"
+version = "4.11.1"
 requires_python = ">=3.7"
 summary = "Read metadata from Python packages"
 dependencies = [
@@ -1638,9 +1638,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "exrex 0.10.5" = [
     {file = "exrex-0.10.5.tar.gz", hash = "sha256:3fb8b18fd9832eaff8b13dc042a4f63b13c5d684ee069f70a23ddfc6bcb708f3"},
 ]
-"faker 12.3.0" = [
-    {file = "Faker-12.3.0-py3-none-any.whl", hash = "sha256:b996c2162448241a48155df2077458d6fcf1adcee9a6d1201bb9c06c40e8f48d"},
-    {file = "Faker-12.3.0.tar.gz", hash = "sha256:e1939ea638e7bacfa4dce69f872bdd7d53c1b23a92f1bd9f530590c93a4677e0"},
+"faker 12.3.3" = [
+    {file = "Faker-12.3.3-py3-none-any.whl", hash = "sha256:a7244b7f25503811072122d98918f445df276ea80c5e38448f51a3b765665ece"},
+    {file = "Faker-12.3.3.tar.gz", hash = "sha256:dc46ddaf9bd33998c49c69dc68273bb5b11e41820b38f05296d3241c7d681597"},
 ]
 "filelock 3.4.2" = [
     {file = "filelock-3.4.2-py3-none-any.whl", hash = "sha256:cf0fc6a2f8d26bd900f19bf33915ca70ba4dd8c56903eeb14e1e7a2fd7590146"},
@@ -1750,17 +1750,17 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "htmlmin 0.1.12" = [
     {file = "htmlmin-0.1.12.tar.gz", hash = "sha256:50c1ef4630374a5d723900096a961cff426dff46b48f34d194a81bbe14eca178"},
 ]
-"identify 2.4.9" = [
-    {file = "identify-2.4.9-py2.py3-none-any.whl", hash = "sha256:bff7c4959d68510bc28b99d664b6a623e36c6eadc933f89a4e0a9ddff9b4fee4"},
-    {file = "identify-2.4.9.tar.gz", hash = "sha256:e926ae3b3dc142b6a7a9c65433eb14ccac751b724ee255f7c2ed3b5970d764fb"},
+"identify 2.4.10" = [
+    {file = "identify-2.4.10-py2.py3-none-any.whl", hash = "sha256:7d10baf6ba6f1912a0a49f4c1c2c49fa1718765c3a37d72d13b07779567c5b85"},
+    {file = "identify-2.4.10.tar.gz", hash = "sha256:e12b2aea3cf108de73ae055c2260783bde6601de09718f6768cf8e9f6f6322a6"},
 ]
 "idna 3.3" = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
-"importlib-metadata 4.11.0" = [
-    {file = "importlib_metadata-4.11.0-py3-none-any.whl", hash = "sha256:6affcdb3aec542dd98df8211e730bba6c5f2bec8288d47bacacde898f548c9ad"},
-    {file = "importlib_metadata-4.11.0.tar.gz", hash = "sha256:9e5e553bbba1843cb4a00823014b907616be46ee503d2b9ba001d214a8da218f"},
+"importlib-metadata 4.11.1" = [
+    {file = "importlib_metadata-4.11.1-py3-none-any.whl", hash = "sha256:e0bc84ff355328a4adfc5240c4f211e0ab386f80aa640d1b11f0618a1d282094"},
+    {file = "importlib_metadata-4.11.1.tar.gz", hash = "sha256:175f4ee440a0317f6e8d81b7f8d4869f93316170a65ad2b007d2929186c8052c"},
 ]
 "iniconfig 1.1.1" = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
