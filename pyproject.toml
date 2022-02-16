@@ -19,7 +19,7 @@ authors = [
     {name = "Lyz", email = "lyz@riseup.net"},
 ]
 license = {text = "GPL-3.0-only"}
-requires-python = ">=3.7,<3.11"
+requires-python = ">=3.7"
 dependencies = [
     "click>=8.0.3",
     "autoflake>=1.4",
