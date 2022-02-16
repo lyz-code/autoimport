@@ -1,3 +1,9 @@
+## 1.2.2 (2022-02-16)
+
+### Perf
+
+- remove the uppercap on python 3.11
+
 ## 1.2.1 (2022-02-11)
 
 ### Fix
