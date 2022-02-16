@@ -245,7 +245,8 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distro"
-version = "1.6.0"
+version = "1.7.0"
+requires_python = ">=3.6"
 summary = "Distro - an OS platform information API"
 
 [[package]]
@@ -297,7 +298,7 @@ summary = "Irregular methods for regular expressions"
 
 [[package]]
 name = "faker"
-version = "12.3.3"
+version = "13.0.0"
 requires_python = ">=3.6"
 summary = "Faker is a Python package that generates fake data for you."
 dependencies = [
@@ -307,7 +308,7 @@ dependencies = [
 
 [[package]]
 name = "filelock"
-version = "3.4.2"
+version = "3.5.0"
 requires_python = ">=3.7"
 summary = "A platform independent file lock."
 
@@ -1179,7 +1180,7 @@ dependencies = [
 
 [[package]]
 name = "setuptools"
-version = "60.9.0"
+version = "60.9.1"
 requires_python = ">=3.7"
 summary = "Easily download, build, install, upgrade, and uninstall Python packages"
 
@@ -1609,9 +1610,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "distlib-0.3.4-py2.py3-none-any.whl", hash = "sha256:6564fe0a8f51e734df6333d08b8b94d4ea8ee6b99b5ed50613f731fd4089f34b"},
     {file = "distlib-0.3.4.zip", hash = "sha256:e4b58818180336dc9c529bfb9a0b58728ffc09ad92027a3f30b7cd91e3458579"},
 ]
-"distro 1.6.0" = [
-    {file = "distro-1.6.0-py2.py3-none-any.whl", hash = "sha256:c8713330ab31a034623a9515663ed87696700b55f04556b97c39cd261aa70dc7"},
-    {file = "distro-1.6.0.tar.gz", hash = "sha256:83f5e5a09f9c5f68f60173de572930effbcc0287bb84fdc4426cb4168c088424"},
+"distro 1.7.0" = [
+    {file = "distro-1.7.0-py3-none-any.whl", hash = "sha256:d596311d707e692c2160c37807f83e3820c5d539d5a83e87cfb6babd8ba3a06b"},
+    {file = "distro-1.7.0.tar.gz", hash = "sha256:151aeccf60c216402932b52e40ee477a939f8d58898927378a02abbe852c1c39"},
 ]
 "dlint 0.12.0" = [
     {file = "dlint-0.12.0-py3-none-any.whl", hash = "sha256:344823d299439aa94fe276b2b3b90733026787d25713c664e137cf5f7d0645f7"},
@@ -1638,13 +1639,13 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "exrex 0.10.5" = [
     {file = "exrex-0.10.5.tar.gz", hash = "sha256:3fb8b18fd9832eaff8b13dc042a4f63b13c5d684ee069f70a23ddfc6bcb708f3"},
 ]
-"faker 12.3.3" = [
-    {file = "Faker-12.3.3-py3-none-any.whl", hash = "sha256:a7244b7f25503811072122d98918f445df276ea80c5e38448f51a3b765665ece"},
-    {file = "Faker-12.3.3.tar.gz", hash = "sha256:dc46ddaf9bd33998c49c69dc68273bb5b11e41820b38f05296d3241c7d681597"},
+"faker 13.0.0" = [
+    {file = "Faker-13.0.0-py3-none-any.whl", hash = "sha256:ee8d9181137cdd2b198bd3d0653b0a3b7b385213862348e15ba8a423324b702b"},
+    {file = "Faker-13.0.0.tar.gz", hash = "sha256:f545b2a1ba5f7effc4ed71af0a5204d939445f0190838d41bee6bc160958bfbe"},
 ]
-"filelock 3.4.2" = [
-    {file = "filelock-3.4.2-py3-none-any.whl", hash = "sha256:cf0fc6a2f8d26bd900f19bf33915ca70ba4dd8c56903eeb14e1e7a2fd7590146"},
-    {file = "filelock-3.4.2.tar.gz", hash = "sha256:38b4f4c989f9d06d44524df1b24bd19e167d851f19b50bf3e3559952dddc5b80"},
+"filelock 3.5.0" = [
+    {file = "filelock-3.5.0-py3-none-any.whl", hash = "sha256:a7141afb4feca60925cfc090b411fb9faaf542d06d58ece4f93d940265e6b995"},
+    {file = "filelock-3.5.0.tar.gz", hash = "sha256:137b661e657f7850eec9def2a001efadba3414be523b87cd3f9a037372d80a15"},
 ]
 "flake8 3.9.2" = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
@@ -2274,9 +2275,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "SecretStorage-3.3.1-py3-none-any.whl", hash = "sha256:422d82c36172d88d6a0ed5afdec956514b189ddbfb72fefab0c8a1cee4eaf71f"},
     {file = "SecretStorage-3.3.1.tar.gz", hash = "sha256:fd666c51a6bf200643495a04abb261f83229dcb6fd8472ec393df7ffc8b6f195"},
 ]
-"setuptools 60.9.0" = [
-    {file = "setuptools-60.9.0-py3-none-any.whl", hash = "sha256:d181db00651bce5268b8f559795053d5e8f645e4dbafac6d262b22d7e72e19eb"},
-    {file = "setuptools-60.9.0.tar.gz", hash = "sha256:716f9d20b4c3513d1720245eb1dac009b40c9694c88e940e54b67b8b65d09493"},
+"setuptools 60.9.1" = [
+    {file = "setuptools-60.9.1-py3-none-any.whl", hash = "sha256:71b2b3a334d6fcd2e472fb18d0ff530dc585d62da1494e75d001058f33153257"},
+    {file = "setuptools-60.9.1.tar.gz", hash = "sha256:1bc2725f0b4d6eb054ee29a0e05fda9c7c0921a6bdc0cf6dd2204da746872b49"},
 ]
 "sh 1.14.2" = [
     {file = "sh-1.14.2-py2.py3-none-any.whl", hash = "sha256:4921ac9c1a77ec8084bdfaf152fe14138e2b3557cc740002c1a97076321fce8a"},
