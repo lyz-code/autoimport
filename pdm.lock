@@ -70,8 +70,8 @@ dependencies = [
 
 [[package]]
 name = "autoimport"
-version = "1.2.1"
-requires_python = ">=3.7,<3.11"
+version = "1.2.2"
+requires_python = ">=3.7"
 summary = "Autoimport missing python libraries."
 dependencies = [
     "autoflake>=1.4",
@@ -308,7 +308,7 @@ dependencies = [
 
 [[package]]
 name = "filelock"
-version = "3.5.0"
+version = "3.5.1"
 requires_python = ">=3.7"
 summary = "A platform independent file lock."
 
@@ -468,7 +468,7 @@ dependencies = [
 
 [[package]]
 name = "flake8-simplify"
-version = "0.17.0"
+version = "0.17.1"
 requires_python = ">=3.6.1"
 summary = "flake8 plugin which checks for code that can be simplified"
 dependencies = [
@@ -1180,7 +1180,7 @@ dependencies = [
 
 [[package]]
 name = "setuptools"
-version = "60.9.1"
+version = "60.9.2"
 requires_python = ">=3.7"
 summary = "Easily download, build, install, upgrade, and uninstall Python packages"
 
@@ -1371,7 +1371,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c33b17a3"
+content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f25b1e3e1"
 
 [metadata.files]
 "argcomplete 1.12.3" = [
@@ -1409,9 +1409,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
 "autoflake 1.4" = [
     {file = "autoflake-1.4.tar.gz", hash = "sha256:61a353012cff6ab94ca062823d1fb2f692c4acda51c76ff83a8d77915fba51ea"},
 ]
-"autoimport 1.2.1" = [
-    {file = "autoimport-1.2.1-py3-none-any.whl", hash = "sha256:cf0853556e601580ae8224be7a1b6398d1b87a1cb463c01ac26a982ea4ac615a"},
-    {file = "autoimport-1.2.1.tar.gz", hash = "sha256:9e5cd1c101c8705ffb550d711b595343d19d27173f7461613af13e5830ebc9e9"},
+"autoimport 1.2.2" = [
+    {file = "autoimport-1.2.2-py3-none-any.whl", hash = "sha256:cf8982a621df199eff0e88f3f1190dc4f72093395f6bf478e544fac10217f160"},
+    {file = "autoimport-1.2.2.tar.gz", hash = "sha256:ae58d93b1b71529f78bcf06733e60170600620c903740f5745f928cc8f1243f3"},
 ]
 "babel 2.9.1" = [
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
@@ -1643,9 +1643,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "Faker-13.0.0-py3-none-any.whl", hash = "sha256:ee8d9181137cdd2b198bd3d0653b0a3b7b385213862348e15ba8a423324b702b"},
     {file = "Faker-13.0.0.tar.gz", hash = "sha256:f545b2a1ba5f7effc4ed71af0a5204d939445f0190838d41bee6bc160958bfbe"},
 ]
-"filelock 3.5.0" = [
-    {file = "filelock-3.5.0-py3-none-any.whl", hash = "sha256:a7141afb4feca60925cfc090b411fb9faaf542d06d58ece4f93d940265e6b995"},
-    {file = "filelock-3.5.0.tar.gz", hash = "sha256:137b661e657f7850eec9def2a001efadba3414be523b87cd3f9a037372d80a15"},
+"filelock 3.5.1" = [
+    {file = "filelock-3.5.1-py3-none-any.whl", hash = "sha256:7b23620a293cf3e19924e469cb96672dc72b36c26e8f80f85668310117fcbe4e"},
+    {file = "filelock-3.5.1.tar.gz", hash = "sha256:d1eccb164ed020bc84edd9e45bf6cdb177f64749f6b8fe066648832d2e98726d"},
 ]
 "flake8 3.9.2" = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
@@ -1714,9 +1714,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "flake8_pytest_style-1.6.0-py3-none-any.whl", hash = "sha256:5fedb371a950e9fe0e0e6bfc854be7d99151271208f34cd2cc517681ece27780"},
     {file = "flake8-pytest-style-1.6.0.tar.gz", hash = "sha256:c1175713e9e11b78cd1a035ed0bca0d1e41d09c4af329a952750b61d4194ddac"},
 ]
-"flake8-simplify 0.17.0" = [
-    {file = "flake8_simplify-0.17.0-py3-none-any.whl", hash = "sha256:a566bb550706dbdc637b46729b760a7ac6442e2b28d64b729bc9da44a4dfd3b1"},
-    {file = "flake8_simplify-0.17.0.tar.gz", hash = "sha256:fd4076e0f9e9af4a18d91dfe32b1d460b7da97322d5e083fc3a5bbe487075877"},
+"flake8-simplify 0.17.1" = [
+    {file = "flake8_simplify-0.17.1-py3-none-any.whl", hash = "sha256:9e05c2b80c5fcfc04557c60f14cd6a8ea723abcd471eb01a05b33484040d0370"},
+    {file = "flake8_simplify-0.17.1.tar.gz", hash = "sha256:06b78943c291c5ba7689c41c4ff8f845c2949155c54d1a33455ce9d110dfd62c"},
 ]
 "flake8-typing-imports 1.12.0" = [
     {file = "flake8_typing_imports-1.12.0-py2.py3-none-any.whl", hash = "sha256:4a072a5f5975caedfbd364fb54755983cae812e2b2f0125f3a71237868971a25"},
@@ -2275,9 +2275,9 @@ content_hash = "sha256:0be87ea6077faf2c60155d5560c7f1ee9e3d203056196888ab617b31c
     {file = "SecretStorage-3.3.1-py3-none-any.whl", hash = "sha256:422d82c36172d88d6a0ed5afdec956514b189ddbfb72fefab0c8a1cee4eaf71f"},
     {file = "SecretStorage-3.3.1.tar.gz", hash = "sha256:fd666c51a6bf200643495a04abb261f83229dcb6fd8472ec393df7ffc8b6f195"},
 ]
-"setuptools 60.9.1" = [
-    {file = "setuptools-60.9.1-py3-none-any.whl", hash = "sha256:71b2b3a334d6fcd2e472fb18d0ff530dc585d62da1494e75d001058f33153257"},
-    {file = "setuptools-60.9.1.tar.gz", hash = "sha256:1bc2725f0b4d6eb054ee29a0e05fda9c7c0921a6bdc0cf6dd2204da746872b49"},
+"setuptools 60.9.2" = [
+    {file = "setuptools-60.9.2-py3-none-any.whl", hash = "sha256:93b1a3037230bf9aa07327b9fc58f527d5f4e22d36705b55d55ba3ece8606ca6"},
+    {file = "setuptools-60.9.2.tar.gz", hash = "sha256:80743e57120665fa65665286369a0734bce0e7a629ad36507fb7a4b65e7d2e3b"},
 ]
 "sh 1.14.2" = [
     {file = "sh-1.14.2-py2.py3-none-any.whl", hash = "sha256:4921ac9c1a77ec8084bdfaf152fe14138e2b3557cc740002c1a97076321fce8a"},
