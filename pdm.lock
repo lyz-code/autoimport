@@ -3,7 +3,7 @@ name = "argcomplete"
 version = "1.12.3"
 summary = "Bash tab completion for argparse"
 dependencies = [
-    "importlib-metadata<5,>=0.23; python_version == \"3.7\"",
+    "importlib-metadata==4.11.1; python_version == \"3.7\"",
 ]
 
 [[package]]
@@ -24,11 +24,11 @@ version = "2.9.3"
 requires_python = ">=3.6.2"
 summary = "An abstract syntax tree for Python with inference support."
 dependencies = [
-    "lazy-object-proxy>=1.4.0",
+    "lazy-object-proxy==1.7.1",
     "setuptools>=20.0",
     "typed-ast<2.0,>=1.4.0; implementation_name == \"cpython\" and python_version < \"3.8\"",
     "typing-extensions>=3.10; python_version < \"3.10\"",
-    "wrapt<1.14,>=1.11",
+    "wrapt==1.13.3",
 ]
 
 [[package]]
@@ -45,7 +45,7 @@ version = "1.6.3"
 summary = "An AST unparser for Python"
 dependencies = [
     "six<2.0,>=1.6.1",
-    "wheel<1.0,>=0.23.0",
+    "wheel==0.37.1",
 ]
 
 [[package]]
@@ -88,7 +88,7 @@ version = "2.9.1"
 requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 summary = "Internationalization utilities"
 dependencies = [
-    "pytz>=2015.7",
+    "pytz==2021.3",
 ]
 
 [[package]]
@@ -97,10 +97,10 @@ version = "1.7.2"
 requires_python = ">=3.7"
 summary = "Security oriented static analyser for python code."
 dependencies = [
-    "GitPython>=1.0.1",
-    "PyYAML>=5.3.1",
+    "GitPython==3.1.27",
+    "PyYAML==6.0",
     "colorama>=0.3.9; platform_system == \"Windows\"",
-    "stevedore>=1.20.0",
+    "stevedore==3.5.0",
 ]
 
 [[package]]
@@ -109,7 +109,7 @@ version = "4.10.0"
 requires_python = ">3.0.0"
 summary = "Screen-scraping library"
 dependencies = [
-    "soupsieve>1.2",
+    "soupsieve==2.3.1",
 ]
 
 [[package]]
@@ -119,10 +119,10 @@ requires_python = ">=3.6.2"
 summary = "The uncompromising code formatter."
 dependencies = [
     "click>=8.0.0",
-    "mypy-extensions>=0.4.3",
-    "pathspec>=0.9.0",
-    "platformdirs>=2",
-    "tomli>=1.1.0",
+    "mypy-extensions==0.4.3",
+    "pathspec==0.9.0",
+    "platformdirs==2.5.1",
+    "tomli==2.0.1",
     "typed-ast>=1.4.2; python_version < \"3.8\" and implementation_name == \"cpython\"",
     "typing-extensions>=3.10.0.0; python_version < \"3.10\"",
 ]
@@ -135,7 +135,7 @@ summary = "An easy safelist-based HTML-sanitizing tool."
 dependencies = [
     "packaging",
     "six>=1.9.0",
-    "webencodings",
+    "webencodings==0.5.1",
 ]
 
 [[package]]
@@ -153,7 +153,7 @@ name = "cffi"
 version = "1.15.0"
 summary = "Foreign Function Interface for Python calling C code."
 dependencies = [
-    "pycparser",
+    "pycparser==2.21",
 ]
 
 [[package]]
@@ -190,16 +190,16 @@ version = "2.21.0"
 requires_python = ">=3.6.2,<4.0.0"
 summary = "Python commitizen client tool"
 dependencies = [
-    "argcomplete<2.0.0,>=1.12.1",
-    "colorama<0.5.0,>=0.4.1",
-    "decli<0.6.0,>=0.5.2",
-    "jinja2>=2.10.3",
-    "packaging<22,>=19",
+    "argcomplete==1.12.3",
+    "colorama==0.4.4",
+    "decli==0.5.2",
+    "jinja2==3.0.3",
+    "packaging==21.3",
     "pyyaml>=3.08",
-    "questionary<2.0.0,>=1.4.0",
-    "termcolor<2.0,>=1.1",
-    "tomlkit<1.0.0,>=0.5.3",
-    "typing-extensions<5.0.0,>=4.0.1",
+    "questionary==1.10.0",
+    "termcolor==1.1.0",
+    "tomlkit==0.10.0",
+    "typing-extensions==4.1.1",
 ]
 
 [[package]]
@@ -215,7 +215,7 @@ extras = ["toml"]
 requires_python = ">=3.7"
 summary = "Code coverage measurement for Python"
 dependencies = [
-    "coverage",
+    "coverage==6.3.1",
     "tomli",
 ]
 
@@ -225,7 +225,7 @@ version = "36.0.1"
 requires_python = ">=3.6"
 summary = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
 dependencies = [
-    "cffi>=1.12",
+    "cffi==1.15.0",
 ]
 
 [[package]]
@@ -303,7 +303,7 @@ version = "13.0.0"
 requires_python = ">=3.6"
 summary = "Faker is a Python package that generates fake data for you."
 dependencies = [
-    "python-dateutil>=2.4",
+    "python-dateutil==2.8.2",
     "typing-extensions>=3.10.0.2; python_version < \"3.8\"",
 ]
 
@@ -320,9 +320,9 @@ requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 summary = "the modular source code checker: pep8 pyflakes and co"
 dependencies = [
     "importlib-metadata; python_version < \"3.8\"",
-    "mccabe<0.7.0,>=0.6.0",
-    "pycodestyle<2.8.0,>=2.7.0",
-    "pyflakes<2.4.0,>=2.3.0",
+    "mccabe==0.6.1",
+    "pycodestyle==2.7.0",
+    "pyflakes==2.3.1",
 ]
 
 [[package]]
@@ -331,7 +331,7 @@ version = "0.12.2"
 requires_python = ">=3.7, <4"
 summary = "A Flake8 plugin that checks Python tests follow the Arrange-Act-Assert pattern"
 dependencies = [
-    "asttokens>=2",
+    "asttokens==2.0.5",
 ]
 
 [[package]]
@@ -341,7 +341,7 @@ requires_python = ">=3.6.2,<4.0.0"
 summary = "Flake8 Type Annotation Checks"
 dependencies = [
     "flake8<5.0,>=3.7",
-    "typed-ast<2.0,>=1.4; python_version < \"3.8\"",
+    "typed-ast==1.5.2; python_version < \"3.8\"",
 ]
 
 [[package]]
@@ -358,7 +358,7 @@ version = "22.1.11"
 requires_python = ">=3.6"
 summary = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 dependencies = [
-    "attrs>=19.2.0",
+    "attrs==21.4.0",
     "flake8>=3.0.0",
 ]
 
@@ -380,7 +380,7 @@ summary = "ipdb/pdb statement checker plugin for flake8"
 dependencies = [
     "flake8>=3.0",
     "pycodestyle",
-    "six",
+    "six==1.16.0",
 ]
 
 [[package]]
@@ -389,7 +389,7 @@ version = "1.6.0"
 summary = "Extension for flake8 which uses pydocstyle to check docstrings"
 dependencies = [
     "flake8>=3",
-    "pydocstyle>=2.1",
+    "pydocstyle==6.1.1",
 ]
 
 [[package]]
@@ -399,7 +399,7 @@ requires_python = ">=3.6,<4.0"
 summary = "Flake8 plugin to find commented out code"
 dependencies = [
     "attrs",
-    "eradicate<3.0,>=2.0",
+    "eradicate==2.0.0",
     "flake8<5,>=3.5",
 ]
 
@@ -409,7 +409,7 @@ version = "0.0.9"
 requires_python = ">=3.6"
 summary = "A flake8 extension that checks expressions complexity"
 dependencies = [
-    "astpretty",
+    "astpretty==2.1.0",
     "flake8",
     "setuptools",
 ]
@@ -464,7 +464,7 @@ version = "1.6.0"
 requires_python = ">=3.6.2,<4.0.0"
 summary = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
 dependencies = [
-    "flake8-plugin-utils<2.0.0,>=1.3.2",
+    "flake8-plugin-utils==1.3.2",
 ]
 
 [[package]]
@@ -473,7 +473,7 @@ version = "0.17.1"
 requires_python = ">=3.6.1"
 summary = "flake8 plugin which checks for code that can be simplified"
 dependencies = [
-    "astor>=0.1",
+    "astor==0.8.1",
     "flake8>=3.7",
     "importlib-metadata>=0.9; python_version < \"3.8\"",
 ]
@@ -512,7 +512,7 @@ requires_python = ">=3.5"
 summary = "Flake8 wrapper to make it nice and configurable"
 dependencies = [
     "colorama",
-    "entrypoints",
+    "entrypoints==0.4",
     "flake8>=3.8.0",
     "pygments",
     "toml",
@@ -542,16 +542,16 @@ version = "4.0.9"
 requires_python = ">=3.6"
 summary = "Git Object Database"
 dependencies = [
-    "smmap<6,>=3.0.1",
+    "smmap==5.0.0",
 ]
 
 [[package]]
 name = "gitpython"
-version = "3.1.26"
+version = "3.1.27"
 requires_python = ">=3.7"
 summary = "GitPython is a python library used to interact with Git repositories"
 dependencies = [
-    "gitdb<5,>=4.0.1",
+    "gitdb==4.0.9",
     "typing-extensions>=3.7.4.3; python_version < \"3.8\"",
 ]
 
@@ -579,7 +579,7 @@ requires_python = ">=3.7"
 summary = "Read metadata from Python packages"
 dependencies = [
     "typing-extensions>=3.6.4; python_version < \"3.8\"",
-    "zipp>=0.5",
+    "zipp==3.7.0",
 ]
 
 [[package]]
@@ -619,10 +619,10 @@ version = "23.5.0"
 requires_python = ">=3.7"
 summary = "Store and access your passwords safely."
 dependencies = [
-    "SecretStorage>=3.2; sys_platform == \"linux\"",
+    "SecretStorage==3.3.1; sys_platform == \"linux\"",
     "importlib-metadata>=3.6",
-    "jeepney>=0.4.2; sys_platform == \"linux\"",
-    "pywin32-ctypes!=0.1.0,!=0.1.1; sys_platform == \"win32\"",
+    "jeepney==0.7.1; sys_platform == \"linux\"",
+    "pywin32-ctypes==0.2.0; sys_platform == \"win32\"",
 ]
 
 [[package]]
@@ -644,8 +644,8 @@ requires_python = ">=3.6.1,<4.0.0"
 summary = "Maison"
 dependencies = [
     "click<9.0.0,>=8.0.1",
-    "pydantic<2.0.0,>=1.8.2",
-    "toml<0.11.0,>=0.10.2",
+    "pydantic==1.9.0",
+    "toml==0.10.2",
 ]
 
 [[package]]
@@ -689,15 +689,15 @@ requires_python = ">=3.6"
 summary = "Project documentation with Markdown."
 dependencies = [
     "Jinja2>=2.10.1",
-    "Markdown>=3.2.1",
+    "Markdown==3.3.6",
     "PyYAML>=3.10",
     "click>=3.3",
-    "ghp-import>=1.0",
+    "ghp-import==2.0.2",
     "importlib-metadata>=3.10",
-    "mergedeep>=1.3.4",
+    "mergedeep==1.3.4",
     "packaging>=20.5",
-    "pyyaml-env-tag>=0.1",
-    "watchdog>=2.0",
+    "pyyaml-env-tag==0.1",
+    "watchdog==2.1.6",
 ]
 
 [[package]]
@@ -726,7 +726,7 @@ requires_python = ">=3.6"
 summary = "Mkdocs plugin that enables displaying the localized date of the last git modification of a markdown file."
 dependencies = [
     "GitPython",
-    "babel>=2.7.0",
+    "babel==2.9.1",
     "mkdocs>=1.0",
 ]
 
@@ -737,8 +737,8 @@ requires_python = ">=3.6"
 summary = "A MkDocs plugin that validates URL in rendered HTML files"
 dependencies = [
     "Markdown",
-    "beautifulsoup4",
-    "lxml",
+    "beautifulsoup4==4.10.0",
+    "lxml==4.8.0",
     "mkdocs>=0.17",
     "requests",
 ]
@@ -751,10 +751,10 @@ summary = "A Material Design theme for MkDocs"
 dependencies = [
     "jinja2>=2.11.1",
     "markdown>=3.2",
-    "mkdocs-material-extensions>=1.0",
+    "mkdocs-material-extensions==1.0.3",
     "mkdocs>=1.2.3",
-    "pygments>=2.10",
-    "pymdown-extensions>=9.0",
+    "pygments==2.11.2",
+    "pymdown-extensions==9.2",
 ]
 
 [[package]]
@@ -769,9 +769,9 @@ version = "0.5.0"
 requires_python = ">=3.0"
 summary = "An MkDocs plugin to minify HTML, JS or CSS files prior to being written to disk"
 dependencies = [
-    "csscompressor>=0.9.5",
-    "htmlmin>=0.1.4",
-    "jsmin>=3.0.0",
+    "csscompressor==0.9.5",
+    "htmlmin==0.1.12",
+    "jsmin==3.0.1",
     "mkdocs>=1.0.4",
 ]
 
@@ -792,21 +792,21 @@ summary = "Automatic documentation from sources, for MkDocs."
 dependencies = [
     "Jinja2>=2.11.1",
     "Markdown>=3.3",
-    "MarkupSafe>=1.1",
-    "mkdocs-autorefs>=0.3.1",
+    "MarkupSafe==2.1.0",
+    "mkdocs-autorefs==0.3.1",
     "mkdocs>=1.2",
-    "mkdocstrings-python-legacy>=0.2",
+    "mkdocstrings-python-legacy==0.2.2",
     "pymdown-extensions>=6.3",
 ]
 
 [[package]]
 name = "mkdocstrings-python-legacy"
-version = "0.2.1"
+version = "0.2.2"
 requires_python = ">=3.7"
 summary = "A legacy Python handler for mkdocstrings."
 dependencies = [
     "mkdocstrings>=0.18",
-    "pytkdocs>=0.14",
+    "pytkdocs==0.16.0",
 ]
 
 [[package]]
@@ -837,7 +837,7 @@ version = "21.3"
 requires_python = ">=3.6"
 summary = "Core utilities for Python packages"
 dependencies = [
-    "pyparsing!=3.0.5,>=2.0.2",
+    "pyparsing==3.0.7",
 ]
 
 [[package]]
@@ -857,7 +857,7 @@ name = "pep8-naming"
 version = "0.12.1"
 summary = "Check PEP-8 naming conventions, plugin for flake8"
 dependencies = [
-    "flake8-polyfill<2,>=1.0.2",
+    "flake8-polyfill==1.0.2",
     "flake8>=3.9.1",
 ]
 
@@ -868,7 +868,7 @@ summary = "Query metadatdata from sdists / bdists / installed packages."
 
 [[package]]
 name = "platformdirs"
-version = "2.5.0"
+version = "2.5.1"
 requires_python = ">=3.7"
 summary = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 
@@ -887,13 +887,13 @@ version = "2.17.0"
 requires_python = ">=3.6.1"
 summary = "A framework for managing and maintaining multi-language pre-commit hooks."
 dependencies = [
-    "cfgv>=2.0.0",
-    "identify>=1.0.0",
+    "cfgv==3.3.1",
+    "identify==2.4.10",
     "importlib-metadata; python_version < \"3.8\"",
-    "nodeenv>=0.11.1",
+    "nodeenv==1.6.0",
     "pyyaml>=5.1",
     "toml",
-    "virtualenv>=20.0.8",
+    "virtualenv==20.13.1",
 ]
 
 [[package]]
@@ -902,7 +902,7 @@ version = "3.0.28"
 requires_python = ">=3.6.2"
 summary = "Library for building powerful interactive command lines in Python"
 dependencies = [
-    "wcwidth",
+    "wcwidth==0.2.5",
 ]
 
 [[package]]
@@ -938,8 +938,8 @@ version = "1.2.5"
 requires_python = ">=3.7,<4.0"
 summary = "Mock data generation for pydantic based models"
 dependencies = [
-    "exrex",
-    "faker",
+    "exrex==0.10.5",
+    "faker==13.0.0",
     "pydantic",
     "typing-extensions",
 ]
@@ -950,7 +950,7 @@ version = "6.1.1"
 requires_python = ">=3.6"
 summary = "Python docstring style checker"
 dependencies = [
-    "snowballstemmer",
+    "snowballstemmer==2.2.0",
 ]
 
 [[package]]
@@ -971,7 +971,7 @@ version = "2.12.2"
 requires_python = ">=3.6.2"
 summary = "python code static checker"
 dependencies = [
-    "astroid<2.10,>=2.9.0",
+    "astroid==2.9.3",
     "colorama; sys_platform == \"win32\"",
     "isort<6,>=4.2.5",
     "mccabe<0.7,>=0.6",
@@ -1006,14 +1006,14 @@ version = "7.0.1"
 requires_python = ">=3.6"
 summary = "pytest: simple powerful testing with Python"
 dependencies = [
-    "atomicwrites>=1.0; sys_platform == \"win32\"",
+    "atomicwrites==1.4.0; sys_platform == \"win32\"",
     "attrs>=19.2.0",
     "colorama; sys_platform == \"win32\"",
     "importlib-metadata>=0.12; python_version < \"3.8\"",
-    "iniconfig",
+    "iniconfig==1.1.1",
     "packaging",
-    "pluggy<2.0,>=0.12",
-    "py>=1.8.2",
+    "pluggy==1.0.0",
+    "py==1.11.0",
     "tomli>=1.0.0",
 ]
 
@@ -1023,7 +1023,7 @@ version = "3.0.0"
 requires_python = ">=3.6"
 summary = "Pytest plugin for measuring coverage."
 dependencies = [
-    "coverage[toml]>=5.2.1",
+    "coverage[toml]==6.3.1",
     "pytest>=4.6",
 ]
 
@@ -1042,7 +1042,7 @@ name = "pytest-freezegun"
 version = "0.4.2"
 summary = "Wrap tests with fixtures in freeze_time"
 dependencies = [
-    "freezegun>0.3",
+    "freezegun==1.1.0",
     "pytest>=3.0.0",
 ]
 
@@ -1052,8 +1052,8 @@ version = "2.5.0"
 requires_python = ">=3.6"
 summary = "pytest xdist plugin for distributed testing and loop-on-failing modes"
 dependencies = [
-    "execnet>=1.1",
-    "pytest-forked",
+    "execnet==1.9.0",
+    "pytest-forked==1.4.0",
     "pytest>=6.2.0",
 ]
 
@@ -1068,12 +1068,12 @@ dependencies = [
 
 [[package]]
 name = "pytkdocs"
-version = "0.15.0"
-requires_python = ">=3.6.2"
+version = "0.16.0"
+requires_python = ">=3.7"
 summary = "Load Python objects documentation."
 dependencies = [
-    "astunparse>=1.6; python_version < \"3.9\"",
-    "cached-property>=1.5; python_version < \"3.8\"",
+    "astunparse==1.6.3; python_version < \"3.9\"",
+    "cached-property==1.5.2; python_version < \"3.8\"",
     "typing-extensions>=3.7; python_version < \"3.8\"",
 ]
 
@@ -1108,7 +1108,7 @@ version = "1.10.0"
 requires_python = ">=3.6,<4.0"
 summary = "Python library to build pretty command line user prompts ⭐️"
 dependencies = [
-    "prompt-toolkit<4.0,>=2.0",
+    "prompt-toolkit==3.0.28",
 ]
 
 [[package]]
@@ -1118,8 +1118,8 @@ requires_python = ">=3.6"
 summary = "readme_renderer is a library for rendering \"readme\" descriptions for Warehouse"
 dependencies = [
     "Pygments>=2.5.1",
-    "bleach>=2.1.0",
-    "docutils>=0.13.1",
+    "bleach==4.1.0",
+    "docutils==0.18.1",
 ]
 
 [[package]]
@@ -1128,10 +1128,10 @@ version = "2.27.1"
 requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 summary = "Python HTTP for Humans."
 dependencies = [
-    "certifi>=2017.4.17",
-    "charset-normalizer~=2.0.0; python_version >= \"3\"",
-    "idna<4,>=2.5; python_version >= \"3\"",
-    "urllib3<1.27,>=1.21.1",
+    "certifi==2021.10.8",
+    "charset-normalizer==2.0.12; python_version >= \"3\"",
+    "idna==3.3; python_version >= \"3\"",
+    "urllib3==1.26.8",
 ]
 
 [[package]]
@@ -1154,8 +1154,8 @@ version = "0.91.0"
 requires_python = ">=3.6"
 summary = "ruyaml is a fork of ruamel.yaml"
 dependencies = [
-    "distro>=1.3.0",
-    "setuptools>=39.0",
+    "distro==1.7.0",
+    "setuptools==60.9.3",
 ]
 
 [[package]]
@@ -1165,7 +1165,7 @@ requires_python = ">=3.5"
 summary = "Checks installed dependencies for known vulnerabilities."
 dependencies = [
     "Click>=6.0",
-    "dparse>=0.5.1",
+    "dparse==0.5.1",
     "packaging",
     "requests",
     "setuptools",
@@ -1177,7 +1177,7 @@ version = "3.3.1"
 requires_python = ">=3.6"
 summary = "Python bindings to FreeDesktop.org Secret Service API"
 dependencies = [
-    "cryptography>=2.0",
+    "cryptography==36.0.1",
     "jeepney>=0.6",
 ]
 
@@ -1222,7 +1222,7 @@ requires_python = ">=3.6"
 summary = "Manage dynamic plugins for Python applications"
 dependencies = [
     "importlib-metadata>=1.7.0; python_version < \"3.8\"",
-    "pbr!=2.1.0,>=2.0.0",
+    "pbr==5.8.1",
 ]
 
 [[package]]
@@ -1265,13 +1265,13 @@ summary = "Collection of utilities for publishing packages on PyPI"
 dependencies = [
     "colorama>=0.4.3",
     "importlib-metadata>=3.6",
-    "keyring>=15.1",
-    "pkginfo>=1.8.1",
-    "readme-renderer>=21.0",
-    "requests-toolbelt!=0.9.0,>=0.8.0",
-    "requests>=2.20",
-    "rfc3986>=1.4.0",
-    "tqdm>=4.14",
+    "keyring==23.5.0",
+    "pkginfo==1.8.2",
+    "readme-renderer==32.0",
+    "requests-toolbelt==0.9.1",
+    "requests==2.27.1",
+    "rfc3986==2.0.0",
+    "tqdm==4.62.3",
     "urllib3>=1.26.0",
 ]
 
@@ -1304,8 +1304,8 @@ version = "20.13.1"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 summary = "Virtual Python Environment builder"
 dependencies = [
-    "distlib<1,>=0.3.1",
-    "filelock<4,>=3.2",
+    "distlib==0.3.4",
+    "filelock==3.6.0",
     "importlib-metadata>=0.12; python_version < \"3.8\"",
     "platformdirs<3,>=2",
     "six<2,>=1.9.0",
@@ -1352,7 +1352,7 @@ requires_python = ">=3.7"
 summary = "A simple opionated yaml formatter that keeps your comments!"
 dependencies = [
     "click",
-    "ruyaml",
+    "ruyaml==0.91.0",
 ]
 
 [[package]]
@@ -1747,9 +1747,9 @@ content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f2
     {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
     {file = "gitdb-4.0.9.tar.gz", hash = "sha256:bac2fd45c0a1c9cf619e63a90d62bdc63892ef92387424b855792a6cabe789aa"},
 ]
-"gitpython 3.1.26" = [
-    {file = "GitPython-3.1.26-py3-none-any.whl", hash = "sha256:26ac35c212d1f7b16036361ca5cff3ec66e11753a0d677fb6c48fa4e1a9dd8d6"},
-    {file = "GitPython-3.1.26.tar.gz", hash = "sha256:fc8868f63a2e6d268fb25f481995ba185a85a66fcad126f039323ff6635669ee"},
+"gitpython 3.1.27" = [
+    {file = "GitPython-3.1.27-py3-none-any.whl", hash = "sha256:5b68b000463593e05ff2b261acff0ff0972df8ab1b70d3cdbd41b546c8b8fc3d"},
+    {file = "GitPython-3.1.27.tar.gz", hash = "sha256:1c885ce809e8ba2d88a29befeb385fcea06338d3640712b59ca623c220bb5704"},
 ]
 "htmlmin 0.1.12" = [
     {file = "htmlmin-0.1.12.tar.gz", hash = "sha256:50c1ef4630374a5d723900096a961cff426dff46b48f34d194a81bbe14eca178"},
@@ -1992,9 +1992,9 @@ content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f2
     {file = "mkdocstrings-0.18.0-py3-none-any.whl", hash = "sha256:75e277f6a56a894a727efcf6d418d36cd43d4db7da9614c2dc23300e257d95ad"},
     {file = "mkdocstrings-0.18.0.tar.gz", hash = "sha256:01d8ab962fc1f388c9b15cbf8c078b8738f92adf983b626d74135aaee2bce33a"},
 ]
-"mkdocstrings-python-legacy 0.2.1" = [
-    {file = "mkdocstrings_python_legacy-0.2.1-py3-none-any.whl", hash = "sha256:a46f772b24d9a41f0b4eaa27a4ae70195cacc76af462fce691d085e0b4fc8c78"},
-    {file = "mkdocstrings-python-legacy-0.2.1.tar.gz", hash = "sha256:d8b032e1d1b4c75a601fcc5837249e2b2dc2cb21c9ad32a313ffaa54d5838242"},
+"mkdocstrings-python-legacy 0.2.2" = [
+    {file = "mkdocstrings_python_legacy-0.2.2-py3-none-any.whl", hash = "sha256:379107a3a5b8db9b462efc4493c122efe21e825e3702425dbd404621302a563a"},
+    {file = "mkdocstrings-python-legacy-0.2.2.tar.gz", hash = "sha256:f0e7ec6a19750581b752acb38f6b32fcd1efe006f14f6703125d2c2c9a5c6f02"},
 ]
 "mypy 0.931" = [
     {file = "mypy-0.931-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:3c5b42d0815e15518b1f0990cff7a705805961613e701db60387e6fb663fe78a"},
@@ -2046,9 +2046,9 @@ content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f2
     {file = "pkginfo-1.8.2-py2.py3-none-any.whl", hash = "sha256:c24c487c6a7f72c66e816ab1796b96ac6c3d14d49338293d2141664330b55ffc"},
     {file = "pkginfo-1.8.2.tar.gz", hash = "sha256:542e0d0b6750e2e21c20179803e40ab50598d8066d51097a0e382cba9eb02bff"},
 ]
-"platformdirs 2.5.0" = [
-    {file = "platformdirs-2.5.0-py3-none-any.whl", hash = "sha256:30671902352e97b1eafd74ade8e4a694782bd3471685e78c32d0fdfd3aa7e7bb"},
-    {file = "platformdirs-2.5.0.tar.gz", hash = "sha256:8ec11dfba28ecc0715eb5fb0147a87b1bf325f349f3da9aab2cd6b50b96b692b"},
+"platformdirs 2.5.1" = [
+    {file = "platformdirs-2.5.1-py3-none-any.whl", hash = "sha256:bcae7cab893c2d310a711b70b24efb93334febe65f8de776ee320b517471e227"},
+    {file = "platformdirs-2.5.1.tar.gz", hash = "sha256:7535e70dfa32e84d4b34996ea99c5e432fa29a708d0f4e394bbcb2a8faa4f16d"},
 ]
 "pluggy 1.0.0" = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
@@ -2167,9 +2167,9 @@ content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f2
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
 ]
-"pytkdocs 0.15.0" = [
-    {file = "pytkdocs-0.15.0-py3-none-any.whl", hash = "sha256:d6b2aec34448ec89acb8c1c25062cc1e70c6b26395d46fc7ee753b7e5a4e736a"},
-    {file = "pytkdocs-0.15.0.tar.gz", hash = "sha256:4b45af89d6fa5fa50f979b0f9f54539286b84e245c81991bb838149aa2d9d9c9"},
+"pytkdocs 0.16.0" = [
+    {file = "pytkdocs-0.16.0-py3-none-any.whl", hash = "sha256:098405ff347797cfb887a4d78f161372109bfbfffa0f8ee8daa5e2b8a8caba4b"},
+    {file = "pytkdocs-0.16.0.tar.gz", hash = "sha256:274407bcefec58d7e411adb03b84da49120107912b1697d17d4a3aea0583f388"},
 ]
 "pytz 2021.3" = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
