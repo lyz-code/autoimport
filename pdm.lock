@@ -93,7 +93,7 @@ dependencies = [
 
 [[package]]
 name = "bandit"
-version = "1.7.3"
+version = "1.7.4"
 requires_python = ">=3.7"
 summary = "Security oriented static analyser for python code."
 dependencies = [
@@ -933,7 +933,7 @@ dependencies = [
 
 [[package]]
 name = "pydantic-factories"
-version = "1.2.5"
+version = "1.2.6"
 requires_python = ">=3.7,<4.0"
 summary = "Mock data generation for pydantic based models"
 dependencies = [
@@ -1419,9 +1419,9 @@ content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f2
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
     {file = "Babel-2.9.1.tar.gz", hash = "sha256:bc0c176f9f6a994582230df350aa6e05ba2ebe4b3ac317eab29d9be5d2768da0"},
 ]
-"bandit 1.7.3" = [
-    {file = "bandit-1.7.3-py3-none-any.whl", hash = "sha256:3ce9b4e6a4f7f41aa966c9543e635dd35e52a793a47e746f0c55c7ecfc69d7e8"},
-    {file = "bandit-1.7.3.tar.gz", hash = "sha256:58772ca951bf1129dda8a280d351547de832720bf7b5c29fac3103927980b8a6"},
+"bandit 1.7.4" = [
+    {file = "bandit-1.7.4-py3-none-any.whl", hash = "sha256:412d3f259dab4077d0e7f0c11f50f650cc7d10db905d98f6520a95a18049658a"},
+    {file = "bandit-1.7.4.tar.gz", hash = "sha256:2d63a8c573417bae338962d4b9b06fbc6080f74ecd955a092849e1e65c717bd2"},
 ]
 "beautifulsoup4 4.10.0" = [
     {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
@@ -2112,9 +2112,9 @@ content_hash = "sha256:d095ec95bac2c50f8a21ae806ce032aedaa01ab5eb1037683987d48f2
     {file = "pydantic-1.9.0-py3-none-any.whl", hash = "sha256:085ca1de245782e9b46cefcf99deecc67d418737a1fd3f6a4f511344b613a5b3"},
     {file = "pydantic-1.9.0.tar.gz", hash = "sha256:742645059757a56ecd886faf4ed2441b9c0cd406079c2b4bee51bcc3fbcd510a"},
 ]
-"pydantic-factories 1.2.5" = [
-    {file = "pydantic_factories-1.2.5-py3-none-any.whl", hash = "sha256:0b54c81fe24660844c0172c9cf0e93c9d6b8bc064a12e0d9804f28f14458b159"},
-    {file = "pydantic-factories-1.2.5.tar.gz", hash = "sha256:a2a78f4c0449632d704f218c272431af681780f79a12295758df4b12cbbe4ac7"},
+"pydantic-factories 1.2.6" = [
+    {file = "pydantic_factories-1.2.6-py3-none-any.whl", hash = "sha256:b8731f6a05a32fc369d55243fa836182e139abd9ad4051424d37c8221d876e98"},
+    {file = "pydantic-factories-1.2.6.tar.gz", hash = "sha256:9707b053b54842fce8af964c0c8a9fcc67ad28c9655cb100e4fdeb23e9bf68c5"},
 ]
 "pydocstyle 6.1.1" = [
     {file = "pydocstyle-6.1.1-py3-none-any.whl", hash = "sha256:6987826d6775056839940041beef5c08cc7e3d71d63149b48e36727f70144dc4"},
