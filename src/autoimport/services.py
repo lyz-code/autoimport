@@ -75,3 +75,8 @@ def fix_code(original_source_code: str, config: Optional[Dict[str, Any]] = None)
 def get_all_packages(config: Optional[Dict[str, Any]] = None) -> PackageDict:
     """Find all avalible imports"""
     return SourceCodeBase(config=config).get_all_packages()
+
+
+def find_packages(name: str, config: Optional[Dict[str, Any]] = None) -> str:
+    """Find import for a given name"""
+    return SourceCodeBase(config=config).find_package(name)

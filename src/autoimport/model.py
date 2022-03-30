@@ -52,7 +52,7 @@ class SourceCodeBase:
     def __init__(self, config: Optional[Dict[str, Any]] = None) -> None:
         self.config: Dict[str, Any] = config if config else {}
 
-    def _find_package(self, name: str) -> Optional[str]:
+    def find_package(self, name: str) -> Optional[str]:
         """Search package by an object's name.
 
         It will search in these places:
@@ -445,7 +445,7 @@ class SourceCode(SourceCodeBase):  # noqa: R090
         Args:
             object_name: Object name to search.
         """
-        import_string = self._find_package(object_name)
+        import_string = self.find_package(object_name)
 
         if import_string is not None:
             self.imports.append(import_string)
