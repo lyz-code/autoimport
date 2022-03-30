@@ -4,7 +4,7 @@ import importlib.util
 import inspect
 import os
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, TypedDict
 
 import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
@@ -36,11 +36,164 @@ common_statements: Dict[str, str] = {
     "tz": "from dateutil import tz",
     "YAMLError": "from yaml import YAMLError",
 }
+package_list = Optional[Dict[str, str]]
+
+
+class PackageDict(TypedDict):
+    common: package_list
+    modules: package_list
+    typing: package_list
+    project: package_list
+
+
+class SourceCodeBase:
+    """Base class for finding package import statements with no additional overhead"""
+
+    def __init__(self, config: Optional[Dict[str, Any]] = None) -> None:
+        self.config: Dict[str, Any] = config if config else {}
+
+    def _find_package(self, name: str) -> Optional[str]:
+        """Search package by an object's name.
+
+        It will search in these places:
+
+        * In the package we are developing.
+        * Modules in PYTHONPATH.
+        * Typing library.
+        * Common statements.
+
+        Args:
+            name: Object name to search.
+
+        Returns:
+            import_string: String required to import the package.
+        """
+        for check in [
+            "_find_package_in_common_statements",
+            "_find_package_in_modules",
+            "_find_package_in_typing",
+            "_find_package_in_our_project",
+        ]:
+            package = getattr(self, check)(name)
+            if package is not None:
+                return package
+        return None
+
+    @staticmethod
+    def _get_package_objects() -> Optional[Dict[str, str]]:
+        # Find the package name
+        try:
+            project_package = os.path.basename(here()).replace("-", "_")
+        except RecursionError:  # pragma: no cover
+            # I don't know how to make a test that raises this error :(
+            # To manually reproduce, follow the steps of
+            # https://github.com/lyz-code/autoimport/issues/131
+            return None
+        return extract_package_objects(project_package)
+
+    @staticmethod
+    def _find_package_in_our_project(name: str) -> Optional[str]:
+        """Search the name in the objects of the package we are developing.
+
+        Args:
+            name: package name
+
+        Returns:
+            import_string: String required to import the package.
+        """
+
+        package_objects = SourceCodeBase._get_package_objects()
+        # nocover: as the tests are run inside the autoimport virtualenv, it will
+        # always find the objects on that package
+        if package_objects is None:  # pragma: nocover
+            return None
+        try:
+            return package_objects[name]
+        except KeyError:
+            return None
+
+    @staticmethod
+    def _find_package_in_modules(name: str) -> Optional[str]:
+        """Search in the PYTHONPATH modules if object is a package.
+
+        Args:
+            name: package name
+
+        Returns:
+            import_string: String required to import the package.
+        """
+        package_specs = importlib.util.find_spec(name)
+
+        try:
+            importlib.util.module_from_spec(package_specs)  # type: ignore
+        except AttributeError:
+            return None
+
+        return f"import {name}"
+
+    @staticmethod
+    def _find_package_in_typing(name: str) -> Optional[str]:
+        """Search in the typing library the object name.
+
+        Args:
+            name: package name
+
+        Returns:
+            import_string: Python 3.7 type checking compatible import string.
+        """
+        typing_objects = extract_package_objects("typing")
+
+        try:
+            return typing_objects[name]
+        except KeyError:
+            return None
+
+    def _get_additional_statements(self) -> Dict[str, str]:
+        """When parsing to the cli via --config-file the config becomes nested."""
+        common_statements = self.config.get("common_statements")
+        if common_statements:
+            return common_statements
+        return (
+            self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
+        )
+
+    def _get_common_statements(self) -> package_list:
+        local_common_statements = common_statements.copy()
+        additional_statements = self._get_additional_statements()
+        if additional_statements:
+            local_common_statements.update(additional_statements)
+        return local_common_statements
+
+    def _find_package_in_common_statements(self, name: str) -> Optional[str]:
+        """Search in the common statements the object name.
+
+        Args:
+            name: package name
+
+        Returns:
+            import_string
+        """
+        statements = self._get_common_statements()
+        if statements is None:
+            return None
+
+        if name in statements:
+            return statements[name]
+
+        return None
+
+    def get_all_packages(self) -> PackageDict:
+        return {
+            "common": self._get_common_statements(),
+            "modules": None,
+            "typing": extract_package_objects("typing"),
+            "project": self._get_package_objects(),
+        }
 
 
 # R0903: Too few public methods (1/2). We don't need more, but using the class instead
 #   of passing the data between function calls is useful.
-class SourceCode:  # noqa: R090
+class SourceCode(SourceCodeBase):  # noqa: R090
     """Python source code entity."""
 
     def __init__(
@@ -51,8 +204,8 @@ class SourceCode:  # noqa: R090
         self.imports: List[str] = []
         self.typing: List[str] = []
         self.code: List[str] = []
-        self.config: Dict[str, Any] = config if config else {}
         self._trailing_newline = False
+        super().__init__(config)
         self._split_code(source_code)
 
     def fix(self) -> str:
@@ -296,126 +449,6 @@ class SourceCode:  # noqa: R090
 
         if import_string is not None:
             self.imports.append(import_string)
-
-    def _find_package(self, name: str) -> Optional[str]:
-        """Search package by an object's name.
-
-        It will search in these places:
-
-        * In the package we are developing.
-        * Modules in PYTHONPATH.
-        * Typing library.
-        * Common statements.
-
-        Args:
-            name: Object name to search.
-
-        Returns:
-            import_string: String required to import the package.
-        """
-        for check in [
-            "_find_package_in_common_statements",
-            "_find_package_in_modules",
-            "_find_package_in_typing",
-            "_find_package_in_our_project",
-        ]:
-            package = getattr(self, check)(name)
-            if package is not None:
-                return package
-        return None
-
-    @staticmethod
-    def _find_package_in_our_project(name: str) -> Optional[str]:
-        """Search the name in the objects of the package we are developing.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string: String required to import the package.
-        """
-        # Find the package name
-        try:
-            project_package = os.path.basename(here()).replace("-", "_")
-        except RecursionError:  # pragma: no cover
-            # I don't know how to make a test that raises this error :(
-            # To manually reproduce, follow the steps of
-            # https://github.com/lyz-code/autoimport/issues/131
-            return None
-        package_objects = extract_package_objects(project_package)
-
-        # nocover: as the tests are run inside the autoimport virtualenv, it will
-        # always find the objects on that package
-        if package_objects is None:  # pragma: nocover
-            return None
-        try:
-            return package_objects[name]
-        except KeyError:
-            return None
-
-    @staticmethod
-    def _find_package_in_modules(name: str) -> Optional[str]:
-        """Search in the PYTHONPATH modules if object is a package.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string: String required to import the package.
-        """
-        package_specs = importlib.util.find_spec(name)
-
-        try:
-            importlib.util.module_from_spec(package_specs)  # type: ignore
-        except AttributeError:
-            return None
-
-        return f"import {name}"
-
-    @staticmethod
-    def _find_package_in_typing(name: str) -> Optional[str]:
-        """Search in the typing library the object name.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string: Python 3.7 type checking compatible import string.
-        """
-        typing_objects = extract_package_objects("typing")
-
-        try:
-            return typing_objects[name]
-        except KeyError:
-            return None
-
-    def _get_additional_statements(self) -> Dict[str, str]:
-        """When parsing to the cli via --config-file the config becomes nested."""
-        common_statements = self.config.get("common_statements")
-        if common_statements:
-            return common_statements
-        return (
-            self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
-        )
-
-    def _find_package_in_common_statements(self, name: str) -> Optional[str]:
-        """Search in the common statements the object name.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string
-        """
-        local_common_statements = common_statements.copy()
-        additional_statements = self._get_additional_statements()
-        if additional_statements:
-            local_common_statements.update(additional_statements)
-
-        if name in local_common_statements:
-            return local_common_statements[name]
-
-        return None
 
     def _remove_unused_imports(self, import_name: str) -> None:
         """Remove unused import statements.
