@@ -77,6 +77,6 @@ def get_all_packages(config: Optional[Dict[str, Any]] = None) -> PackageDict:
     return SourceCodeBase(config=config).get_all_packages()
 
 
-def find_packages(name: str, config: Optional[Dict[str, Any]] = None) -> str:
+def find_packages(name: str, config: Optional[Dict[str, Any]] = None) -> Optional[str]:
     """Find import for a given name"""
     return SourceCodeBase(config=config).find_package(name)

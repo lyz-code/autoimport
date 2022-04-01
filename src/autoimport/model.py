@@ -150,9 +150,9 @@ class SourceCodeBase:
 
     def _get_additional_statements(self) -> Dict[str, str]:
         """When parsing to the cli via --config-file the config becomes nested."""
-        common_statements = self.config.get("common_statements")
-        if common_statements:
-            return common_statements
+        local_common_statements = self.config.get("common_statements")
+        if local_common_statements:
+            return local_common_statements
         return (
             self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
         )
