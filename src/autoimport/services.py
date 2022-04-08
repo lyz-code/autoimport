@@ -8,7 +8,7 @@ from typing import Any, Dict, Optional, Tuple
 
 from _io import TextIOWrapper
 
-from autoimport.model import PackageDict, SourceCode, SourceCodeBase
+from autoimport.model import SourceCode, SourceCodeBase
 
 
 def fix_files(
@@ -72,11 +72,5 @@ def fix_code(original_source_code: str, config: Optional[Dict[str, Any]] = None)
     return SourceCode(original_source_code, config=config).fix()
 
 
-def get_all_packages(config: Optional[Dict[str, Any]] = None) -> PackageDict:
-    """Find all avalible imports"""
-    return SourceCodeBase(config=config).get_all_packages()
 
 
-def find_packages(name: str, config: Optional[Dict[str, Any]] = None) -> Optional[str]:
-    """Find import for a given name"""
-    return SourceCodeBase(config=config).find_package(name)
