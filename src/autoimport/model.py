@@ -1,56 +1,27 @@
 """Define the entities."""
 
 import importlib.util
-import inspect
 import os
 import re
-from typing import Any, Dict, List, Optional, Tuple, TypedDict
-
+from typing import Any, Dict, List, Optional, Tuple
 import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
 from pyprojroot import here
-
-common_statements: Dict[str, str] = {
-    "ABC": "from abc import ABC",
-    "abstractmethod": "from abc import abstractmethod",
-    "BaseModel": "from pydantic import BaseModel  # noqa: E0611",
-    "BeautifulSoup": "from bs4 import BeautifulSoup",
-    "call": "from unittest.mock import call",
-    "CaptureFixture": "from _pytest.capture import CaptureFixture",
-    "CliRunner": "from click.testing import CliRunner",
-    "copyfile": "from shutil import copyfile",
-    "datetime": "from datetime import datetime",
-    "dedent": "from textwrap import dedent",
-    "Enum": "from enum import Enum",
-    "Faker": "from faker import Faker",
-    "FrozenDateTimeFactory": "from freezegun.api import FrozenDateTimeFactory",
-    "LocalPath": "from py._path.local import LocalPath",
-    "LogCaptureFixture": "from _pytest.logging import LogCaptureFixture",
-    "Mock": "from unittest.mock import Mock",
-    "ModelFactory": "from pydantic_factories import ModelFactory",
-    "Path": "from pathlib import Path",
-    "patch": "from unittest.mock import patch",
-    "StringIO": "from io import StringIO",
-    "suppress": "from contextlib import suppress",
-    "TempdirFactory": "from _pytest.tmpdir import TempdirFactory",
-    "tz": "from dateutil import tz",
-    "YAMLError": "from yaml import YAMLError",
-}
-package_list = Optional[Dict[str, str]]
-
-
-class PackageDict(TypedDict):
-    common: package_list
-    modules: package_list
-    typing: package_list
-    project: package_list
+from rope.base.project import Project
+from rope.contrib.autoimport import AutoImport
 
 
 class SourceCodeBase:
-    """Base class for finding package import statements with no additional overhead"""
+    """Wrapper class around rope's AutoImport."""
+
+    autoimport: AutoImport
 
     def __init__(self, config: Optional[Dict[str, Any]] = None) -> None:
         self.config: Dict[str, Any] = config if config else {}
+        project = Project(os.path.basename(here()).replace("-", "_"))
+        self.autoimport = AutoImport(project, memory=False)
+        self.autoimport.generate_resource_cache()
+        self.autoimport.generate_modules_cache()
 
     def find_package(self, name: str) -> Optional[str]:
         """Search package by an object's name.
@@ -68,49 +39,11 @@ class SourceCodeBase:
         Returns:
             import_string: String required to import the package.
         """
-        for check in [
-            "_find_package_in_common_statements",
-            "_find_package_in_modules",
-            "_find_package_in_typing",
-            "_find_package_in_our_project",
-        ]:
-            package = getattr(self, check)(name)
-            if package is not None:
-                return package
+        results = self.autoimport.search(name)
+        if len(results) > 0:
+            print(results)
+            return results[0]
         return None
-
-    @staticmethod
-    def _get_package_objects() -> Optional[Dict[str, str]]:
-        # Find the package name
-        try:
-            project_package = os.path.basename(here()).replace("-", "_")
-        except RecursionError:  # pragma: no cover
-            # I don't know how to make a test that raises this error :(
-            # To manually reproduce, follow the steps of
-            # https://github.com/lyz-code/autoimport/issues/131
-            return None
-        return extract_package_objects(project_package)
-
-    @staticmethod
-    def _find_package_in_our_project(name: str) -> Optional[str]:
-        """Search the name in the objects of the package we are developing.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string: String required to import the package.
-        """
-
-        package_objects = SourceCodeBase._get_package_objects()
-        # nocover: as the tests are run inside the autoimport virtualenv, it will
-        # always find the objects on that package
-        if package_objects is None:  # pragma: nocover
-            return None
-        try:
-            return package_objects[name]
-        except KeyError:
-            return None
 
     @staticmethod
     def _find_package_in_modules(name: str) -> Optional[str]:
@@ -130,65 +63,6 @@ class SourceCodeBase:
             return None
 
         return f"import {name}"
-
-    @staticmethod
-    def _find_package_in_typing(name: str) -> Optional[str]:
-        """Search in the typing library the object name.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string: Python 3.7 type checking compatible import string.
-        """
-        typing_objects = extract_package_objects("typing")
-
-        try:
-            return typing_objects[name]
-        except KeyError:
-            return None
-
-    def _get_additional_statements(self) -> Dict[str, str]:
-        """When parsing to the cli via --config-file the config becomes nested."""
-        local_common_statements = self.config.get("common_statements")
-        if local_common_statements:
-            return local_common_statements
-        return (
-            self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
-        )
-
-    def _get_common_statements(self) -> package_list:
-        local_common_statements = common_statements.copy()
-        additional_statements = self._get_additional_statements()
-        if additional_statements:
-            local_common_statements.update(additional_statements)
-        return local_common_statements
-
-    def _find_package_in_common_statements(self, name: str) -> Optional[str]:
-        """Search in the common statements the object name.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string
-        """
-        statements = self._get_common_statements()
-        if statements is None:
-            return None
-
-        if name in statements:
-            return statements[name]
-
-        return None
-
-    def get_all_packages(self) -> PackageDict:
-        return {
-            "common": self._get_common_statements(),
-            "modules": None,
-            "typing": extract_package_objects("typing"),
-            "project": self._get_package_objects(),
-        }
 
 
 # R0903: Too few public methods (1/2). We don't need more, but using the class instead
@@ -511,54 +385,3 @@ class SourceCode(SourceCodeBase):  # noqa: R090
                     self.imports.pop(line_number - 1)
 
                 return
-
-
-def extract_package_objects(name: str) -> Dict[str, str]:
-    """Extract the package objects and their import string.
-
-    Returns:
-        objects: A dictionary with the object name as a key and the import string
-            as the value.
-    """
-    package_objects: Dict[str, str] = {}
-    package_modules = []
-
-    try:
-        package_modules.append(__import__(name))
-    except ModuleNotFoundError:
-        return package_objects
-
-    for package_module in package_modules:
-        for package_object_tuple in inspect.getmembers(package_module):
-            object_name = package_object_tuple[0]
-            package_object = package_object_tuple[1]
-            # If the object is a function or a class
-            if inspect.isfunction(package_object) or inspect.isclass(package_object):
-                if (
-                    object_name not in package_objects.keys()
-                    and name in package_object.__module__
-                ):
-                    # Try to load the object from the module instead of the
-                    # submodules.
-                    if (
-                        hasattr(package_module, "__all__")
-                        and object_name in package_module.__all__
-                    ):
-                        package_objects[
-                            object_name
-                        ] = f"from {package_module.__name__} import {object_name}"
-                    else:
-                        package_objects[
-                            object_name
-                        ] = f"from {package_object.__module__} import {object_name}"
-
-            elif not re.match(r"^_.*", object_name):
-                # The rest of objects
-                package_objects[
-                    object_name
-                ] = f"from {package_module.__name__} import {object_name}"
-
-        for module in inspect.getmembers(package_module, inspect.ismodule):
-            if module[1].__package__ == name:
-                package_modules.append(module[1])
-    return package_objects
