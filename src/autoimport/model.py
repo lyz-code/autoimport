@@ -1,9 +1,9 @@
 """Define the entities."""
 
-import importlib.util
 import os
 import re
 from typing import Any, Dict, List, Optional, Tuple
+
 import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
 from pyprojroot import here
@@ -41,28 +41,8 @@ class SourceCodeBase:
         """
         results = self.autoimport.search(name)
         if len(results) > 0:
-            print(results)
             return results[0]
         return None
-
-    @staticmethod
-    def _find_package_in_modules(name: str) -> Optional[str]:
-        """Search in the PYTHONPATH modules if object is a package.
-
-        Args:
-            name: package name
-
-        Returns:
-            import_string: String required to import the package.
-        """
-        package_specs = importlib.util.find_spec(name)
-
-        try:
-            importlib.util.module_from_spec(package_specs)  # type: ignore
-        except AttributeError:
-            return None
-
-        return f"import {name}"
 
 
 # R0903: Too few public methods (1/2). We don't need more, but using the class instead
