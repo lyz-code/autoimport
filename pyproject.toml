@@ -9,6 +9,11 @@ version_files = [
     "src/autoimport/version.py",
 ]
 
+# --------- Autoimport -------------
+
+[tool.autoimport.common_statements]
+"factories" = "from tests import factories"
+
 # --------- PDM -------------
 
 [project]
@@ -134,7 +139,6 @@ dev = [
 requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
 
-
 # --------- Black -------------
 
 [tool.black]
@@ -180,12 +184,21 @@ markers = [
     "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')"
 ]
 
+filterwarnings = [
+  "error",
+  # Until https://github.com/ktosiek/pytest-freezegun/issues/35 is merged
+  "ignore::DeprecationWarning:pytest_freezegun.*",
+]
+
 # --------- Coverage -------------
 
 [tool.coverage.report]
 exclude_lines = [
     # Have to re-enable the standard pragma
     'pragma: no cover',
+
+    # Type checking can not be tested
+    'if TYPE_CHECKING:',
 
     # Ignore the Abstract classes definition
     'raise NotImplementedError',
@@ -197,16 +210,15 @@ exclude_lines = [
 profile = "black"
 src_paths = ["src", "test"]
 
-# --------- Flakehell -------------
+# --------- Flakeheaven -------------
 
-[tool.flakehell]
+[tool.flakeheaven]
 format = "grouped"
 max_line_length = 88
 show_source = true
 docstring-convention = "google"
-extended_default_ignore=[]  # Until https://github.com/flakehell/flakehell/issues/10 is solved
 
-[tool.flakehell.plugins]
+[tool.flakeheaven.plugins]
 flake8-aaa = ["+*"]
 flake8-annotations = [
   "+*",
@@ -233,7 +245,8 @@ flake8-use-fstring = [
 flake8-typing-imports = [
   "+*",
   "-TYP001", # guard import by `if False:  # TYPE_CHECKING`: TYPE_CHECKING (not in
-             #   3.5.0, 3.5.1). We don't support Python < 3.6
+             #   3.5.0, 3.5.1). We don't support Python 3.5
+  "-TYP002", # @overload is broken in <3.5.2, but we don't support Python 3.5
 ]
 flake8-variables-names = ["+*"]
 dlint = ["+*"]
@@ -241,6 +254,8 @@ pylint = [
   "+*",
   "-C0411", # %s should be placed before %s,
             # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
+  "-R0903", # Too few methods warning, but if you define an interface with just one
+            # method that's fine
   "-W1203", # Use %s formatting in logging functions. Deprecated rule in favor of
             # f-strings.
   "-W1201", # Use lazy % formatting in logging functions. Deprecated rule in favor of
@@ -257,25 +272,29 @@ pycodestyle = [
 ]
 pyflakes = ["+*"]
 
-[tool.flakehell.exceptions."tests/"]
+[tool.flakeheaven.exceptions."tests/"]
 flake8-docstrings = [
   "-D400", # First line should end with a period
   "-D205"  # 1 blank line required between summary line and description
 ]
 flake8-annotations = [
-  "-ANN001"
+  "-ANN001",
+  "-ANN401", # Dynamically typed expressions (typing.Any) are disallowed
 ]
 pylint = [
   "-R0201", # Method could be a function. Raised because the methods of a test class
             # don't use the self object, which is not wrong.
+  "-W0613", # Unused argument in function, but in tests there are fixtures that even
+            # though they are not used in the function directly, they are used to
+            # configure the test.
 ]
 
-[tool.flakehell.exceptions."tests/factories.py"]
+[tool.flakeheaven.exceptions."tests/factories.py"]
 pylint = [
   "-R0903", # Too few methods warning, but is the way to define factoryboy factories.
 ]
 
-[tool.flakehell.exceptions."tests/unit/test_views.py"]
+[tool.flakeheaven.exceptions."tests/unit/test_views.py"]
 pycodestyle = [
   "-E501", # lines too long. As we are testing the output of the terminal, the test is
            # cleaner if we show the actual result without splitting long lines.

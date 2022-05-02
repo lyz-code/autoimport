@@ -18,6 +18,27 @@ update:
 
 	@echo ""
 
+.PHONY: update-production
+update-production:
+	@echo "------------------------------------"
+	@echo "- Updating production dependencies -"
+	@echo "------------------------------------"
+
+	pdm update --production --no-sync
+	pdm sync --clean
+
+	@echo ""
+
+.PHONY: outdated
+outdated:
+	@echo "-------------------------"
+	@echo "- Outdated dependencies -"
+	@echo "-------------------------"
+
+	pdm update --dry-run --unconstrained
+
+	@echo ""
+
 .PHONY: format
 format:
 	@echo "----------------------"
@@ -70,7 +91,10 @@ test-examples:
 	@echo "- Testing examples -"
 	@echo "--------------------"
 
-	@find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
+	@find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'echo {}; pdm run python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
+	@echo ""
+
+	pdm run pytest docs/examples/*
 
 	@echo ""
 
