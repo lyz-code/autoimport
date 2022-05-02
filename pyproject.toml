@@ -68,10 +68,14 @@ package-dir = "src"
 source-includes = ["tests/"]
 editable-backend = "path"
 
+[tool.pdm.overrides]
+
+# To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
+"importlib-metadata" = ">=3.10"
+
 [tool.pdm.dev-dependencies]
 lint = [
     "yamllint>=1.26.3",
-    "flakehell>=0.9.0",
     "flake8-aaa>=0.12.0",
     "flake8-annotations>=2.7.0",
     "flake8-annotations-complexity>=0.0.6",
@@ -93,9 +97,8 @@ lint = [
     "pep8-naming>=0.12.1",
     "dlint>=0.12.0",
     "pylint>=2.12.2",
-    # Remove the upper cap when https://github.com/flakehell/flakehell/issues/22
-    # is resolved
-    "flake8<4.0.0,>=3.9.2",
+    "flake8>=3.9.2",
+    "flakeheaven>=0.11.1",
 ]
 test = [
     "pytest>=6.2.5",
@@ -143,7 +146,7 @@ build-backend = "pdm.pep517.api"
 
 [tool.black]
 line-length = 88
-target-version = ['py36', 'py37', 'py38']
+target-version = ['py37', 'py38', 'py39', 'py310']
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -326,6 +329,15 @@ disallow_incomplete_defs = true
 disallow_untyped_decorators = true
 disallow_untyped_calls = true
 disallow_untyped_defs = true
+plugins = [
+  "pydantic.mypy"
+]
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
 
 [[tool.mypy.overrides]]
 module = "tests.*"
