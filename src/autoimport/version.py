@@ -15,7 +15,7 @@ def version_info() -> str:
         f"""\
         ------------------------------------------------------------------
              autoimport: {__version__}
-             Python: {sys.version.split(" ", maxsplit=1)}
+             Python: {sys.version.split(" ", maxsplit=1)[0]}
              Platform: {platform.platform()}
         ------------------------------------------------------------------"""
     )
