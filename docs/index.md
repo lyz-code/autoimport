@@ -1,6 +1,6 @@
 [![Actions Status](https://github.com/lyz-code/autoimport/workflows/Tests/badge.svg)](https://github.com/lyz-code/autoimport/actions)
 [![Actions Status](https://github.com/lyz-code/autoimport/workflows/Build/badge.svg)](https://github.com/lyz-code/autoimport/actions)
-[![Coverage Status](https://coveralls.io/repos/github/lyz-code/autoimport/badge.svg?branch=master)](https://coveralls.io/github/lyz-code/autoimport?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/lyz-code/autoimport/badge.svg?branch=main)](https://coveralls.io/github/lyz-code/autoimport?branch=main)
 
 Autoimport missing python libraries.
 
@@ -212,20 +212,20 @@ giants, namely:
 [Mypy](https://mypy.readthedocs.io/en/stable/)
 : Python static type checker.
 
-[Flakehell](https://github.com/life4/flakehell)
+[Flakeheaven](https://github.com/flakeheaven/flakeheaven)
 : Python linter with [lots of
-    checks](https://lyz-code.github.io/blue-book/devops/flakehell/#plugins).
+    checks](https://lyz-code.github.io/blue-book/devops/flakeheaven#plugins).
 
 [Black](https://black.readthedocs.io/en/stable/)
 : Python formatter to keep a nice style without effort.
 
-[Autoimport](https://github.com/lyz-code/autoimport)
+[Autoimport](https://lyz-code.github.io/autoimport)
 : Python formatter to automatically fix wrong import statements.
 
 [isort](https://github.com/timothycrosley/isort)
 : Python formatter to order the import statements.
 
-[Pip-tools](https://github.com/jazzband/pip-tools)
+[PDM](https://pdm.fming.dev/)
 : Command line tool to manage the dependencies.
 
 [Mkdocs](https://www.mkdocs.org/)

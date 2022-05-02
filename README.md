@@ -2,7 +2,7 @@
 
 [![Actions Status](https://github.com/lyz-code/autoimport/workflows/Tests/badge.svg)](https://github.com/lyz-code/autoimport/actions)
 [![Actions Status](https://github.com/lyz-code/autoimport/workflows/Build/badge.svg)](https://github.com/lyz-code/autoimport/actions)
-[![Coverage Status](https://coveralls.io/repos/github/lyz-code/autoimport/badge.svg?branch=master)](https://coveralls.io/github/lyz-code/autoimport?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/lyz-code/autoimport/badge.svg?branch=main)](https://coveralls.io/github/lyz-code/autoimport?branch=main)
 
 Autoimport missing python libraries.
 

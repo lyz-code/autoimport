@@ -48,8 +48,13 @@ markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - pymdownx.tabbed
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
@@ -60,6 +65,9 @@ theme:
   # logo: 'images/logo.bmp'
   features:
     - navigation.instant
+    - navigation.top
+    - content.code.annotate
+
   palette:
     primary: blue grey
     accent: light blue

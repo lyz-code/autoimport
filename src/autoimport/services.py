@@ -1,4 +1,4 @@
-"""Gather all the orchestration functionality required by the program to work.
+"""Define all the orchestration functionality required by the program to work.
 
 Classes and functions that connect the different domain model objects with the adapters
 and handlers to achieve the program's purpose.
@@ -48,6 +48,7 @@ def fix_files(
             file_wrapper.seek(0)
             file_wrapper.write(fixed_source)
             file_wrapper.truncate()
+            file_wrapper.close()
         else:
             return fixed_source
 

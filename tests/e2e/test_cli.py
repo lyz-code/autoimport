@@ -25,9 +25,8 @@ def test_version(runner: CliRunner) -> None:
     result = runner.invoke(cli, ["--version"])
 
     assert result.exit_code == 0
-    assert re.match(
-        rf" *autoimport version: {__version__}\n"
-        r" *python version: .*\n *platform: .*",
+    assert re.search(
+        rf" *autoimport: {__version__}\n *Python: .*\n *Platform: .*",
         result.stdout,
     )
 
@@ -115,40 +114,72 @@ def test_corrects_code_from_stdin(runner: CliRunner) -> None:
     assert result.stdout == fixed_source
 
 
-PYPROJECT_CONFIG = """
-[tool.autoimport]
-common_statements = { "FooBar" = "from baz.qux import FooBar" }
-"""
-PYPROJECT_CONFIG_TEST_SOURCE = "FooBar\n"
-PYPROJECT_CONFIG_FIXED_SOURCE = """\
-from baz.qux import FooBar
-
-FooBar
-"""
-
-
 def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> None:
     """Allow common_statements to be defined in pyproject.toml"""
     pyproject_toml = tmpdir / "pyproject.toml"
-    pyproject_toml.write(PYPROJECT_CONFIG)
+    pyproject_toml.write(
+        dedent(
+            """\
+            [tool.autoimport]
+            common_statements = { "FooBar" = "from baz.qux import FooBar" }
+            """
+        )
+    )
     test_file = tmpdir / "source.py"
-    test_file.write(PYPROJECT_CONFIG_TEST_SOURCE)
+    test_file.write("FooBar\n")
     with tmpdir.as_cwd():
 
         result = runner.invoke(cli, [str(test_file)])
 
     assert result.exit_code == 0
-    assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE
+    assert test_file.read() == dedent(
+        """\
+        from baz.qux import FooBar
+
+        FooBar
+        """
+    )
+
+
+@pytest.mark.skip("Until https://github.com/dbatten5/maison/issues/141 is fixed")
+def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
+    """Allow common_statements to be defined in pyproject.toml"""
+    config_dir = tmpdir / "config"
+    config_dir.mkdir()
+    pyproject_toml = config_dir / "pyproject.toml"
+    pyproject_toml.write(
+        dedent(
+            """\
+            [tool.autoimport]
+            common_statements = { "FooBar" = "from baz.qux import FooBar" }
+            """
+        )
+    )
+    code_dir = tmpdir / "code"
+    code_dir.mkdir()
+    test_file = code_dir / "source.py"
+    test_file.write("FooBar\n")
+
+    result = runner.invoke(cli, ["--config-file", str(pyproject_toml), str(test_file)])
+
+    assert result.exit_code == 0
+    assert test_file.read() == dedent(
+        """\
+        from baz.qux import FooBar
+
+        FooBar
+        """
+    )
 
 
 @pytest.mark.parametrize(
     ("create_global_conf", "use_local_conf", "create_pyproject", "expected_imports"),
     [
         pytest.param(True, False, False, "from g import G", id="global"),
-        pytest.param(False, True, False, "from l import L", id="local"),
+        pytest.param(False, True, False, "from r import R", id="local"),
         pytest.param(False, False, True, "from p import P", id="pyproject"),
         pytest.param(
-            True, True, False, "from g import G\nfrom l import L", id="global-and-local"
+            True, True, False, "from g import G\nfrom r import R", id="global-and-local"
         ),
         pytest.param(
             True,
@@ -161,19 +192,20 @@ def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> No
             False,
             True,
             True,
-            "from l import L\nfrom p import P",
+            "from r import R\nfrom p import P",
             id="local-and-pyproject",
         ),
         pytest.param(
             True,
             True,
             True,
-            "from g import G\nfrom l import L\nfrom p import P",
+            "from g import G\nfrom r import R\nfrom p import P",
             id="global-and-local-and-pyproject",
         ),
     ],
 )
-def test_global_and_local_config(
+# R0913: Too many arguments (6/5): We need to refactor this test in many more
+def test_global_and_local_config(  # noqa: R0913
     runner: CliRunner,
     tmpdir: LocalPath,
     create_global_conf: bool,
@@ -187,14 +219,16 @@ def test_global_and_local_config(
       - use of the --config-file flag to specify a local config file
       - presence of a pyproject.toml file
     """
-    conf_global = '[common_statements]\n"G" = "from g import G"'
-    conf_local = '[common_statements]\n"L" = "from l import L"'
-    conf_pyproject = '[tool.autoimport.common_statements]\n"P" = "from p import P"'
+    config = {
+        "global": '[common_statements]\n"G" = "from g import G"',
+        "local": '[common_statements]\n"R" = "from r import R"',
+        "pyproject": '[tool.autoimport.common_statements]\n"P" = "from p import P"',
+    }
     code_path = tmpdir / "code.py"
     original_code = dedent(
         """
         G
-        L
+        R
         P
         """
     )
@@ -202,19 +236,19 @@ def test_global_and_local_config(
     args: List[str] = [str(code_path)]
     env: Dict[str, Optional[str]] = {}
     if create_global_conf:
-        xdg_home = tmpdir / "xdg_home"
-        env["XDG_CONFIG_HOME"] = str(Path(xdg_home).resolve())  # must be absolute path
-        global_conf_path = xdg_home / "autoimport" / "config.toml"
+        # must be absolute path
+        env["XDG_CONFIG_HOME"] = str(Path(tmpdir / "xdg_home").resolve())
+        global_conf_path = tmpdir / "xdg_home" / "autoimport" / "config.toml"
         global_conf_path.ensure()
-        global_conf_path.write(conf_global)
+        global_conf_path.write(config["global"])
     if use_local_conf:
         local_conf_path = tmpdir / "cfg" / "local.toml"
         local_conf_path.ensure()
-        local_conf_path.write(conf_local)
+        local_conf_path.write(config["local"])
         args.extend(["--config-file", str(local_conf_path)])
     if create_pyproject:
         pyproject_path = tmpdir / "pyproject.toml"
-        pyproject_path.write(conf_pyproject)
+        pyproject_path.write(config["pyproject"])
     with tmpdir.as_cwd():
 
         result = runner.invoke(cli, args, env=env)
@@ -300,23 +334,6 @@ def test_global_and_local_config_precedence(
 
     assert result.exit_code == 0
     assert code_path.read() == expected_imports + original_code
-
-
-def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
-    """Allow common_statements to be defined in pyproject.toml"""
-    cfg_dir = tmpdir / "cfg"
-    cfg_dir.mkdir()
-    pyproject_toml = cfg_dir / "pyproject.toml"
-    pyproject_toml.write(PYPROJECT_CONFIG)
-    code_dir = tmpdir / "code"
-    code_dir.mkdir()
-    test_file = code_dir / "source.py"
-    test_file.write(PYPROJECT_CONFIG_TEST_SOURCE)
-
-    result = runner.invoke(cli, ["--config-file", str(pyproject_toml), str(test_file)])
-
-    assert result.exit_code == 0
-    assert test_file.read() == PYPROJECT_CONFIG_FIXED_SOURCE
 
 
 def test_fix_files_doesnt_touch_the_file_if_its_not_going_to_change_it(
