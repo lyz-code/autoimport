@@ -8,7 +8,7 @@ import autoflake
 from pyflakes.messages import UndefinedExport, UndefinedName, UnusedImport
 from pyprojroot import here
 from rope.base.project import Project
-from rope.contrib.autoimport import AutoImport
+from rope.contrib.autoimport.sqlite import AutoImport
 
 
 class SourceCodeBase:
@@ -22,6 +22,7 @@ class SourceCodeBase:
         self.autoimport = AutoImport(project, memory=False)
         self.autoimport.generate_resource_cache()
         self.autoimport.generate_modules_cache()
+
 
     def find_package(self, name: str) -> Optional[str]:
         """Search package by an object's name.
