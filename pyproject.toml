@@ -27,8 +27,7 @@ dependencies = [
     "sh>=1.14.2",
     "maison>=1.4.0",
     "xdg>=5.1.1",
-    # "rope>=1.0.0",
-    "-e file:///home/bageljr/code/scratch/rope#egg=rope",
+    "rope>=1.1.1",
 ]
 name = "autoimport"
 description = "Autoimport missing python libraries."
