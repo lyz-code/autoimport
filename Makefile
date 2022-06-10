@@ -56,7 +56,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	pdm run flakehell lint --exclude assets src/ tests/ setup.py
+	pdm run flakeheaven lint --exclude assets src/ tests/ setup.py
 	$(isort) --check-only --df
 	$(black) --check --diff
 

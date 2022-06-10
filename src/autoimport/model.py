@@ -263,7 +263,8 @@ class SourceCode:  # noqa: R090
         for line in code_lines_to_remove:
             self.code.remove(line)
 
-    def _split_separation_line(self, line: str) -> Tuple[str, str]:
+    @staticmethod
+    def _split_separation_line(line: str) -> Tuple[str, str]:
         """Split separation lines into two and return both lines back."""
         first_line, next_line = line.split(";")
         # add correct number of leading spaces
@@ -391,9 +392,9 @@ class SourceCode:  # noqa: R090
 
     def _get_additional_statements(self) -> Dict[str, str]:
         """When parsing to the cli via --config-file the config becomes nested."""
-        common_statements = self.config.get("common_statements")
-        if common_statements:
-            return common_statements
+        config_statements = self.config.get("common_statements")
+        if config_statements:
+            return config_statements
         return (
             self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
         )
@@ -488,32 +489,37 @@ def extract_package_objects(name: str) -> Dict[str, str]:
             as the value.
     """
     package_objects: Dict[str, str] = {}
-    package_modules = []
 
+    # Get the modules of the desired package
     try:
-        package_modules.append(__import__(name))
+        package_modules = [__import__(name)]
+
     except ModuleNotFoundError:
         return package_objects
+    package_modules.extend(
+        [
+            module[1]
+            for module in inspect.getmembers(package_modules[0], inspect.ismodule)
+        ]
+    )
 
-    for package_module in package_modules:
-        for package_object_tuple in inspect.getmembers(package_module):
+    # Get objects of the package
+    for module in package_modules:
+        for package_object_tuple in inspect.getmembers(module):
             object_name = package_object_tuple[0]
             package_object = package_object_tuple[1]
             # If the object is a function or a class
             if inspect.isfunction(package_object) or inspect.isclass(package_object):
                 if (
-                    object_name not in package_objects.keys()
+                    object_name not in package_objects
                     and name in package_object.__module__
                 ):
                     # Try to load the object from the module instead of the
                     # submodules.
-                    if (
-                        hasattr(package_module, "__all__")
-                        and object_name in package_module.__all__
-                    ):
+                    if hasattr(module, "__all__") and object_name in module.__all__:
                         package_objects[
                             object_name
-                        ] = f"from {package_module.__name__} import {object_name}"
+                        ] = f"from {module.__name__} import {object_name}"
                     else:
                         package_objects[
                             object_name
@@ -523,9 +529,5 @@ def extract_package_objects(name: str) -> Dict[str, str]:
                 # The rest of objects
                 package_objects[
                     object_name
-                ] = f"from {package_module.__name__} import {object_name}"
-
-        for module in inspect.getmembers(package_module, inspect.ismodule):
-            if module[1].__package__ == name:
-                package_modules.append(module[1])
+                ] = f"from {module.__name__} import {object_name}"
     return package_objects

@@ -43,7 +43,10 @@ class FileOrDir(click.ParamType):
     """Custom parameter type that accepts either a directory or file."""
 
     def convert(
-        self, value: Any, param: Optional[click.Parameter], ctx: Optional[click.Context]
+        self,
+        value: Union[str, Path],
+        param: Optional[click.Parameter],
+        ctx: Optional[click.Context],
     ) -> FileStreams:
         """Convert the value to the correct type."""
         try:
@@ -53,30 +56,29 @@ class FileOrDir(click.ParamType):
             return get_files(path)
 
 
-def get_global_config_path() -> Path:
-    """Get global config path."""
-    return xdg.xdg_config_home() / "autoimport" / "config.toml"
-
-
 @click.command()
 @click.version_option(version="", message=version.version_info())
 @click.option("--config-file", default=None)
 @click.argument("files", type=FileOrDir(), nargs=-1)
 def cli(files: NestedSequence, config_file: Optional[str] = None) -> None:
     """Corrects the source code of the specified files."""
-    # compose configuration
+    # Compose configuration
     config_files: List[str] = []
-    global_config_path = get_global_config_path()
+
+    global_config_path = xdg.xdg_config_home() / "autoimport" / "config.toml"
     if global_config_path.is_file():
         config_files.append(str(global_config_path))
+
     config_files.append("pyproject.toml")
+
     if config_file is not None:
         config_files.append(config_file)
+
     config = ProjectConfig(
         project_name="autoimport", source_files=config_files, merge_configs=True
     ).to_dict()
 
-    # process inputs
+    # Process inputs
     flattened_files = flatten(files)
     try:
         fixed_code = services.fix_files(flattened_files, config)

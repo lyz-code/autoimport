@@ -290,6 +290,8 @@ pylint = [
   "-W0613", # Unused argument in function, but in tests there are fixtures that even
             # though they are not used in the function directly, they are used to
             # configure the test.
+  "-C0302", # Too many lines in module, this means that the test files are long, but
+            # Refactoring into more files can be confusing and less ergonomic.
 ]
 
 [tool.flakeheaven.exceptions."tests/factories.py"]
