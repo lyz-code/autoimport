@@ -17,11 +17,11 @@ def test_dir(tmpdir: LocalPath) -> pathlib.Path:
     subdir.mkdir(parents=True)
 
     file1 = test_dirs / "test_file1.py"
-    with file1.open("w") as file_descriptor:
+    with file1.open("w", encoding='UTF8') as file_descriptor:
         file_descriptor.write(file_contents)
 
     file2 = subdir / "test_file2.py"
-    with file2.open("w") as file_descriptor:
+    with file2.open("w", encoding='UTF8') as file_descriptor:
         file_descriptor.write(file_contents)
 
     return test_dirs
