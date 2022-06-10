@@ -25,9 +25,8 @@ def test_version(runner: CliRunner) -> None:
     result = runner.invoke(cli, ["--version"])
 
     assert result.exit_code == 0
-    assert re.match(
-        rf" *autoimport version: {__version__}\n"
-        r" *python version: .*\n *platform: .*",
+    assert re.search(
+        rf" *autoimport: {__version__}\n *Python: .*\n *Platform: .*",
         result.stdout,
     )
 

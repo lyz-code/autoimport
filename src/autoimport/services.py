@@ -48,6 +48,7 @@ def fix_files(
             file_wrapper.seek(0)
             file_wrapper.write(fixed_source)
             file_wrapper.truncate()
+            file_wrapper.close()
         else:
             return fixed_source
 

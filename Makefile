@@ -91,15 +91,15 @@ test-examples:
 	@echo "- Testing examples -"
 	@echo "--------------------"
 
-	@find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'echo {}; pdm run python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
+	# @find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'echo {}; pdm run python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
 	@echo ""
 
-	pdm run pytest docs/examples/*
+	# pdm run pytest docs/examples/*
 
 	@echo ""
 
 .PHONY: all
-all: lint mypy test security
+all: lint mypy test security build-docs
 
 .PHONY: clean
 clean:
@@ -165,7 +165,7 @@ build-package: clean
 	@echo ""
 
 .PHONY: build-docs
-build-docs: test-examples
+build-docs:
 	@echo "--------------------------"
 	@echo "- Building documentation -"
 	@echo "--------------------------"
