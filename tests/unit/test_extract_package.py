@@ -60,4 +60,4 @@ def test_extraction_returns_empty_dict_if_package_is_not_importable() -> None:
     """
     result = extract_package_objects("inexistent")
 
-    assert result == {}
+    assert not result

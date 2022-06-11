@@ -2,15 +2,20 @@
 
 import platform
 import sys
+from textwrap import dedent
+
+# Do not edit the version manually, let `make bump` do it.
 
 __version__ = "1.2.2"
 
 
 def version_info() -> str:
     """Display the version of the program, python and the platform."""
-    info = {
-        "autoimport version": __version__,
-        "python version": sys.version.replace("\n", " "),
-        "platform": platform.platform(),
-    }
-    return "\n".join(f"{k + ':' :>30} {v}" for k, v in info.items())
+    return dedent(
+        f"""\
+        ------------------------------------------------------------------
+             autoimport: {__version__}
+             Python: {sys.version.split(" ", maxsplit=1)[0]}
+             Platform: {platform.platform()}
+        ------------------------------------------------------------------"""
+    )
