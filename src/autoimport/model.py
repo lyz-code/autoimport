@@ -139,9 +139,9 @@ class SourceCode:  # noqa: R090
                 or multiline_import
             ):
                 # Process multiline import statements
-                if "(" in line:
+                if "(" in line or line[-1:] == "\\":
                     multiline_import = True
-                elif ")" in line:
+                elif ")" in line and line[-1:] != "\\":
                     multiline_import = False
 
                 if try_line:
@@ -249,9 +249,9 @@ class SourceCode:  # noqa: R090
                     continue
 
                 # Process multiline import statements
-                if "(" in line:
+                if "(" in line or line[-1:] == "\\":
                     multiline_import = True
-                elif ")" in line:
+                elif ")" in line and line[-1:] != "\\":
                     multiline_import = False
 
                 code_lines_to_remove.append(line)
@@ -450,7 +450,8 @@ class SourceCode:  # noqa: R090
                 # fmt: on
                 if match is not None:
                     line_number = self.imports.index(line)
-                    imports = match["imports"].split(", ")
+                    imports_no_dups = " ".join(match["imports"].split())
+                    imports = imports_no_dups.split(", ")
                     imports.remove(object_name)
                     new_imports = ", ".join(imports)
                     self.imports[line_number] = f"{match['from']} {new_imports}"
@@ -460,7 +461,7 @@ class SourceCode:  # noqa: R090
             # Format is required until there is no more need of the
             # experimental-string-processing flag of the Black formatter.
             elif re.match(
-                fr"from {package_name} import .*?\($",
+                fr"from {package_name} import .*?[\(\\]$",
                 line,
             ):
                 # fmt: on
