@@ -27,7 +27,7 @@ jobs:
           source .venv/bin/activate
           pdm config use_venv True
       - name: Update requirements
-        run: make update
+        run: make update-production
       - name: Install the program
         run: make install
       - name: Run tests
