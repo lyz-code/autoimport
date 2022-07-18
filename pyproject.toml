@@ -73,6 +73,9 @@ editable-backend = "path"
 # To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
 "importlib-metadata" = ">=3.10"
 
+# To be removed once https://github.com/mkdocs/mkdocs/issues/2892 is solved
+markdown = "<3.4"
+
 [tool.pdm.dev-dependencies]
 lint = [
     "yamllint>=1.26.3",
