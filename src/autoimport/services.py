@@ -28,7 +28,7 @@ def fix_files(
         source = file_wrapper.read()
         fixed_source = fix_code(source, config)
 
-        if fixed_source == source:
+        if fixed_source == source and file_wrapper.name != '<stdin>':
             continue
 
         try:
