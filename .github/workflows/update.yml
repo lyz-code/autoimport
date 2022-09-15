@@ -25,7 +25,7 @@ jobs:
           pip install virtualenv pdm
           virtualenv .venv
           source .venv/bin/activate
-          pdm config use_venv True
+          pdm config python.use_venv True
       - name: Update requirements
         run: make update-production
       - name: Install the program
