@@ -37,7 +37,7 @@ name = "autoimport"
 description = "Autoimport missing python libraries."
 readme = "README.md"
 classifiers=[
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: Unix",
@@ -67,14 +67,12 @@ version = {from = "src/autoimport/version.py"}
 package-dir = "src"
 source-includes = ["tests/"]
 editable-backend = "path"
+allow_prereleases = true
 
 [tool.pdm.overrides]
 
 # To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
 "importlib-metadata" = ">=3.10"
-
-# To be removed once https://github.com/mkdocs/mkdocs/issues/2892 is solved
-markdown = "<3.4"
 
 [tool.pdm.dev-dependencies]
 lint = [
@@ -287,8 +285,10 @@ pyflakes = [
 
 [tool.flakeheaven.exceptions."tests/"]
 flake8-docstrings = [
+  "-D205", # 1 blank line required between summary line and description
+  "-D212", # Multi-line docstring summary should start at the first line
   "-D400", # First line should end with a period
-  "-D205"  # 1 blank line required between summary line and description
+  "-D415", # First line should end with a period, question mark, or exclamation point
 ]
 flake8-annotations = [
   "-ANN001",
