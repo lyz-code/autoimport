@@ -115,6 +115,7 @@ clean:
 	rm -f `find . -type f -name '*.py[co]' `
 	rm -f `find . -type f -name '*.rej' `
 	rm -rf `find . -type d -name '*.egg-info' `
+	rm -rf `find . -type d -name '.mypy_cache' `
 	rm -f `find . -type f -name '*~' `
 	rm -f `find . -type f -name '.*~' `
 	rm -rf .cache
