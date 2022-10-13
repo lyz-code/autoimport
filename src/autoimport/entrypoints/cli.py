@@ -61,7 +61,11 @@ class FileOrDir(click.ParamType):
 @click.option("--config-file", default=None)
 @click.option("--ignore-init-modules", is_flag=True, help="Ignore __init__.py files.")
 @click.argument("files", type=FileOrDir(), nargs=-1)
-def cli(files: NestedSequence, config_file: Optional[str] = None, ignore_init_modules: bool = False) -> None:
+def cli(
+    files: NestedSequence,
+    config_file: Optional[str] = None,
+    ignore_init_modules: bool = False,
+) -> None:
     """Corrects the source code of the specified files."""
     # Compose configuration
     config_files: List[str] = []
@@ -82,7 +86,9 @@ def cli(files: NestedSequence, config_file: Optional[str] = None, ignore_init_mo
     # Process inputs
     flattened_files = flatten(files)
     if ignore_init_modules:
-        flattened_files = [file for file in flattened_files if "__init__.py" not in file.name]
+        flattened_files = [
+            file for file in flattened_files if "__init__.py" not in file.name
+        ]
 
     try:
         fixed_code = services.fix_files(flattened_files, config)
