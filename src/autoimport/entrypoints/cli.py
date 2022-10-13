@@ -86,9 +86,9 @@ def cli(
     # Process inputs
     flattened_files = flatten(files)
     if ignore_init_modules:
-        flattened_files = [
+        flattened_files = tuple(
             file for file in flattened_files if "__init__.py" not in file.name
-        ]
+        )
 
     try:
         fixed_code = services.fix_files(flattened_files, config)
