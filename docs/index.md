@@ -125,6 +125,8 @@ objects:
 If an object is imported but unused, `autoimport` will remove the import
 statement.
 
+This can be problematic when run in `__init__.py` files, which often contain "unused" imports. To tell `autoimport` to not run on these files, you can use the `--ignore-init-modules` flag, which will filter away any passed `__init__.py` files before processing.
+
 ## Moving the imports to the top
 
 There are going to be import cases that may not work, if you find one, please
