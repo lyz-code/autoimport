@@ -1106,3 +1106,22 @@ def test_file_with_import_and_seperator_indentation() -> None:
     result = fix_code(source)
 
     assert result == expected
+
+
+def test_import_module_with_dot() -> None:
+    """
+    Given: An import file with an import with a dot
+    When: running autoimport on the file
+    Then: ValueError exception is not raised
+
+    Tests https://github.com/lyz-code/autoimport/issues/225
+    """
+    source = dedent(
+        """
+        import my_module.m
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == "\n"
