@@ -209,6 +209,9 @@ exclude_lines = [
 
     # Ignore the Abstract classes definition
     'raise NotImplementedError',
+
+    # Ignore entrypoints
+    'if __name__ == "__main__":',
 ]
 
 # --------- Isort -------------
