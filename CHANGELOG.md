@@ -1,3 +1,16 @@
+## 1.3.0 (2022-10-14)
+
+### Feat
+
+- added --ignore-init-modules flag (fixes #226)
+- added __main__.py file (fixes #210)
+
+### Fix
+
+- ignore `if __name__ == "__main__":` lines for coverage
+- ignore incorrect no-value-for-parameter lint
+- fixed typing issue
+
 ## 1.2.3 (2022-09-15)
 
 ## 1.2.2 (2022-02-16)
