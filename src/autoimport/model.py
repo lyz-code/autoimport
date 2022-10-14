@@ -188,15 +188,25 @@ class SourceCode:  # noqa: R090
         Returns:
             source_code: Source code to be corrected.
         """
-        # Remove new lines at start and end of each section.
+        # Build each section removing new lines at start and end of each section.
         sections = [
             "\n".join(section).strip()
             for section in (self.header, self.imports, self.typing, self.code)
-            if len(section) > 0
+            if len(section) > 0 and section != [""]
         ]
 
-        # Add new lines between existent sections
-        source_code = "\n\n".join(sections).strip()
+        # Add new lines between existent sections respecting the 3 new lines between
+        # the code and the imports.
+        source_code = ""
+        if len(sections) > 2:
+            source_code += "\n\n".join(sections[:-1]).strip()
+        elif len(sections) == 2 or len(sections) == 1 and len(self.code) == 0:
+            source_code = sections[0]
+
+        if len(sections) >= 2:
+            source_code += "\n" * 3
+        if len(self.code) > 0:
+            source_code += sections[-1]
 
         # Respect the trailing newline
         if self._trailing_newline:

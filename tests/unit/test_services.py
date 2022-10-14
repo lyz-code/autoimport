@@ -15,6 +15,7 @@ def test_fix_code_adds_missing_import() -> None:
         """\
         import os
 
+
         os.getcwd()"""
     )
 
@@ -50,6 +51,7 @@ def test_fix_imports_packages_below_docstring() -> None:
 
         import os
 
+
         os.getcwd()'''
     )
 
@@ -73,6 +75,7 @@ def test_fix_imports_packages_below_single_line_docstring() -> None:
 
         import os
 
+
         os.getcwd()'''
     )
 
@@ -91,6 +94,7 @@ def test_fix_imports_type_hints() -> None:
     fixed_source = dedent(
         """\
         from typing import Dict
+
 
         def function(dictionary: Dict) -> None:
             pass"""
@@ -171,6 +175,7 @@ def test_fix_removes_unused_imports_in_multiline_from_statements() -> None:
             getcwd,
         )
 
+
         getcwd()"""
     )
 
@@ -192,6 +197,7 @@ def test_fix_removes_unneeded_imports_in_beginning_of_from_statements() -> None:
     fixed_source = dedent(
         """\
         from os import getcwd
+
 
         getcwd()"""
     )
@@ -216,6 +222,7 @@ def test_fix_removes_unneeded_imports_in_middle_of_from_statements() -> None:
         """\
         from os import getcwd, mkdir
 
+
         getcwd()
         mkdir()"""
     )
@@ -239,6 +246,7 @@ def test_fix_removes_unneeded_imports_in_end_of_from_statements() -> None:
         """\
         from os import getcwd
 
+
         getcwd()"""
     )
 
@@ -258,6 +266,7 @@ def test_fix_respects_multiple_from_import_lines() -> None:
         from os import getcwd
 
         from re import match
+
 
         getcwd()
         match(r'a', 'a')"""
@@ -281,6 +290,7 @@ def test_fix_respects_multiple_from_import_lines_in_multiple_lines() -> None:
         )
 
         from re import match
+
 
         getcwd()
         match(r'a', 'a')"""
@@ -321,6 +331,7 @@ def test_fix_respects_import_lines_in_multiple_line_strings() -> None:
         """\
         from textwrap import dedent
 
+
         source = dedent(
             \"\"\"\\
             from re import match
@@ -356,6 +367,7 @@ def test_fix_moves_import_statements_to_the_top() -> None:
         """\
         import os
 
+
         a = 3
 
         os.getcwd()"""
@@ -386,6 +398,7 @@ def test_fix_moves_import_statements_in_indented_code_to_the_top() -> None:
 
         import os
 
+
         requests.get('hi')
 
         def test():
@@ -409,6 +422,7 @@ def test_fix_moves_from_import_statements_to_the_top() -> None:
     fixed_source = dedent(
         """\
         from os import getcwd
+
 
         a = 3
 
@@ -444,6 +458,7 @@ def test_fix_moves_multiline_import_statements_to_the_top() -> None:
         from re import (
             match,
         )
+
 
         getcwd()
 
@@ -529,6 +544,7 @@ def test_fix_respects_noqa_in_from_import_lines_in_multiple_lines() -> None:
         """\
         from os import getcwd
 
+
         getcwd()
 
         from re import ( # noqa: autoimport
@@ -571,6 +587,7 @@ def test_fix_respects_strings_with_import_statements() -> None:
         """\
         import os
 
+
         import_string = 'import requests'
         from_import_string = "from re import match"
         multiline string = dedent(
@@ -609,6 +626,7 @@ def test_fix_doesnt_mistake_docstrings_with_multiline_string() -> None:
         """\
         import os
 
+
         def function_1():
             \"\"\"Function docstring\"\"\"
             os.getcwd()"""
@@ -644,6 +662,7 @@ def test_fix_autoimports_common_imports(import_key: str, import_statement: str) 
 
         {import_statement}
 
+
         os.getcwd
 
         variable = {import_key}"""
@@ -671,6 +690,7 @@ def test_fix_autoimports_objects_defined_in_the_root_of_the_package() -> None:
         """\
         from autoimport import fix_code
 
+
         fix_code()"""
     )
 
@@ -693,6 +713,7 @@ def test_fix_autoimports_objects_defined_in___all__special_variable() -> None:
         """\
         from autoimport import fix_code
 
+
         __all__ = ['fix_code']"""
     )
 
@@ -714,6 +735,7 @@ def test_fix_respects_type_checking_import_statements() -> None:
 
         if TYPE_CHECKING:
             from .model import Book
+
 
         os.getcwd()
 
@@ -743,6 +765,7 @@ def test_fix_respects_multiparagraph_type_checking_import_statements() -> None:
 
             from other import Other
 
+
         os.getcwd()
 
 
@@ -769,6 +792,7 @@ def test_fix_respects_try_except_in_import_statements() -> None:
             from typing import TypedDict  # noqa
         except ImportError:
             from mypy_extensions import TypedDict  # <=3.7
+
 
         os.getcwd()
         Movie = TypedDict('Movie', {'name': str, 'year': int})"""
@@ -799,6 +823,7 @@ def test_fix_respects_leading_comments() -> None:
         """docstring"""
 
         import os
+
 
         print(os.path.exists("."))'''
     )
@@ -849,6 +874,7 @@ def test_fix_respects_leading_comments_with_new_lines() -> None:
 
         import os
 
+
         print(os.path.exists(sys.argv[1]))
         '''
     )
@@ -873,6 +899,7 @@ def test_fix_imports_dependency_only_once() -> None:
     desired_source = dedent(
         """\
         import os
+
 
         def f(x):
             return os.getcwd() + os.getcwd() + os.getcwd()
@@ -930,6 +957,7 @@ def test_file_with_common_statement() -> None:
         """\
         from bs4 import BeautifulSoup
 
+
         BeautifulSoup
         """
     )
@@ -958,6 +986,7 @@ def test_file_with_custom_common_statement() -> None:
         """\
         from baz_qux import FooBar
 
+
         FooBar
         """
     )
@@ -985,6 +1014,7 @@ def test_file_with_comment_in_import() -> None:
         """\
         import os  # comment 1
 
+
         os.getcwd()
         """
     )
@@ -1011,6 +1041,7 @@ def test_file_with_comment_in_from_import() -> None:
     desired_source = dedent(
         """\
         import os  # comment 1
+
 
         os.getcwd()
         """
@@ -1071,6 +1102,7 @@ def test_file_with_import_and_seperator() -> None:
         """
         import pdb
 
+
         a = 1
         pdb.set_trace()
         b = 2
@@ -1095,6 +1127,7 @@ def test_file_with_import_and_seperator_indentation() -> None:
     expected = dedent(
         """
         import pdb
+
 
         Class Person:
             pdb.set_trace()
@@ -1125,3 +1158,26 @@ def test_import_module_with_dot() -> None:
     result = fix_code(source)
 
     assert result == "\n"
+
+
+def test_respect_new_lines_between_imports_and_code() -> None:
+    r"""
+    Given: A file with two \n between imports and the code
+    When: running autoimport on the file
+    Then: the file is untouched
+
+    For more info check https://github.com/lyz-code/autoimport/issues/219
+    """
+    source = dedent(
+        """\
+        import random
+
+
+        def foo():
+            print(random.random())
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == source
