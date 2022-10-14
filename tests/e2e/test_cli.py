@@ -39,6 +39,7 @@ def test_corrects_one_file(runner: CliRunner, tmpdir: LocalPath) -> None:
         """\
         import os
 
+
         os.getcwd()"""
     )
 
@@ -60,6 +61,7 @@ def test_corrects_three_files(runner: CliRunner, tmpdir: LocalPath) -> None:
         """\
         import os
 
+
         os.getcwd()"""
     )
 
@@ -77,7 +79,7 @@ def test_correct_all_files_in_dir_recursively(
     result = runner.invoke(cli, [str(test_dir)])
 
     assert result.exit_code == 0
-    fixed_source = "import os\n\nos.getcwd()"
+    fixed_source = "import os\n\n\nos.getcwd()"
     assert (test_dir / "test_file1.py").read_text() == fixed_source
     assert (test_dir / "subdir/test_file2.py").read_text() == fixed_source
 
@@ -92,7 +94,7 @@ def test_correct_mix_dir_and_files(
     result = runner.invoke(cli, [str(test_dir), str(test_file)])
 
     assert result.exit_code == 0
-    fixed_source = "import os\n\nos.getcwd()"
+    fixed_source = "import os\n\n\nos.getcwd()"
     assert (test_dir / "test_file1.py").read_text() == fixed_source
     assert (test_dir / "subdir/test_file2.py").read_text() == fixed_source
     assert test_file.read() == fixed_source
@@ -104,6 +106,7 @@ def test_corrects_code_from_stdin(runner: CliRunner) -> None:
     fixed_source = dedent(
         """\
         import os
+
 
         os.getcwd()"""
     )
@@ -136,6 +139,7 @@ def test_pyproject_common_statements(runner: CliRunner, tmpdir: LocalPath) -> No
         """\
         from baz.qux import FooBar
 
+
         FooBar
         """
     )
@@ -166,6 +170,7 @@ def test_config_path_argument(runner: CliRunner, tmpdir: LocalPath) -> None:
     assert test_file.read() == dedent(
         """\
         from baz.qux import FooBar
+
 
         FooBar
         """
@@ -254,7 +259,7 @@ def test_global_and_local_config(  # noqa: R0913
         result = runner.invoke(cli, args, env=env)
 
     assert result.exit_code == 0
-    assert code_path.read() == expected_imports + "\n" + original_code
+    assert code_path.read() == expected_imports + "\n\n" + original_code
 
 
 def test_global_and_local_config_precedence(
@@ -333,7 +338,7 @@ def test_global_and_local_config_precedence(
         result = runner.invoke(cli, args, env=env)
 
     assert result.exit_code == 0
-    assert code_path.read() == expected_imports + original_code
+    assert code_path.read() == expected_imports + "\n" + original_code
 
 
 def test_fix_files_doesnt_touch_the_file_if_its_not_going_to_change_it(
