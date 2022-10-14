@@ -52,20 +52,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "autoimport"
-version = "1.2.3"
-requires_python = ">=3.7"
-summary = "Autoimport missing python libraries."
-dependencies = [
-    "autoflake>=1.4",
-    "click>=8.0.3",
-    "maison>=1.4.0",
-    "pyprojroot>=0.2.0",
-    "sh>=1.14.2",
-    "xdg>=5.1.1",
-]
-
-[[package]]
 name = "babel"
 version = "2.10.3"
 requires_python = ">=3.6"
@@ -1358,7 +1344,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:dcb2be9ddb96010f8bb63a584fc783f12dc5c3a065c0808adea99884b3c1a645"
+content_hash = "sha256:3e8ab1433cdab302f19794f72e002fed73793edf57a6206fe98ddbe1de407635"
 
 [metadata.files]
 "argcomplete 1.12.3" = [
@@ -2491,6 +2477,7 @@ content_hash = "sha256:dcb2be9ddb96010f8bb63a584fc783f12dc5c3a065c0808adea99884b
     {url = "https://files.pythonhosted.org/packages/c1/f2/e14b0edb2e6a4e4e2ec22772297556c9b59c7f488f8d76fd762f5e625d30/yamlfix-1.1.0-py3-none-any.whl", hash = "sha256:cc162e6d53f8155aefca4b6e0f604e8f845b1db324330b42a5aa172276b409a5"},
 ]
 "yamllint 1.28.0" = [
+    {url = "https://files.pythonhosted.org/packages/40/f9/882281af7c40a99bfa5b14585071c5aa13f48961582ebe067ae38221d0d9/yamllint-1.28.0-py2.py3-none-any.whl", hash = "sha256:89bb5b5ac33b1ade059743cf227de73daa34d5e5a474b06a5e17fc16583b0cf2"},
     {url = "https://files.pythonhosted.org/packages/c8/82/4cd3ec8f98d821e7cc7ef504add450623d5c86b656faf65e9b0cc46f4be6/yamllint-1.28.0.tar.gz", hash = "sha256:9e3d8ddd16d0583214c5fdffe806c9344086721f107435f68bad990e5a88826b"},
 ]
 "zipp 3.8.1" = [
