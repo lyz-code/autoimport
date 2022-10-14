@@ -433,7 +433,8 @@ class SourceCode:  # noqa: R090
 
             # If it's the only line, remove it
             if re.match(
-                rf"(from {package_name} )?import {object_name}( *as [a-z]+)?( *#.*)?$",
+                rf"(from {package_name} )?import ({package_name}\.)?{object_name}"
+                rf"( *as [a-z]+)?( *#.*)?$",
                 line,
             ):
                 self.imports.remove(line)
