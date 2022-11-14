@@ -722,28 +722,42 @@ def test_fix_autoimports_objects_defined_in___all__special_variable() -> None:
     assert result == fixed_source
 
 
-def test_fix_respects_type_checking_import_statements() -> None:
+@pytest.mark.parametrize(
+    "source",
+    [
+        dedent(
+            """\
+            import os
+            from typing import TYPE_CHECKING
+
+            if TYPE_CHECKING:
+                from .model import Book
+
+
+            os.getcwd()
+
+
+            def read_book(book: Book):
+                pass"""
+        ),
+        dedent(
+            """\
+            from typing import TYPE_CHECKING
+
+            if TYPE_CHECKING:
+                foo = "bar"
+            """
+        ),
+    ],
+)
+def test_fix_respects_type_checking_import_statements(source: str) -> None:
     """
     Given: Code with if TYPE_CHECKING imports
     When: Fix code is run.
     Then: The imports are not moved above the if statement.
+
+    Related to https://github.com/lyz-code/autoimport/issues/231
     """
-    source = dedent(
-        """\
-        import os
-        from typing import TYPE_CHECKING
-
-        if TYPE_CHECKING:
-            from .model import Book
-
-
-        os.getcwd()
-
-
-        def read_book(book: Book):
-            pass"""
-    )
-
     result = fix_code(source)
 
     assert result == source
@@ -776,6 +790,32 @@ def test_fix_respects_multiparagraph_type_checking_import_statements() -> None:
     result = fix_code(source)
 
     assert result == source
+
+
+def test_fix_creates_the_typing_import() -> None:
+    """
+    Given: Code with no TYPE_CHECKING import statement
+    When: Fix code is run.
+    Then: The import is created.
+
+    Related to https://github.com/lyz-code/autoimport/issues/231
+    """
+    source = dedent(
+        """\
+        if TYPE_CHECKING:
+            foo = 'bar'"""
+    )
+    fixed_source = dedent(
+        """\
+        from typing import TYPE_CHECKING
+
+        if TYPE_CHECKING:
+            foo = 'bar'"""
+    )
+
+    result = fix_code(source)
+
+    assert result == fixed_source
 
 
 def test_fix_respects_try_except_in_import_statements() -> None:

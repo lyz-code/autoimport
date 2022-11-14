@@ -188,29 +188,40 @@ class SourceCode:  # noqa: R090
         Returns:
             source_code: Source code to be corrected.
         """
-        # Build each section removing new lines at start and end of each section.
-        sections = [
-            "\n".join(section).strip()
-            for section in (self.header, self.imports, self.typing, self.code)
-            if len(section) > 0 and section != [""]
-        ]
-
-        # Add new lines between existent sections respecting the 3 new lines between
-        # the code and the imports.
         source_code = ""
-        if len(sections) > 2:
-            source_code += "\n\n".join(sections[:-1]).strip()
-        elif len(sections) == 2 or len(sections) == 1 and len(self.code) == 0:
-            source_code = sections[0]
+        for section, new_lines in [
+            ("header", 0),
+            ("imports", 2),
+            ("typing", 2),
+            ("code", 3),
+        ]:
+            source_code = self._append_section(source_code, section, new_lines)
 
-        if len(sections) >= 2:
-            source_code += "\n" * 3
-        if len(self.code) > 0:
-            source_code += sections[-1]
+        # Remove possible new lines at the start of the document
+        source_code = source_code.strip()
 
         # Respect the trailing newline
         if self._trailing_newline:
             source_code += "\n"
+
+        return source_code
+
+    def _append_section(
+        self, source_code: str, section_name: str, empty_lines: int = 1
+    ) -> str:
+        """Append a section to the existent source code.
+
+        Args:
+            source_code: existing source code to append the new section.
+            section_name: the source code section to append
+            empty_lines: number of empty lines to append at the start.
+        """
+        section = getattr(self, section_name)
+
+        if len(section) == 0 or section == [""]:
+            return source_code
+
+        source_code += "\n" * empty_lines + "\n".join(section).strip()
 
         return source_code
 
