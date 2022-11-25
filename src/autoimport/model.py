@@ -32,7 +32,6 @@ common_statements: Dict[str, str] = {
     "patch": "from unittest.mock import patch",
     "StringIO": "from io import StringIO",
     "suppress": "from contextlib import suppress",
-    "TempdirFactory": "from _pytest.tmpdir import TempdirFactory",
     "tz": "from dateutil import tz",
     "YAMLError": "from yaml import YAMLError",
 }
