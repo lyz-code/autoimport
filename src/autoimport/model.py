@@ -477,25 +477,23 @@ class SourceCode:  # noqa: R090
                     self.imports[line_number] = f"{match['from']} {new_imports}"
                     return
             # If it's a multiline import statement
-            # fmt: off
-            # Format is required until there is no more need of the
-            # experimental-string-processing flag of the Black formatter.
             elif re.match(
-                fr"from {package_name} import .*?\($",
+                rf"from {package_name} import .*?\($",
                 line,
             ):
-                # fmt: on
                 line_number = self.imports.index(line)
                 # Remove the object name from the multiline imports
                 while line_number + 1 < len(self.imports):
                     line_number += 1
-                    if re.match(fr"\s*?{object_name},?", self.imports[line_number]):
+                    if re.match(rf"\s*?{object_name},?", self.imports[line_number]):
                         self.imports.pop(line_number)
                         break
 
                 # Remove the whole import if there is no other object loaded
-                if re.match(r"\s*from .* import", self.imports[line_number - 1]) \
-                        and self.imports[line_number] == ')':
+                if (
+                    re.match(r"\s*from .* import", self.imports[line_number - 1])
+                    and self.imports[line_number] == ")"
+                ):
                     self.imports.pop(line_number)
                     self.imports.pop(line_number - 1)
 

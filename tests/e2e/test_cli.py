@@ -205,7 +205,7 @@ def test_config_path_argument(runner: CliRunner, tmp_path: Path) -> None:
             True,
             "from g import G\nfrom r import R\nfrom p import P",
             id="global-and-local-and-pyproject",
-        ),
+        ),  # noqa: R0913, R0914
     ],
 )
 # R0913: Too many arguments (6/5): We need to refactor this test in many more
