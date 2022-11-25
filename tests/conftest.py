@@ -1,17 +1,17 @@
 """Store the classes and fixtures used throughout the tests."""
 
 import pathlib
+from pathlib import Path
 
 import pytest
-from py._path.local import LocalPath
 
 
 @pytest.fixture()
-def test_dir(tmpdir: LocalPath) -> pathlib.Path:
+def test_dir(tmp_path: Path) -> pathlib.Path:
     """Creates test directory and files and returns root test file directory."""
     file_contents = "os.getcwd()"
 
-    test_dirs = pathlib.Path(tmpdir) / "test_files"
+    test_dirs = tmp_path / "test_files"
     subdir = test_dirs / "subdir"
 
     subdir.mkdir(parents=True)
