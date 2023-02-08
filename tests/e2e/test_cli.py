@@ -129,9 +129,9 @@ def test_pyproject_common_statements(runner: CliRunner, tmp_path: Path) -> None:
     )
     test_file = tmp_path / "source.py"
     test_file.write_text("FooBar\n")
+    # AAA03: Until https://github.com/jamescooke/flake8-aaa/issues/196 is fixed
     with runner.isolated_filesystem(temp_dir=tmp_path):
-
-        result = runner.invoke(cli, [str(test_file)])
+        result = runner.invoke(cli, [str(test_file)])  # noqa: AAA03
 
     assert result.exit_code == 0
     assert test_file.read_text() == dedent(
@@ -254,9 +254,9 @@ def test_global_and_local_config(  # noqa: R0913, R0914
     if create_pyproject:
         pyproject_path = tmp_path / "pyproject.toml"
         pyproject_path.write_text(config["pyproject"])
+    # AAA03: Until https://github.com/jamescooke/flake8-aaa/issues/196 is fixed
     with runner.isolated_filesystem(temp_dir=tmp_path):
-
-        result = runner.invoke(cli, args, env=env)
+        result = runner.invoke(cli, args, env=env)  # noqa: AAA03
 
     assert result.exit_code == 0
     assert code_path.read_text() == expected_imports + "\n\n" + original_code
@@ -333,9 +333,9 @@ def test_global_and_local_config_precedence(runner: CliRunner, tmp_path: Path) -
     # create_pyproject:
     pyproject_path = tmp_path / "pyproject.toml"
     pyproject_path.write_text(config["pyproject"])
+    # AAA03: Until https://github.com/jamescooke/flake8-aaa/issues/196 is fixed
     with runner.isolated_filesystem(temp_dir=tmp_path):
-
-        result = runner.invoke(cli, args, env=env)
+        result = runner.invoke(cli, args, env=env)  # noqa: AAA03
 
     assert result.exit_code == 0
     assert code_path.read_text() == expected_imports + "\n" + original_code
