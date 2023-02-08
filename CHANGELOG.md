@@ -1,3 +1,10 @@
+## 1.3.3 (2023-02-08)
+
+### Fix
+
+- handle well comments in from import statements
+- remove dependency with py
+
 ## 1.3.2 (2022-11-14)
 
 ### Fix
