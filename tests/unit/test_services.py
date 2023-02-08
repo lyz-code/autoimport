@@ -1092,7 +1092,7 @@ def test_file_with_comment_in_from_import() -> None:
     assert result == desired_source
 
 
-def test_file_with_comment_in_from_import() -> None:
+def test_file_with_comment_in_from_import_partial_remove() -> None:
     """
     Given: Code with a comment on an from import statement
     When: Fix code is run.
