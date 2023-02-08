@@ -1092,6 +1092,57 @@ def test_file_with_comment_in_from_import() -> None:
     assert result == desired_source
 
 
+def test_file_with_comment_in_from_import_partial_remove() -> None:
+    """
+    Given: Code with a comment on an from import statement
+    When: Fix code is run.
+    Then: The unused dependency is removed but the comment is respected
+    """
+    source = dedent(
+        """\
+        from os import getcwd, chmod  # noqa: E0611
+
+        getcwd()
+        """
+    )
+    desired_source = dedent(
+        """\
+        from os import getcwd  # noqa: E0611
+
+
+        getcwd()
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
+
+
+def test_file_with_comment_in_from_import_that_will_dissapear() -> None:
+    """
+    Given: Code with a comment on an from import statement that is to be deleted
+    When: Fix code is run.
+    Then: Everything is deleted
+    """
+    source = dedent(
+        """\
+        from os import getcwd, chmod  # noqa: E0611
+
+        a = 1
+        """
+    )
+    desired_source = dedent(
+        """\
+        a = 1
+        """
+    )
+
+    result = fix_code(source)
+
+    assert result == desired_source
+
+
 def test_file_with_import_as() -> None:
     """
     Given: Code with an from x import y as z import statement

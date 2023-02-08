@@ -465,15 +465,20 @@ class SourceCode:  # noqa: R090
                 # Format is required until there is no more need of the
                 # experimental-string-processing flag of the Black formatter.
                 match = re.match(
-                    fr"(?P<from>from {package_name} import) (?P<imports>.*)",
+                    fr"(?P<from>from {package_name} import) "
+                    fr"(?P<imports>[^#]*)(?P<comment>#.*)?",
                     line,
                 )
                 # fmt: on
                 if match is not None:
                     line_number = self.imports.index(line)
-                    imports = match["imports"].split(", ")
+                    imports = [
+                        import_.strip() for import_ in match["imports"].split(", ")
+                    ]
                     imports.remove(object_name)
                     new_imports = ", ".join(imports)
+                    if match["comment"]:
+                        new_imports += f'  {match["comment"]}'
                     self.imports[line_number] = f"{match['from']} {new_imports}"
                     return
             # If it's a multiline import statement
