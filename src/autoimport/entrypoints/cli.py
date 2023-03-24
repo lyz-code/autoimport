@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any, List, Optional, Sequence, Tuple, Union
 
 import click
+
+# Migrate away from xdg to xdg-base-dirs once only Python >= 3.10 is supported
+# https://github.com/lyz-code/autoimport/issues/239
 import xdg
 from maison.config import ProjectConfig
 

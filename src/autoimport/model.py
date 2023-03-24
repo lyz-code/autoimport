@@ -358,8 +358,8 @@ class SourceCode:  # noqa: R090
         # Find the package name
         try:
             project_package = os.path.basename(here()).replace("-", "_")
-        except RecursionError:  # pragma: no cover
-            # I don't know how to make a test that raises this error :(
+        except RuntimeError:  # pragma: no cover
+            # I don't know how to make a test that raises it :(
             # To manually reproduce, follow the steps of
             # https://github.com/lyz-code/autoimport/issues/131
             return None
