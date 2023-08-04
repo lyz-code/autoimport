@@ -44,9 +44,8 @@ def test_custom_param_type_works_with_file(test_dir: Path) -> None:
 
     result = param_type.convert(test_dir / "test_file1.py", None, None)
 
-    assert isinstance(result, TextIOWrapper)
-    assert re.match(r".*file[1-2].py", result.name)
-    result.close()
+    assert re.match(r".*file[1-2].py", result[0].name)
+    result[0].close()
 
 
 @pytest.mark.parametrize("filename", ["h.py", "new_dir"])

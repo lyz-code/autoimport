@@ -1,9 +1,8 @@
 """Command line interface definition."""
 
 import logging
-from io import TextIOWrapper
 from pathlib import Path
-from typing import Any, List, Optional, Sequence, Tuple, Union
+from typing import IO, Any, List, Optional, Sequence, Tuple, Union
 
 import click
 
@@ -16,11 +15,8 @@ from autoimport import services, version
 
 log = logging.getLogger(__name__)
 
-FileStreams = Union[TextIOWrapper, Sequence[TextIOWrapper]]
-NestedSequence = Sequence[FileStreams]
 
-
-def get_files(source_path: str) -> Sequence[TextIOWrapper]:
+def get_files(source_path: str) -> List[IO[Any]]:
     """Get all files recursively from the given source path."""
     files = []
     for py_file in Path(source_path).glob("**/*.py"):
@@ -50,13 +46,13 @@ class FileOrDir(click.ParamType):
         value: Union[str, Path],
         param: Optional[click.Parameter],
         ctx: Optional[click.Context],
-    ) -> FileStreams:
+    ) -> List[IO[Any]]:
         """Convert the value to the correct type."""
         try:
-            return click.File("r+").convert(value, param, ctx)
+            return [click.File("r+").convert(value, param, ctx)]
         except click.BadParameter:
             path = click.Path(exists=True).convert(value, param, ctx)
-            return get_files(path)
+            return get_files(str(path))
 
 
 @click.command()
@@ -65,7 +61,7 @@ class FileOrDir(click.ParamType):
 @click.option("--ignore-init-modules", is_flag=True, help="Ignore __init__.py files.")
 @click.argument("files", type=FileOrDir(), nargs=-1)
 def cli(
-    files: NestedSequence,
+    files: List[IO[Any]],
     config_file: Optional[str] = None,
     ignore_init_modules: bool = False,
 ) -> None:
