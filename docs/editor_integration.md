@@ -1,4 +1,4 @@
-For a smoother experience, you can run `autoimport` automatically each time each
+For a smoother experience, you can run `autoimport` automatically each
 time you save your file in your editor or when you run `git commit`.
 
 # Vim
