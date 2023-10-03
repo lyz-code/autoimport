@@ -30,5 +30,5 @@ make version
 
 # or
 
-python -c "import autoimport.version; print(autoimport.version.version_info())"
+autoimport --version
 -->
