@@ -24,7 +24,7 @@ authors = [
     {name = "Lyz", email = "lyz@riseup.net"},
 ]
 license = {text = "GPL-3.0-only"}
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = [
     "click>=8.1.3",
     "autoflake>=1.4",
@@ -44,10 +44,10 @@ classifiers=[
     "Operating System :: POSIX",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Topic :: Utilities",
     "Natural Language :: English",
 ]
@@ -63,14 +63,16 @@ autoimport = "autoimport.entrypoints.cli:cli"
 [project.optional-dependencies]
 
 [tool.pdm]
-version = {from = "src/autoimport/version.py"}
-package-dir = "src"
-source-includes = ["tests/"]
-editable-backend = "path"
 allow_prereleases = true
 
 [tool.pdm.build]
 editable-backend = "path"
+package-dir = "src"
+source-includes = ["tests/"]
+
+[tool.pdm.version]
+source = "file"
+path = "src/autoimport/version.py"
 
 [tool.pdm.overrides]
 # To be removed once https://github.com/flakeheaven/flakeheaven/issues/132 is solved
@@ -148,8 +150,8 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 # --------- Black -------------
 
