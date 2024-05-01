@@ -43,7 +43,7 @@ class SourceCode:  # noqa: R090
     """Python source code entity."""
 
     def __init__(
-        self, source_code: str, config: Optional[Dict[str, Any]] = None
+        self, source_code: str, config: Optional[Dict[str, Any]] = None, keep_unused_imports: bool = False
     ) -> None:
         """Initialize the object."""
         self.header: List[str] = []
@@ -53,6 +53,7 @@ class SourceCode:  # noqa: R090
         self.config: Dict[str, Any] = config if config else {}
         self._trailing_newline = False
         self._split_code(source_code)
+        self.keep_unused_imports = keep_unused_imports
 
     def fix(self) -> str:
         """Fix python source code to correct import statements.
@@ -303,7 +304,7 @@ class SourceCode:  # noqa: R090
                 if object_name not in fixed_packages:
                     self._add_package(object_name)
                     fixed_packages.append(object_name)
-            elif isinstance(message, UnusedImport):
+            elif isinstance(message, UnusedImport) and not self.keep_unused_imports:
                 import_name = message.message_args[0]
                 self._remove_unused_imports(import_name)
 
