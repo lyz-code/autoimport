@@ -982,8 +982,10 @@ def test_fix_remove_unused_imports() -> None:
     desired_source = dedent(
         """\
         import gzip
+
         import csv23
-        
+
+
         csv_writer = csv23.DictWriter(fd, fieldnames=["name", "age"])
         gzip.open(filename, 'wb')
         """
@@ -1013,7 +1015,9 @@ def test_fix_not_remove_unused_imports() -> None:
         """\
         import gzip
         import hashlib
+
         import csv23
+
 
         csv_writer = csv23.DictWriter(filename, fieldnames=["name", "age"])
         gzip.open(filename, 'wb')
@@ -1333,4 +1337,3 @@ def test_respect_new_lines_between_imports_and_code() -> None:
     result = fix_code(source)
 
     assert result == source
-
