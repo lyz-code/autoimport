@@ -975,7 +975,7 @@ def test_fix_not_remove_unused_imports() -> None:
         import gzip
         import hashlib
 
-        csv_writer = csv23.DictWriter(filename, fieldnames=["name", "age"])
+        csv_writer = csv.DictWriter(filename, fieldnames=["name", "age"])
         gzip.open(filename, 'wb')
         """
     )
@@ -984,10 +984,10 @@ def test_fix_not_remove_unused_imports() -> None:
         import gzip
         import hashlib
 
-        import csv23
+        import csv
 
 
-        csv_writer = csv23.DictWriter(filename, fieldnames=["name", "age"])
+        csv_writer = csv.DictWriter(filename, fieldnames=["name", "age"])
         gzip.open(filename, 'wb')
         """
     )
