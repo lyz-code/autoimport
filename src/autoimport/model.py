@@ -545,17 +545,17 @@ def extract_package_objects(name: str) -> Dict[str, str]:
                     # Try to load the object from the module instead of the
                     # submodules.
                     if hasattr(module, "__all__") and object_name in module.__all__:
-                        package_objects[
-                            object_name
-                        ] = f"from {module.__name__} import {object_name}"
+                        package_objects[object_name] = (
+                            f"from {module.__name__} import {object_name}"
+                        )
                     else:
-                        package_objects[
-                            object_name
-                        ] = f"from {package_object.__module__} import {object_name}"
+                        package_objects[object_name] = (
+                            f"from {package_object.__module__} import {object_name}"
+                        )
 
             elif not re.match(r"^_.*", object_name):
                 # The rest of objects
-                package_objects[
-                    object_name
-                ] = f"from {module.__name__} import {object_name}"
+                package_objects[object_name] = (
+                    f"from {module.__name__} import {object_name}"
+                )
     return package_objects

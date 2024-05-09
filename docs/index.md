@@ -134,6 +134,9 @@ to autoimport it would look like those are not being used but actually they may 
 In such cases where you want to retain the unused imports across any file, you can use the `--keep-unused-imports` flag, 
 which will prevent `autoimport` from removing any import statements. 
 
+**Note:** If there are not many cases where you intend to keep the unused imports, prefer placing 
+`#noqa: autoimport` on the concerned import line/s, over using the `--keep-unused-imports` flag.
+
 ## Moving the imports to the top
 
 There are going to be import cases that may not work, if you find one, please
