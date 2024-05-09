@@ -59,13 +59,18 @@ class FileOrDir(click.ParamType):
 @click.version_option(version="", message=version.version_info())
 @click.option("--config-file", default=None)
 @click.option("--ignore-init-modules", is_flag=True, help="Ignore __init__.py files.")
-@click.option("--keep-unused-imports", is_flag=True, help="If True, retains unused imports.", default=False)
+@click.option(
+    "--keep-unused-imports",
+    is_flag=True,
+    help="If True, retains unused imports.",
+    default=False,
+)
 @click.argument("files", type=FileOrDir(), nargs=-1)
 def cli(
     files: List[IO[Any]],
     config_file: Optional[str] = None,
     ignore_init_modules: bool = False,
-    keep_unused_imports = False
+    keep_unused_imports: bool = False,
 ) -> None:
     """Corrects the source code of the specified files."""
     # Compose configuration

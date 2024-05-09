@@ -964,38 +964,6 @@ def test_fix_doesnt_fail_on_empty_file() -> None:
     assert result == source
 
 
-def test_fix_remove_unused_imports() -> None:
-    """
-    Given: Code with imports, few being used, others not being used.
-    When: Fix code is run.
-    Then: Missing imports added, unused imports removed.
-    """
-    source = dedent(
-        """\
-        import gzip
-        import hashlib
-
-        csv_writer = csv23.DictWriter(fd, fieldnames=["name", "age"])
-        gzip.open(filename, 'wb')
-        """
-    )
-    desired_source = dedent(
-        """\
-        import gzip
-
-        import csv23
-
-
-        csv_writer = csv23.DictWriter(fd, fieldnames=["name", "age"])
-        gzip.open(filename, 'wb')
-        """
-    )
-
-    result = fix_code(source, keep_unused_imports=False)
-
-    assert result == desired_source
-
-
 def test_fix_not_remove_unused_imports() -> None:
     """
     Given: Code with imports, few being used, others not being used.

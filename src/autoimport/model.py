@@ -43,7 +43,10 @@ class SourceCode:  # noqa: R090
     """Python source code entity."""
 
     def __init__(
-        self, source_code: str, config: Optional[Dict[str, Any]] = None, keep_unused_imports: bool = False
+        self,
+        source_code: str,
+        config: Optional[Dict[str, Any]] = None,
+        keep_unused_imports: bool = False,
     ) -> None:
         """Initialize the object."""
         self.header: List[str] = []

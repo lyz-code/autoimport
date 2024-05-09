@@ -128,6 +128,12 @@ This can be problematic when run in `__init__.py` files, which often contain
 the `--ignore-init-modules` flag, which will filter away any passed
 `__init__.py` files before processing.
 
+There may be import statements that are being used dynamically, 
+to autoimport it would look like those are not being used but actually they may have some usages.
+
+In such cases where you want to retain the unused imports across any file, you can use the `--keep-unused-imports` flag, 
+which will prevent `autoimport` from removing any import statements. 
+
 ## Moving the imports to the top
 
 There are going to be import cases that may not work, if you find one, please
