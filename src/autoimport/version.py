@@ -6,7 +6,7 @@ from textwrap import dedent
 
 # Do not edit the version manually, let `make bump` do it.
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 
 
 def version_info() -> str:
