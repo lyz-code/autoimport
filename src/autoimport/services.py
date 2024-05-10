@@ -12,7 +12,9 @@ from autoimport.model import SourceCode
 
 
 def fix_files(
-    files: Tuple[TextIOWrapper, ...], config: Optional[Dict[str, Any]] = None
+    files: Tuple[TextIOWrapper, ...],
+    config: Optional[Dict[str, Any]] = None,
+    keep_unused_imports: bool = False,
 ) -> Optional[str]:
     """Fix the python source code of a list of files.
 
@@ -26,7 +28,7 @@ def fix_files(
     """
     for file_wrapper in files:
         source = file_wrapper.read()
-        fixed_source = fix_code(source, config)
+        fixed_source = fix_code(source, config, keep_unused_imports)
 
         if fixed_source == source and file_wrapper.name != "<stdin>":
             continue
@@ -55,7 +57,11 @@ def fix_files(
     return None
 
 
-def fix_code(original_source_code: str, config: Optional[Dict[str, Any]] = None) -> str:
+def fix_code(
+    original_source_code: str,
+    config: Optional[Dict[str, Any]] = None,
+    keep_unused_imports: bool = False,
+) -> str:
     """Fix python source code to correct import statements.
 
     It corrects these errors:
@@ -66,8 +72,11 @@ def fix_code(original_source_code: str, config: Optional[Dict[str, Any]] = None)
 
     Args:
         original_source_code: Source code to be corrected.
+        keep_unused_imports: If true, unused imports are retained.
 
     Returns:
         Corrected source code.
     """
-    return SourceCode(original_source_code, config=config).fix()
+    return SourceCode(
+        original_source_code, config=config, keep_unused_imports=keep_unused_imports
+    ).fix()
