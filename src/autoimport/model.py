@@ -417,7 +417,8 @@ class SourceCode:  # noqa: R090
             return None
 
     def _get_disable_move_to_top(self) -> bool:
-        """When parsing to the cli via --config-file the config becomes nested."""
+        """Fetch the disable_move_to_top configuration value."""
+        # When parsing to the cli via --config-file the config becomes nested.
         disable_move_to_top = self.config.get("disable_move_to_top")
         if disable_move_to_top is not None:
             return disable_move_to_top
@@ -428,7 +429,8 @@ class SourceCode:  # noqa: R090
         )
 
     def _get_additional_statements(self) -> Dict[str, str]:
-        """When parsing to the cli via --config-file the config becomes nested."""
+        """Fetch the common_statements configuration value."""
+        # When parsing to the cli via --config-file the config becomes nested.
         config_statements = self.config.get("common_statements")
         if config_statements:
             return config_statements
