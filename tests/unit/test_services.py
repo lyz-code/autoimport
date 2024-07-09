@@ -431,7 +431,8 @@ def test_fix_skips_moves_to_the_top_when_disabled_is_true() -> None:
 
 def test_fix_skips_moves_to_the_top_when_disabled_is_false() -> None:
     """Moving import statements should still occur when disable_move_to_top
-    config is false."""
+    config is false.
+    """
     source = dedent(
         """\
         import requests
