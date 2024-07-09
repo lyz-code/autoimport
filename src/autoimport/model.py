@@ -416,20 +416,25 @@ class SourceCode:  # noqa: R090
         except KeyError:
             return None
 
-    def __get_config_value(self, name: str, default_value: Any = None) -> Any:
+    def _get_disable_move_to_top(self) -> bool:
         """When parsing to the cli via --config-file the config becomes nested."""
-        value = self.config.get(name)
-        if value is not None:
-            return value
+        disable_move_to_top = self.config.get("disable_move_to_top")
+        if disable_move_to_top is not None:
+            return disable_move_to_top
         return (
-            self.config.get("tool", {}).get("autoimport", {}).get(name, default_value)
+            self.config.get("tool", {})
+            .get("autoimport", {})
+            .get("disable_move_to_top", False)
         )
 
-    def _get_disable_move_to_top(self) -> bool:
-        return self.__get_config_value("disable_move_to_top", default_value=False)
-
-    def _get_additional_statements(self) -> Optional[Dict[str, str]]:
-        return self.__get_config_value("common_statements")
+    def _get_additional_statements(self) -> Dict[str, str]:
+        """When parsing to the cli via --config-file the config becomes nested."""
+        config_statements = self.config.get("common_statements")
+        if config_statements:
+            return config_statements
+        return (
+            self.config.get("tool", {}).get("autoimport", {}).get("common_statements")
+        )
 
     def _find_package_in_common_statements(self, name: str) -> Optional[str]:
         """Search in the common statements the object name.
