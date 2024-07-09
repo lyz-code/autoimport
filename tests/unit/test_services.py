@@ -410,7 +410,7 @@ def test_fix_moves_import_statements_in_indented_code_to_the_top() -> None:
     assert result == fixed_source
 
 
-def test_fix_skips_moves_to_the_top_when_disable_move_to_top_is_true() -> None:
+def test_fix_skips_moves_to_the_top_when_disabled_is_true() -> None:
     """Skip moving import statements when disable_move_to_top config is true."""
     source = dedent(
         """\
@@ -423,12 +423,13 @@ def test_fix_skips_moves_to_the_top_when_disable_move_to_top_is_true() -> None:
             os.getcwd()"""
     )
     config = {"disable_move_to_top": True}
+
     result = fix_code(source, config)
 
     assert result == source
 
 
-def test_fix_skips_moves_to_the_top_when_disable_move_to_top_is_false() -> None:
+def test_fix_skips_moves_to_the_top_when_disabled_is_false() -> None:
     """Moving import statements should still occur when disable_move_to_top config is false."""
     source = dedent(
         """\
@@ -453,6 +454,7 @@ def test_fix_skips_moves_to_the_top_when_disable_move_to_top_is_false() -> None:
             os.getcwd()"""
     )
     config = {"disable_move_to_top": False}
+
     result = fix_code(source, config)
 
     assert result == fixed_source
