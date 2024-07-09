@@ -201,6 +201,20 @@ The settings defined in the local `pyproject.toml` file (if found) or in the
 file specified by the `--config-file` flag (if given) will override the settings
 defined in the global `autoimport/config.toml` file.
 
+## Disabling Move To Top
+
+While discouraged in favor of proper refactoring to eliminate cyclical
+dependencies, it is possible to disable autoimport from moving import statements
+to the tops of the files.
+
+To do so, set `disable_move_to_top` to `true`. Here is how that might look in a
+`pyproject.toml` configuration file.
+
+```toml
+[tool.autoimport]
+disable_move_to_top = true
+```
+
 # References
 
 As most open sourced programs, `autoimport` is standing on the shoulders of

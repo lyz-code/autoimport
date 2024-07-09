@@ -28,7 +28,7 @@ contribution to have it's associated tests. We also try to maintain an updated
 your contribution needs to update it.
 
 We know that the expected code quality is above average. Therefore it might
-be changeling to get the initial grasp of the project structure, know how to make the
+be challenging to get the initial grasp of the project structure, know how to make the
 tests, update the documentation or use all the project technology stack. but please
 don't let this fact discourage you from contributing:
 

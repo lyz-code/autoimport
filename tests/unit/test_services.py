@@ -410,6 +410,54 @@ def test_fix_moves_import_statements_in_indented_code_to_the_top() -> None:
     assert result == fixed_source
 
 
+def test_fix_skips_moves_to_the_top_when_disable_move_to_top_is_true() -> None:
+    """Skip moving import statements when disable_move_to_top config is true."""
+    source = dedent(
+        """\
+        import requests
+
+        requests.get('hi')
+
+        def test():
+            import os
+            os.getcwd()"""
+    )
+    config = {"disable_move_to_top": True}
+    result = fix_code(source, config)
+
+    assert result == source
+
+
+def test_fix_skips_moves_to_the_top_when_disable_move_to_top_is_false() -> None:
+    """Moving import statements should still occur when disable_move_to_top config is false."""
+    source = dedent(
+        """\
+        import requests
+
+        requests.get('hi')
+
+        def test():
+            import os
+            os.getcwd()"""
+    )
+    fixed_source = dedent(
+        """\
+        import requests
+
+        import os
+
+
+        requests.get('hi')
+
+        def test():
+            os.getcwd()"""
+    )
+    config = {"disable_move_to_top": False}
+    result = fix_code(source, config)
+
+    assert result == fixed_source
+
+
 def test_fix_moves_from_import_statements_to_the_top() -> None:
     """Move from import statements present in the source code to the top of the file"""
     source = dedent(
