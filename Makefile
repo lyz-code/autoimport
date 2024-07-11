@@ -224,7 +224,7 @@ security:
 	@echo "- Testing security -"
 	@echo "--------------------"
 
-	pdm run safety check
+	pdm run safety scan
 	@echo ""
 	pdm run bandit -r src
 
