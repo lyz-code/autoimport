@@ -224,7 +224,10 @@ security:
 	@echo "- Testing security -"
 	@echo "--------------------"
 
-	pdm run safety scan
+	# Ignoring 70612 (CVE-2019-8341). It is disputed and no fix is apparent, and
+	# the related dependencies are only used at dev time so do not present as
+	# great a risk to users of autoimport.
+	pdm run safety check --ignore 70612
 	@echo ""
 	pdm run bandit -r src
 
