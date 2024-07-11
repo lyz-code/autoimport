@@ -5,7 +5,7 @@
 groups = ["default", "dependencies", "dev", "doc", "fixers", "lint", "security", "test", "typing"]
 strategy = ["cross_platform"]
 lock_version = "4.4.2"
-content_hash = "sha256:bc468475d3c1993c88a390d4253985d667bfa8e11a0a4f7beae943886026d82b"
+content_hash = "sha256:f06e2723b468cfbe7e4a4adc17ff468645a3c8e028eaa84a582e9b69aabcd2d3"
 
 [[package]]
 name = "annotated-types"
