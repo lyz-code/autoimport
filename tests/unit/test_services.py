@@ -416,6 +416,7 @@ def test_fix_skips_moves_to_the_top_when_disabled_is_true() -> None:
         """\
         import requests
 
+
         requests.get('hi')
 
         def test():
