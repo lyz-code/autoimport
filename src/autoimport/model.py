@@ -243,6 +243,8 @@ class SourceCode:  # noqa: R090
 
         Ignore the lines that contain the # noqa: autoimport string.
         """
+        if self._get_disable_move_to_top():
+            return
         multiline_import = False
         multiline_string = False
         code_lines_to_remove = []
@@ -414,8 +416,21 @@ class SourceCode:  # noqa: R090
         except KeyError:
             return None
 
+    def _get_disable_move_to_top(self) -> bool:
+        """Fetch the disable_move_to_top configuration value."""
+        # When parsing to the cli via --config-file the config becomes nested.
+        disable_move_to_top = self.config.get("disable_move_to_top")
+        if disable_move_to_top is not None:
+            return disable_move_to_top
+        return (
+            self.config.get("tool", {})
+            .get("autoimport", {})
+            .get("disable_move_to_top", False)
+        )
+
     def _get_additional_statements(self) -> Dict[str, str]:
-        """When parsing to the cli via --config-file the config becomes nested."""
+        """Fetch the common_statements configuration value."""
+        # When parsing to the cli via --config-file the config becomes nested.
         config_statements = self.config.get("common_statements")
         if config_statements:
             return config_statements
