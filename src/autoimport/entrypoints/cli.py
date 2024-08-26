@@ -2,14 +2,13 @@
 
 import logging
 from pathlib import Path
-from typing import IO, Any, List, Optional, Sequence, Tuple, Union
+from typing import IO, Any, Dict, List, Optional, Sequence, Tuple, Union
 
 import click
 
 # Migrate away from xdg to xdg-base-dirs once only Python >= 3.10 is supported
 # https://github.com/lyz-code/autoimport/issues/239
 import xdg
-from maison.config import ProjectConfig
 
 from autoimport import services, version
 
@@ -55,6 +54,27 @@ class FileOrDir(click.ParamType):
             return get_files(str(path))
 
 
+def get_config(
+    package_name: str, source_files: Optional[List[str]] = None
+) -> Dict[str, Any]:
+    """Get the configuration for a package."""
+    # pylint: disable=import-outside-toplevel
+    try:
+        from maison.config import UserConfig  # type: ignore[attr-defined,unused-ignore]
+
+        return UserConfig(
+            package_name=package_name, source_files=source_files, merge_configs=True
+        ).values
+    except ImportError:
+        from maison.config import (  # type: ignore[attr-defined,unused-ignore]
+            ProjectConfig,
+        )
+
+        return ProjectConfig(
+            project_name=package_name, source_files=source_files, merge_configs=True
+        ).to_dict()
+
+
 @click.command()
 @click.version_option(version="", message=version.version_info())
 @click.option("--config-file", default=None)
@@ -85,9 +105,7 @@ def cli(
     if config_file is not None:
         config_files.append(config_file)
 
-    config = ProjectConfig(
-        project_name="autoimport", source_files=config_files, merge_configs=True
-    ).to_dict()
+    config = get_config(package_name="autoimport", source_files=config_files)
 
     # Process inputs
     flattened_files = flatten(files)
