@@ -30,7 +30,7 @@ dependencies = [
     "autoflake>=1.4",
     "pyprojroot>=0.2.0",
     "sh>=1.14.2",
-    "maison>=1.4.0",
+    "maison>=1.4.0,<2.0.0",
     "xdg>=6.0.0",
 ]
 name = "autoimport"
