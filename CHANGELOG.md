@@ -1,3 +1,9 @@
+## 1.7.0 (2024-07-11)
+
+### Fix
+
+- restrict maison version to \<2.0.0 for compatibility reasons
+
 ## 1.6.0 (2024-07-11)
 
 ## 1.5.0 (2024-05-10)
